@@ -56,9 +56,15 @@
 <script src="./data.js"></script>
 <script src="./bellAlarm.js"></script>
 <script>
-	var bellAlarm = new bellAlarm({
-		dom: document.getElementById('main'),
-	});
+    var bellAlarm = new bellAlarm({
+        dom: document.getElementById('main'),
+    });
+    function roundRobin() {
+        bellAlarm.bellJingle(0)
+        setTimeout(roundRobin.bind(this), 3000);
+    }
+    roundRobin();
+
 
 </script>
 </html>
