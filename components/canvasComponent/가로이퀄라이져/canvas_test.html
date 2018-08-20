@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!--<script src="https://d3js.org/d3.v5.min.js"></script>-->
+	<script src="./data.js"></script>
+	<script src="./RTMEqualizerChart.js"></script>
+	<script src="./jquery-3.3.1.js"></script>
+	<script src="https:////d3js.org/d3.v3.min.js"></script>
+	<title>d3</title>
+	<style>
+		#main {
+			position: relative;
+			/*left: 50px;*/
+			/*top: 50px;*/
+			width:250px;
+			height:474px;
+			background-color: #393c43;
+		}
+
+		#main2 {
+			position: absolute;
+			/*left: 500px;*/
+			/*top: 50px;*/
+		}
+
+		#container {
+			position: absolute;
+			left: 100px;
+			top: 100px;
+		}
+
+
+		body {
+			/*background:url(/image/equalizers.png) no-repeat;*/
+			/*padding-left: 206px;*/
+			/*padding-top: 40px;*/
+		}
+		.alarmSVG {
+			background-image: url(./warning_icon.svg);
+			/*padding-left: 206px;*/
+
+		}
+
+
+	</style>
+</head>
+<body>
+<div id="Mmain">
+
+	<div id="main">
+
+	</div>
+	<div id="main2">
+
+	</div>
+
+
+</div>
+
+
+<body>
+
+<script>
+	// 최초 데이타
+	initBizData();
+
+	var ActiveStackView = new RTMEqualizerChart({
+		dom: document.getElementById('main'),
+	});
+	ActiveStackView.setData((bizData));
+	ActiveStackView.draw();
+	realtime();
+	// setTimeout(realtime, 3000);
+	// setTimeout(alarmGen, 3000);
+	window.addEventListener('resize', function () {
+		var w = window.outerWidth;
+		var h = window.outerHeight;
+
+		$('#main').css({width: w + 'px', height: h + 'px'});
+
+		realtime();
+		alarmGen();
+
+		// ActiveStackView.initResize(bizData);
+	})
+
+	// setInterval(function() {eqChartRandom()}, 1000);
+
+	//
+	// var View1 = new ActiveSpeed({
+	// 	dom          : document.getElementById('main3'),
+	// 	width        : 400,
+	// 	height       : 100,
+	// 	type 	     : 'B',
+	// });
+	var waterfallCanvas = function (c, cw, ch) {
+
+		var _this = this;
+		this.c = c;
+		this.ctx = c.getContext('2d');
+		this.cw = cw;
+		this.ch = ch;
+
+		this.particles = [];
+		this.particleRate = 1;
+		this.gravity = .25;
+
+
+		this.init = function () {
+			this.loop();
+		};
+
+		this.reset = function () {
+			this.ctx.clearRect(0, 0, this.cw, this.ch);
+			this.particles = [];
+		};
+
+		this.rand = function (rMi, rMa) {
+			return ~~((Math.random() * (rMa - rMi + 1)) + rMi);
+		};
+
+
+		this.Particle = function () {
+			var newWidth = _this.rand(1, 20);
+			var newHeight = _this.rand(1, 45);
+			this.x = _this.rand(10 + (newWidth / 2), _this.cw - 10 - (newWidth / 2));
+			this.y = -newHeight;
+			this.vx = 0;
+			this.vy = 0;
+			this.width = newWidth;
+			this.height = newHeight;
+			this.hue = _this.rand(345, 360);
+			this.saturation = _this.rand(30, 60);
+			this.lightness = _this.rand(30, 60);
+		};
+
+		this.Particle.prototype.update = function (i) {
+			this.vx += this.vx;
+			this.vy += _this.gravity;
+			this.x += this.vx;
+			this.y += this.vy;
+		};
+
+		this.Particle.prototype.render = function () {
+			_this.ctx.strokeStyle = 'hsla(' + this.hue + ', ' + this.saturation + '%, ' + this.lightness + '%, .07)';
+			_this.ctx.beginPath();
+			// _this.ctx.fillRect(this.y + 100 , this.x -20 ,5, 5);
+			// _this.ctx.fill();
+			_this.ctx.moveTo(this.y, this.x - 40);
+			_this.ctx.lineTo(this.y + this.height + 100, this.x - 40);
+			_this.ctx.lineWidth = this.width / 2;
+			_this.ctx.lineCap = 'round';
+			_this.ctx.stroke();
+		};
+
+		this.Particle.prototype.renderBubble = function () {
+			// _this.ctx.fillStyle = 'hsla(' + this.hue + ', 40%, 40%, 1)';
+			// _this.ctx.fillStyle = 'hsla(' + this.hue + ', ' + this.saturation + '%, ' + this.lightness + '%, .5)';
+			// _this.ctx.beginPath();
+			// // _this.ctx.arc(this.x + this.width / 2, _this.ch - 20 - _this.rand(0, 10) + 5, _this.rand(1, 8), 0, Math.PI * 2, false);
+			// _this.ctx.arc(80, _this.ch - 20 - _this.rand(0, 10) + 10, _this.rand(1, 8), 0, Math.PI * 2, false);
+			// _this.ctx.fillRect(80 , this.x,3, 3);
+			// _this.ctx.fill();
+		};
+
+		this.createParticles = function () {
+			var i = this.particleRate;
+			while (i--) {
+				this.particles.push(new this.Particle());
+			}
+		};
+
+		this.removeParticles = function () {
+			var i = this.particleRate;
+			while (i--) {
+				var p = this.particles[i];
+				if (p.y > _this.ch - 20 - p.height) {
+					p.renderBubble();
+					_this.particles.splice(i, 1);
+				}
+			}
+		};
+
+		this.updateParticles = function () {
+			var i = this.particles.length;
+			while (i--) {
+				var p = this.particles[i];
+				p.update(i);
+			}
+			;
+		};
+
+		this.renderParticles = function () {
+			var i = this.particles.length;
+			while (i--) {
+				var p = this.particles[i];
+				p.render();
+			}
+			;
+		};
+
+		this.clearCanvas = function () {
+			this.ctx.globalCompositeOperation = 'destination-out';
+			this.ctx.fillStyle = 'rgba(255,255,255,.09)';
+			this.ctx.fillRect(0, 0, this.cw, this.ch);
+			this.ctx.globalCompositeOperation = 'lighter';
+		};
+
+		this.loop = function () {
+			// _this.clearCanvas();
+			// _this.createParticles();
+			// 	_this.updateParticles();
+			// 	_this.renderParticles();
+			// 	_this.removeParticles();
+			var loopIt = function () {
+				requestAnimationFrame(loopIt, _this.c);
+				_this.clearCanvas();
+				_this.createParticles();
+				_this.updateParticles();
+				_this.renderParticles();
+				_this.removeParticles();
+			};
+			loopIt();
+		};
+
+	};
+
+	var isCanvasSupported = function () {
+		var elem = document.createElement('canvas');
+		return !!(elem.getContext && elem.getContext('2d'));
+	};
+
+	var setupRAF = function () {
+		var lastTime = 0;
+		var vendors = ['ms', 'moz', 'webkit', 'o'];
+		for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+			window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+			window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+		}
+		;
+
+		if (!window.requestAnimationFrame) {
+			window.requestAnimationFrame = function (callback, element) {
+				var currTime = new Date().getTime();
+				var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+				var id = window.setTimeout(function () {
+					callback(currTime + timeToCall);
+				}, timeToCall);
+				lastTime = currTime + timeToCall;
+				return id;
+			};
+		}
+		;
+
+		if (!window.cancelAnimationFrame) {
+			window.cancelAnimationFrame = function (id) {
+				clearTimeout(id);
+			};
+		}
+		;
+	};
+	//
+	// // if (isCanvasSupported()) {
+	// var elem = document.createElement('canvas');
+	// elem.setAttribute('id', 'waterfall');
+	// elem.setAttribute("style", "position:absolute; top:25px; left:100px;");
+	// document.getElementById('main').appendChild(elem);
+	// var c = document.getElementById('waterfall');
+	// var cw = c.width = 150;
+	// var ch = c.height = 30;
+	// var waterfall = new waterfallCanvas(c, cw, ch);
+	// setupRAF();
+	// waterfall.init();
+
+
+	// }
+
+
+</script>
+</body>
+</html>
+

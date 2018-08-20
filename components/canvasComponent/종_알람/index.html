@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>알람 Bell</title>
+	<style>
+		#main {
+			position: relative;
+			/*left: 50px;*/
+			/*top: 50px;*/
+			width: 400px;
+			height: 400px;
+			background-color: #393c43;
+		}
+
+		#main2 {
+			position: absolute;
+			/*left: 500px;*/
+			/*top: 50px;*/
+		}
+
+		#container {
+			position: absolute;
+			left: 100px;
+			top: 100px;
+		}
+
+		body {
+			/*background:url(/image/equalizers.png) no-repeat;*/
+			/*padding-left: 206px;*/
+			/*padding-top: 40px;*/
+		}
+
+		.alarmSVG {
+			background-image: url(./warning_icon.svg);
+			/*padding-left: 206px;*/
+
+		}
+
+
+	</style>
+</head>
+<body>
+<div id="Mmain">
+
+	<div id="main">
+
+	</div>
+	<div id="main2">
+
+	</div>
+
+
+</div>
+</body>
+<script src="./data.js"></script>
+<script src="./bellAlarm.js"></script>
+<script>
+	var bellAlarm = new bellAlarm({
+		dom: document.getElementById('main'),
+	});
+
+</script>
+</html>

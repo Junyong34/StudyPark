@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            padding:0;
+            margin:0;
+        }
+        .flex-container {
+            display: flex;
+            height: 300px;
+        }
+        body {
+            width: 1650px;
+            background: #393c43;
+        }
+        div {
+            display:flex;
+            /*background: black;*/
+            background: #393c43;
+            /*border: 1px solid red;*/
+            position: relative;
+        }
+
+        .flex1 {
+            flex-grow:1;
+            /*border:1px solid green;*/
+            height:100%;
+        }
+
+        .flex2 {
+            flex-grow:2;
+            /*border:1px solid green;*/
+            height:100%;
+        }
+
+        .flex3 {
+            flex-grow:3;
+            /*border:1px solid blue;*/
+            height:100%;
+            /*z-index: 100;*/
+        }
+
+        .flex4 {
+            flex-grow:4;
+            /*border:1px solid blue;*/
+            height:100%;
+            z-index: 100;
+        }
+
+        .flex5 {
+            flex-grow:5;
+            /*border:1px solid blue;*/
+            height:100%;
+            z-index: 100;
+        }
+
+        #myDiv {
+            position:absolute;
+            top: 0;
+            left: 0;
+            /*width: 800px;*/
+            /*height: 800px;*/
+            background: black;
+        }
+
+        .alarm-critical {
+            border-radius: 50%;
+            background: radial-gradient(transparent 25%, red);
+            animation: shadow 3s infinite ease;
+        }
+
+        .radar {
+            box-sizing: border-box;
+            top: 16px; left: 16px;
+            border-right: solid 1px hsla(145, 50%, 40%, .3);
+            width: 108px; height: 108px;
+            border-radius: 100% 0 0 0;
+            transform-origin: 100% 100%;
+            background: linear-gradient(50deg, rgba(34, 34, 34, 0) 56%, hsla(0, 50%, 40%, 1));
+            /*background: linear-gradient(50deg, rgba(34, 34, 34, 0) 56%, hsla(0, 0%, 100%, 1));*/
+            animation: sweep 4s infinite linear;
+        }
+
+        @keyframes sweep {
+            to { transform: rotate(-360deg); }
+        }
+
+        @keyframes sweepRev {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes shadow {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        canvas {
+            position: absolute;
+            top:0;
+            left:0;
+        }
+
+        .normalSVG {
+            background-image: url(./normal.svg);
+            animation: sweep 2.5s infinite linear;
+        }
+
+        .warningSVG {
+            background-image: url(./warning.svg);
+            animation: sweep 2.5s infinite linear;
+        }
+
+        .criticalSVG {
+            background-image: url(./critical.svg);
+            animation: sweep 2.5s infinite linear;
+        }
+
+        .normalRadar {
+            background-image: url(./normal_radar.svg);
+            animation: sweepRev 2.5s infinite linear;
+        }
+
+        .warningRadar {
+            background-image: url(./warning_radar.svg);
+            animation: sweepRev 2.5s infinite linear;
+        }
+
+        .criticalRadar {
+            background-image: url(./critical_radar.svg);
+            animation: sweepRev 2.5s infinite linear;
+        }
+
+        .alarmSVG {
+            background-image: url(./warning_icon.svg);
+
+        }
+    </style>
+</head>
+<body class="flex-container">
+    <div class="flex2">
+        <div id="f2" class="flex2"></div>
+        <div id="f3" class="flex3"></div>
+    </div>
+    <div class="flex2">
+        <div id="f4" class="flex3"></div>
+        <div id="f5" class="flex3"></div></div>
+    <div class="flex2">
+        <div id="f6" class="flex3"></div>
+        <div id="f7" class="flex4"></div></div>
+</body>
+
+<script src="./d3.min.js"></script>
+<script src="./data.js"></script>
+<script src="./pie2.js"></script>
+<script src="./RTMEqualizerChart.js"></script>
+<script>
+    var flex2 = document.querySelector("#f2");
+    var flex3 = document.querySelector("#f3");
+    var chart = new Pie2({
+        dom: flex2
+    });
+
+    var ActiveStackView = new RTMEqualizerChart({
+        dom: flex3
+    });
+
+    var flex4 = document.querySelector("#f4");
+    var flex5 = document.querySelector("#f5");
+    var chart2 = new Pie2({
+        dom: flex4
+    });
+
+    var ActiveStackView2 = new RTMEqualizerChart({
+        dom: flex5
+    });
+
+    var flex6 = document.querySelector("#f6");
+    var flex7 = document.querySelector("#f7");
+    var chart3 = new Pie2({
+        dom: flex6
+    });
+
+    var ActiveStackView3 = new RTMEqualizerChart({
+        dom: flex7
+    });
+
+    initBizData();
+    ActiveStackView.canvasItemDraw(bizData);
+    ActiveStackView2.canvasItemDraw(bizData);
+    ActiveStackView3.canvasItemDraw(bizData);
+
+    setTimeout(realtime, 1000);
+    setTimeout(alarmGen, 3000);
+</script>
+</html>
