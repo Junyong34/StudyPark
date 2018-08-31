@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Line Chart</title>
+	<style>
+		#main {
+			position: relative;
+			/*left: 50px;*/
+			/*top: 50px;*/
+			width: 500px;
+			height: 500px;
+			background-color: #393c43;
+		}
+
+		#main2 {
+			position: absolute;
+			/*left: 500px;*/
+			/*top: 50px;*/
+		}
+
+		#container {
+			position: absolute;
+			left: 100px;
+			top: 100px;
+		}
+
+		body {
+			/*background:url(/image/equalizers.png) no-repeat;*/
+			/*padding-left: 206px;*/
+			/*padding-top: 40px;*/
+		}
+
+
+
+
+	</style>
+</head>
+<body>
+<div id="Mmain">
+
+	<div id="main">
+
+	</div>
+
+
+</div>
+</body>
+<!--<script src="./XMCanvas.js"></script>-->
+<!--<script src="./XMLineChart.js"></script>-->
+<script src="./P.js"></script>
+<script src="./C.js"></script>
+
+<script>
+var data = {
+
+};
+
+var inherit = function(Parent , Child){
+    var F = function() {
+
+	};
+    return function (Parent, Child) {
+        F.prototype = Parent.prototype;
+        Child.prototype = new F();
+        Child.prototype.constructor = Child;
+        Child.super = Parent.prototype
+
+    };
+}();
+// 차트 기본 옵션
+var chart = new XMLineChart();
+
+var labelStyle = {
+    fontSize : 12,
+    fontFamily : 'Droid Sans'
+};
+var gridLineColor    = '#525359';
+var borderColor      = '#81858A';
+
+var arg = {
+    target   :  document.getElementById('main'),
+    showTitle: true,
+    title    : this.title,
+    titleHeight: 24,
+    titleClass : 'performance-title',
+    showLegend : false,
+    toFixedNumber: 0,
+    dataBufferSize: 60,
+    chartProperty: {
+        crosshair : {
+            show: true
+        },
+        tooltip: {
+            hitMode: 'x'
+        },
+        maxValueTip: {
+            show: true,
+            fix : true
+        },
+        highlight: {
+            show: false
+        },
+        xaxis: {
+            labelStyle: labelStyle
+        },
+        yaxis: {
+            labelWidth: 30,
+            autoscaleRatio: 0.15,
+            labelStyle: labelStyle
+        },
+        grid: {
+            gridLineColor: gridLineColor,
+            border: {
+                color: borderColor
+            }
+        }
+    },
+    xLabelFormat: function(value){
+        var date = new Date(+value);
+        return (date.getHours() < 10 ? '0' : '') + date.getHours() + ':' +
+            (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+    }
+}
+chart.initProperty(arg);
+chart.init();
+
+function setChartSeries(){
+    chart.addSeries({
+        id       : 90,//serverId,
+        label    : 'jeus99',//serverName,
+        color    : '#75cd8e',
+        lineWidth: 2
+    });
+}
+setChartSeries();
+
+function drawData(timedata, data, fixed, maxValue) {
+    console.log(timedata , data , fixed , maxValue);
+
+    if (chart.serieseList == null) {
+        return;
+    }
+
+    chart.clearValues();
+
+    var ix, ixLen, jx, jxLen;
+    var d;
+    var max   = 0;
+
+    for (ix = 0, ixLen = data.length; ix < ixLen; ix++) {
+        d = data[ix][1];
+
+        for (jx = 0, jxLen = d.length; jx < jxLen; jx++) {
+            chart.addValue(ix, [timedata[jx], d[jx]]);
+
+            if (+d[jx] > max) {
+                max = +d[jx];
+            }
+        }
+    }
+
+    if (max < 40) {
+        maxValue = null;
+    }
+
+    chart.options.yaxis.max = maxValue;
+    chart.toFixedNumber = fixed || 0;
+    chart.draw();
+}
+var timedata , data, fixed
+timedata =  [1534824420000, 1534824480000, 1534824540000, 1534824600000, 1534824660000, 1534824720000, 1534824780000, 1534824840000, 1534824840000, 1534824900000, 1534824960000, 1534825020000, 1534825080000, 1534825140000, 1534825200000, 1534825260000, 1534825320000, 1534825380000, 1534825440000, 1534825500000, 1534825560000, 1534825620000, 1534825680000, 1534825740000, 1534825800000, 1534825860000, 1534825920000, 1534825980000, 1534826040000, 1534826100000, 1534826160000, 1534826220000, 1534826280000, 1534826340000, 1534826400000, 1534826460000, 1534826520000, 1534826580000, 1534826640000, 1534826700000, 1534826760000, 1534826820000, 1534826880000, 1534826940000, 1534827000000, 1534827060000, 1534827120000, 1534827180000, 1534827240000, 1534827300000, 1534827360000, 1534827420000, 1534827480000, 1534827540000, 1534827600000, 1534827660000, 1534827720000, 1534827780000, 1534827840000, 1534827900000]
+data = [[90,[null, null, null, null, null, null, null, null, 4, 0, 4, 5, 1, 0, 4, 5, 3, 0, 3, 1, 3, 4, 3, 0, 3, 5, 5, 0, 1, 3, 0, 5, 5, 0, 2, 4, 5, 2, 0, 4, 1, 2, 5, 2, 1, 3, 5, 4, 1, 2, 2, 1, 4, 5, 1, 2, 5, 2, 0, 3]]];
+fixed = 0;
+drawData(timedata, data, fixed,)
+</script>
+</html>

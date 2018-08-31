@@ -162,6 +162,11 @@ var bellAlarm = (function () {
                 }
 
                 this.clear(this.ctxAniList[timerIndex]);
+                // this.ctxAniList[timerIndex].globalCompositeOperation = 'source-over';
+                // this.ctxAniList[timerIndex].shadowBlur = 0;
+                // this.ctxAniList[timerIndex].fillStyle = 'rgba(0,0,0,0.5)';
+                // this.ctxAniList[timerIndex].fillRect( -200, -200, this.targetW, this.targetH );
+                // this.ctxAniList[timerIndex].globalCompositeOperation = 'lighter';
                 this.ctxAniList[timerIndex].save();
                 this.ctxAniList[timerIndex].globalAlpha = alpah;
                 this.ctxAniList[timerIndex].strokeStyle = '#d0d0d0';
