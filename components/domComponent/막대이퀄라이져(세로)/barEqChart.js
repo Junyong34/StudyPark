@@ -5,7 +5,6 @@ var barEqChart = (function () {
         }
 
         this.initProperty();
-
         var list = Object.keys(args || {});
         for (var ix = 0, ixLen = list.length; ix < ixLen; ix++) {
             this[list[ix]] = args[list[ix]];
@@ -16,11 +15,13 @@ var barEqChart = (function () {
 
     barEqChart.prototype.init = function () {
         this.barsAreaDomCreate();
-        this.Layoutdraw();
+        // this.Layoutdraw();
 
     };
     barEqChart.prototype.initProperty = function () {
+
         this.isBlock = false;
+        this.dom = null;
         this.colorBlock = ['#52040B', '#75060F', '#960814', '#C90A1B', '#FF0D22', '#ff2f39', '#BF112E'
             , '#bf2536'
             , '#bf2b43'
@@ -59,25 +60,7 @@ var barEqChart = (function () {
 
 
     barEqChart.prototype.Layoutdraw = function () {
-        if (this.data.length === 0) {
-            return;
-        }
 
-        var barRatioWidth = 100 / (this.data.length);
-        for (var ix = 0, ixLen = this.data.length; ix < ixLen; ix++) {
-            this.barsDomCreate();
-            // data 들어오는거에 따라 다름
-            var barsValue = this.data[ix]['data']
-            var barsName = this.data[ix]['serverName'];
-            this.barsDom.style.width = `${barRatioWidth}%`;
-            this.innerBarDom.style.height = `${barsValue - 7}%`;
-
-            this.styleBlock(ix);
-
-            this.barsValueDom.textContent = `${barsValue}`;
-            this.barsTitleDom.textContent = barsName;
-
-        }
 
     };
     barEqChart.prototype.styleBlock = function (index) {
