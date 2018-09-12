@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Flot Examples: Real-time updates</title>
+    <style>
+        .rtchart {
+            position: absolute;
+            width: 300px;
+            height: 240px;
+        }
+        .tooltip {
+            position: absolute;
+            padding: 1px 4px 2px 4px;
+            background: rgb(138, 196, 75);
+            border-radius: 2px;
+            color: #FFF;
+            margin-top: -44px;
+            z-index: 99999;
+        }
+
+        .chart_wrapper {
+            position: relative;
+            width: 92.5%;
+            margin-left: 3.5%;
+            border-bottom: 1px dotted #838383;
+            margin-right: 0;
+            height: 160px;
+            background: #FFF;
+        }
+
+        .chart_wrapper .tickLabel {
+            color: #000;
+            font-size: 12px;
+        }
+
+        .chart_wrapper .chart_title {
+            position: relative;
+            padding-top: 8px;
+            padding-left: 5px;
+            padding-bottom: 13px;
+            height: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .chart_wrapper .chart_title .stat_name {
+            font-size: 14px;
+        }
+
+        .chart_wrapper .chart_title .server_type {
+            color: #838383;
+        }
+
+        .chart_wrapper .chart_pop {
+            position: absolute;
+            right: 10px;
+            top: 13px;
+            font-size: 11px;
+            color: #1769ff;
+            text-transform: lowercase;
+            display: none;
+        }
+
+        .chart_wrapper .x_bar {
+            position: absolute;
+            height: 1px;
+            background: #838383;
+            left: 28px;
+            bottom: 20px;
+            right: 3px;
+        }
+
+        .chart_wrapper .y_bar {
+            position: absolute;
+            height: 104px;
+            width: 1px;
+            background: #838383;
+            left: 27px;
+            bottom: 20px;
+        }
+
+        .chart_wrapper ul {
+            position: absolute;
+            padding-left: 1px;
+            padding-top: 1px;
+            width: 100%;
+            letter-spacing: -1px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .chart_wrapper ul li {
+            cursor: pointer;
+            position: relative;
+            height: 12px;
+            display: block;
+            float: left;
+        }
+
+        .chart_wrapper ul li:hover {
+            color: #1769ff;
+            z-index: 3;
+        }
+
+        .chart_wrapper .contents {
+            position: relative;
+            width: 100%;
+            margin-top: 0;
+            height: 106px;
+            top: 10px;
+        }
+
+        .chart_wrapper:last-child {
+            border-bottom: none;
+        }
+
+        .max-point {
+            position: absolute;
+            font-size: 11px;
+            font-weight: bold;
+            display: block;
+            /* color: #333; */
+            color: #ffffff;
+            right: auto;
+            top: 400px;
+            padding: 1px 4px 2px 4px;
+            border-radius: 2px;
+            margin-bottom: -30px;
+            -webkit-transition: all 0.4s;
+            transition: all 0.4s;
+            left: -1000px;
+            background-color: rgb(93, 204, 255);
+        }
+
+        .max-point:after {
+            display: block;
+            position: absolute;
+            content: '';
+            left: 50%;
+            bottom: 0px;
+            width: 0;
+            height: 0;
+            margin-bottom: -4px;
+            margin-left: -4px;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid rgb(93, 204, 255);
+            /* background-color:  rgb(160, 240, 255); */
+        }
+    </style>
+    <!-- <script type="text/javascript" src="./js/jquery.js"></script> -->
+    <script type="text/javascript" src="./js/jquery-1.7.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.flot.js"></script>
+    <script type="text/javascript" src="./js/lodash.min.js"></script>
+    <script type="text/javascript" src="./js/accounting.min.js"></script>
+    <script type="text/javascript" src="./js/moment.min.js"></script>
+    <!--<script type="text/javascript" src="./js/handlebars.min.js"></script>-->
+
+    <!-- <script type="text/javascript" src="./js/jquery.flot.min.tun.js"></script>
+    <script type="text/javascript" src="./js/jquery.flot.resize.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.flot.canvas.js"></script>
+    <script type="text/javascript" src="./js/jquery-ui-1.10.3.custom.min.js"></script>    -->
+
+    <script type="text/javascript" src="./js/RtChart.js"></script>
+	<script type="text/javascript">
+
+	$(function() {
+        window.App = {};
+		// We use an inline data source in the example, usually data would
+		// be fetched from a server
+
+        var categoryDatas = {
+            CPU:[[],[],[],[],[]],
+            CPU2:[[],[],[],[]],
+            CPU3:[[],[],[]],
+            POWER:[[],[],[],[]],
+            POWER2:[[],[]],
+            POWER3:[[],[],[]],
+            MEMORY:[[],[],[],[],[]],
+            MEMORY2:[[],[],[],[]],
+        }
+            totalPoints = 30000/1000, chartList = [];
+            seriesColors = ['#ff0000', '#ff8800', '#00ff99', '#0088ff', '#8800ff'];
+
+		function getRandomData(data) {
+			if (data.length > totalPoints)
+				data.shift();
+
+            var prev = data.length > 0 ? data[data.length - 1][1] : 200,
+            y = prev + Math.random() * 100 - 55;
+
+            if (y < 0) {
+                y = 0;
+            } else if (y > 500) {
+                y = 500;
+            }
+
+            data.push([+new Date(), y|0]);
+
+            return data;
+		}
+
+		function createChartData(datas){
+			var datas, data, chartDatas = [],
+				lineInfo = {
+				show: true,
+				fill: false
+            };
+            for(var i = 0, len = datas.length; i < len; i++){
+                chartDatas.push({
+                    color: seriesColors[i],
+                    data: getRandomData(datas[i]),
+                    lines: lineInfo,
+                    label: 'server'+ i
+                });
+            }
+			return chartDatas;
+        }
+
+
+        function createRtChart(){
+            var chart, chartId, charts = $('.rtchart');
+            for(var i = 0, len = charts.length; i < len; i++){
+                chartId = 'chart'+i;
+                chart = new RtChart(chartId);
+                chart.init({
+                    targetNode: $('#'+chartId),
+                    // title: chartId,
+                    index: i,
+                    // servertype : 'Oracle'
+                });
+                // console.dir(chart);
+                chartList.push(chart);
+            }
+        }
+
+		function notify() {
+            var categoryData, chartIndex = 0;
+            App.startTime = +new Date();
+            for(var category in categoryDatas){
+                categoryData = createChartData(categoryDatas[category]);
+                if(chartList[chartIndex]){
+                    chartList[chartIndex++].onData(categoryData);
+                }
+            }
+
+            setTimeout(notify, 1000);
+            //requestAnimationFrame(notify);
+		}
+        createRtChart();
+        setTimeout(notify, 1000);
+        //requestAnimationFrame(notify);
+
+	});
+
+	</script>
+</head>
+<body>
+	<div id="content">
+		<div class="chartcontainer">
+            <div id="chart0" class='rtchart' style='left: 50px; top: 20px;'></div>
+            <div id="chart1" class='rtchart' style='left: 450px; top: 20px;'></div>
+            <div id="chart2" class='rtchart' style='left: 50px; top: 270px;'></div>
+            <div id="chart3" class='rtchart' style='left: 450px; top: 270px;'></div>
+            <div id="chart4" class='rtchart' style='left: 50px; top: 520px;'></div>
+            <div id="chart5" class='rtchart' style='left: 450px; top: 520px;'></div>
+            <div id="chart6" class='rtchart' style='left: 50px; top: 770px;'></div>
+            <div id="chart7" class='rtchart' style='left: 450px; top: 770px;'></div>
+		</div>
+	</div>
+</body>
+</html>
