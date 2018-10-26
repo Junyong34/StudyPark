@@ -10,9 +10,12 @@ var NodeJoinSeach = (function () {
             this[list[ix]] = args[list[ix]];
         }
 
+        this.init();
     }
 
     NodeJoinSeach.prototype.init = function () {
+        this.nodeOrder = [];
+
 
     };
     NodeJoinSeach.prototype.initProperty = function () {
@@ -51,10 +54,36 @@ var NodeJoinSeach = (function () {
     NodeJoinSeach.prototype.unionConnet = function (targetObject) {
         /*
         this.objects 에서 0번째 부터 순회한다.
-
-
          */
+        var targetInfo = targetObject;
+        var tartgetID;
+        var disParentId
+        var disChildId = targetInfo.disjointSetId;
+        if (targetInfo.itype === 'node') {
+            // 양갈래로 되어있는 조건은 넣지않음 중복일시 마지막 값이 부모가 됨
+            disParentId = _.findKey(this.objects, function (o) {
+                if(o._to)return o._to === targetInfo.id;
+                if(o.to)return o.to === targetInfo.id;
 
+            });
+        } else {
+            // 양갈래로 되어있는 조건은 넣지않음 중복일시 마지막 값이 부모가 됨
+            disParentId = _.findKey(this.objects, function (o) {
+                if(o._from)return o.id === targetInfo._from;
+                if(o.from)return o.id === targetInfo.from;
+
+            });
+
+        }
+        // root 도달시 빠져나온다
+        if (typeof disParentId === 'undefined') {
+            return disChildId;
+        }
+        this.union(this.objects[disParentId], this.objects[disChildId]);
+        // 타겟 아디값 변경
+        this.nodeOrder.push(disParentId);
+
+        this.unionConnet(this.objects[disChildId]);
 
     }
     NodeJoinSeach.prototype.union = function (val1, val2) {
@@ -64,7 +93,6 @@ var NodeJoinSeach = (function () {
         if (val1RootId === val2RootId) {
             return this;
         }
-
         if (this.size[val1RootId] < this.size[val2RootId]) {
             this.relations[val1RootId] = val2RootId;
             this.size[val1RootId] += this.size[val2RootId];
@@ -88,7 +116,6 @@ var NodeJoinSeach = (function () {
             if (typeof resObj[rootId] === 'undefined') {
                 resObj[rootId] = [];
             }
-            debugger;
             resObj[rootId].push(this.objects[id]);
         }
 

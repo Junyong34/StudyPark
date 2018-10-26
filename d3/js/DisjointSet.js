@@ -47,7 +47,7 @@ DisjointSet.prototype = {
             val2RootId = this.find(val2);
 
         if (val1RootId === val2RootId) { return this; }
-
+debugger;
         if (this._size[val1RootId] < this._size[val2RootId]) {
             this._relations[val1RootId] = val2RootId;
             this._size[val1RootId] += this._size[val2RootId];

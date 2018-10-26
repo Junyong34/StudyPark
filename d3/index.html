@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>d3 Svg</title>
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
     <script src="./js/NodeJoinSeach.js"></script>
+    <script src="./js/DisjointSet.js"></script>
     <script src="./js/queue.js"></script>
     <script src="./debug/perf.js"></script>
 </head>
@@ -1507,23 +1509,60 @@
 
     var set = new NodeJoinSeach();// instantiate disjoint-set data structure
 
-    // function nodeDataSet(cloudData) {
-    //     var nodeData = cloudData.node;
-    //     for (var ix = 0; ix < nodeData.length; ix += 1) {
-    //         set.add(nodeData[ix]);
-    //     }
-    //
+    function nodeDataSet(cloudData) {
+        var nodeData = cloudData.node;
+        for (var ix = 0; ix < nodeData.length; ix += 1) {
+            set.add(nodeData[ix]);
+        }
+
+    }
+
+    function nodeEdgeSet(cloudData) {
+        var edgeData = cloudData.edge;
+        for (var ix = 0; ix < edgeData.length; ix += 1) {
+            set.add(edgeData[ix]);
+        }
+    }
+
+    nodeDataSet(cloudData);
+    nodeEdgeSet(cloudData);
+
+    set.unionConnet(
+    // {
+    //     "id": "compute2",
+    //     "name": "compute2",
+    //     "type": "host",
+    //     "itype": "node",
+    //     "level": 3,
+    //     "htype": "compute",
+    //     "group": 10,
+    //     disjointSetId: 44,
     // }
-    //
-    // function nodeEdgeSet(cloudData) {
-    //     var edgeData = cloudData.edge;
-    //     for (var ix = 0; ix < edgeData.length; ix += 1) {
-    //         set.add(edgeData[ix]);
+    {
+        "name": "node-4",
+        "namespace": null,
+        "id": "0440391a-bbef-11e8-ae77-fa163e28414b",
+        "ip": "203.0.113.106",
+        "type": "node",
+        "itype": "node",
+        "parent": ["b25fbf5e-a41c-46a1-948f-d2a4b576a83c"],
+        "level": 5,
+        "group": 1,
+        "cid": "inst-4",
+        disjointSetId: 35,
+    },
+    //     {
+    //         "id": "compute1",
+    //         "name": "compute1",
+    //         "type": "host",
+    //         "itype": "node",
+    //         "level": 3,
+    //         "htype": "compute",
+    //         "group": 10,
+    //         disjointSetId: 43,
     //     }
-    // }
-    //
-    // nodeDataSet(cloudData);
-    // nodeEdgeSet(cloudData);
+        );
+    // console.log(set.extract());
     //
     // function unionData() {
     //
@@ -1540,9 +1579,9 @@
     // arrow_Fn(1,[1,2]);
 
 
-
-    // var set = new NodeJoinSeach();// instantiate disjoint-set data structure
-
+    //
+    // var set2 = new disjointSet();// instantiate disjoint-set2 data structure
+    //
     // var person1 = {
     //     name: 'Volodymyr',
     //     surname: 'Velykyj'
@@ -1568,8 +1607,8 @@
     //     surname: 'Putin'
     // }
     //
-    // // add objects to the set
-    // set.add(person1)
+    // // add objects to the set2
+    // set2.add(person1)
     //     .add(person2)
     //     .add(person3)
     //     .add(person4)
@@ -1577,24 +1616,24 @@
     //     .add(person6);
     //
     // // connect some objects to each other
-    // set.union(person1, person2);
-    // set.union(person2, person3);
-    // set.union(person6, person5);
-    // set.union(person5, person4);
+    // set2.union(person1, person5);
+    // set2.union(person5, person3);
+    // set2.union(person4, person2);
+    // set2.union(person2, person6);
     //
     // // check connections
-    // console.log(set.connected(person1, person2)); // returns true. Direct connection
-    // console.log(set.connected(person1, person4)); // returns true. Indirect connection
-    // console.log(set.connected(person5, person6)); // returns true. Another direct connection
-    // console.log(set.connected(person4, person5)); // returns false. No connection
+    // console.log(set2.connected(person1, person2)); // returns true. Direct connection
+    // console.log(set2.connected(person1, person4)); // returns true. Indirect connection
+    // console.log(set2.connected(person5, person6)); // returns true. Another direct connection
+    // console.log(set2.connected(person4, person5)); // returns false. No connection
     //
     // /**
     //  * returns two arrays grouped by connection:
     //  * [
     //  *     [person1, person2, person3, person4],
     //  *     [person5, person6]
-    //  * ]
+    //  * ] 41 44 56
     //  */
-    // console.log(set.extract());
+    // console.log(set2.extract());
 </script>
 </html>
