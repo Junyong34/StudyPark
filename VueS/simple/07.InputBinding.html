@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <script src="https://unpkg.com/vue"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+</head>
+<style>
+  h2 {  
+    color: mediumseagreen;      
+  }
+  body {
+    background: rgba(214, 238, 227, 0.349);
+    font-family: 'Roboto Slab', sans-serif;
+    font-size: 13px;
+  }
+  hr {
+    border-color:  rgba(174, 208, 241, 0.288)
+  }
+</style>
+<body>
+  <div id="app">
+    <!-- one directional model -->
+    <h2># Directional Model</h2>
+    <div class="show-text">    
+      <p>{{ welcome }}</p>
+      <p>{{ greeting }}</p>
+      <p v-text="message"></p>
+    </div>
+    <div class="show-img">
+      <!--추천 방식-->
+      <img :src="imagePath" width="100px" height="100px"/>
+      <!--v-bind를 모두 명시해주어도 된다.-->
+      <img v-bind:src="imagePath" width="100px" height="100px"/>
+    </div>
+    <hr>
+    <!-- bi-directional model -->
+    <h2># Bidirectional Model</h2>
+    <div class="bind-text">
+        
+        <input v-model="text" placeholder="type something..."/>
+        <p>Show Text : {{ text }}</p>
+    </div>  
+    <div class="bind-input-checkbox">
+      <!-- checkbox는 list 모델과 연결-->
+      <input type="checkbox" v-model="todoList" value="1">감자</input>
+      <input type="checkbox" v-model="todoList" value="2">고구마</input>
+      <input type="checkbox" v-model="todoList" value="3">토란</input>
+      <input type="checkbox" v-model="todoList" value="4">마</input>
+      <p>todoList: {{ todoList }}</p>
+    </div>
+    <div class="bind-input-radio">
+      <!-- radio는 모델 객체의 단일 값과 매핑-->
+      <input type="radio" v-model="radioCheck" value="twelve">12시</input>
+      <input type="radio" v-model="radioCheck" value="three">3시</input>
+      <input type="radio" v-model="radioCheck" value="six">6시</input>
+      <input type="radio" v-model="radioCheck" value="nine">9시</input>
+      <p>radioValue: {{ radioCheck }}</p>
+    </div>
+    <div class="bind-input-select">
+      <!-- selected v-model 기본은 단일 값과 매핑-->
+      <select v-model="selected">
+        <option disabled value="">Please Select One</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+      <p>selected: {{ selected }}</p>
+    </div>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        welcome: 'Greeting!! Vue world!',
+        greeting: '이런식의 directive 는 XSS 공격에 취약합니다.',
+        message: '해당 방식 v-text를 추천합니다.',
+        imagePath: 'https://kr.vuejs.org/images/logo.png',
+        text: null,
+        todoList: [],
+        radioCheck: 'six',
+        selected: '',
+      }
+    })
+  </script>
+</body>
+</html>

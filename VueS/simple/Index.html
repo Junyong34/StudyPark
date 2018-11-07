@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sample Index</title>
+    <script src="https://unpkg.com/vue"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+</head>
+<style>
+    h1, h2 {
+        color: mediumseagreen;
+    }
+    body {
+        background: rgba(214, 238, 227, 0.349);
+        font-family: 'Roboto Slab', sans-serif;
+        font-size: 13px;
+    }
+    hr {
+        border-color:  rgba(174, 208, 241, 0.288)
+    }
+    li {
+        padding: 3px;
+    }
+    a {
+        font-size: 14px;
+    }
+</style>
+<body>
+<div id="app">
+    <h1>{{ welcome }}</h1>
+    <h2># Index</h2>
+    <h3> select chapter </h3>
+    <ul class="chapter-list">
+        <li v-for="item in items">
+            <a :href="item.link">{{ item.name }}</a>
+        </li>
+    </ul>
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            welcome: 'Welcome to Vue Examples',
+            items: (() => {
+                const result = [
+                    'HelloVue',
+                    'TemplateSyntax',
+                    'ComputedPropertiesAndWatchers',
+                    'ClassAndStyleBindings',
+                    'ConditionalRendering',
+                    'ListRendering',
+                    'EventHandling',
+                    'InputBinding',
+                    'ComponentHandling'
+                ];
+
+                return result.map((v, i) => {
+                    return {
+                        name: v,
+                        link: `0${i}.${v}.html`,
+                    }
+                });
+            })(),
+        },
+    })
+</script>
+</body>
+</html>
