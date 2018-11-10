@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <script src="https://unpkg.com/vue"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+</head>
+<style>
+  h2 {  
+    color: mediumseagreen;      
+  }
+  body {
+    background: rgba(214, 238, 227, 0.349);
+    font-family: 'Roboto Slab', sans-serif;
+    font-size: 13px;
+  }
+  hr {
+    border-color:  rgba(174, 208, 241, 0.288)
+  }
+</style>
+<body>
+  <div id="app">
+    <!--Interpolation 보간법 및 기타 표현식-->
+
+    <!--기본-->
+    <div class="base">
+      <h2># Base Mustaches</h2>
+      <p> Message : {{ msg }}</p>
+      <p v-once>This tag is not changed : {{ msg }}</p>
+      <input v-model="msg"/>
+    </div>
+    <hr>
+    <!--원시 HTML-->
+    <!--XSS 취약 때문에 사실상 사용하면 안 된다.-->
+    <div class="raw-html-view">
+        <h2># Raw Html</h2>
+      <p>Using mustaches: {{ rawHtml }} </p>
+      <p>Using v-html derective: <span v-html="rawHtml"></span></p>
+    </div>
+    <hr>
+    <!--{{}}의 자바스크립트 표현식 제공-->
+    <!-- 모든 표현식은 {{}} 내부에서 끝나는 샌드박스 형식-->
+    <div class="mustaches-with-js">
+        <h2># Mustaches with js</h2>
+      <p>{{ number + 1 }}</p>
+      <p>{{ ok ? 'YES' : 'NO' }}</p>
+      <p>Reverse Message: {{ splitMsg.split('').reverse().join().replace(/\,/gi,'') }}</p>
+      <input v-model="splitMsg"/>
+      <!-- 위 연산이 작업되서 나올 것 같지만 const data 기준으로 바인드 된다. -->
+      <div :id="'number-' + (number+5)">my div id: {{ number }}</div> 
+      <!-- 표현식만 작동하기 때문에, 변수 선언, 조건문 사용 등은 안 된다.-->
+    </div>
+    <hr>
+    <!-- v-prefix -->
+    <!-- v-접두사를 가지는 attr를 directive라고 칭한다. -->
+    <!-- directive에 들어가는 값은 단일 js 표현식이 된다. (32 line > number로 아이디 만드는 방식 참조)-->
+    <!-- 단 v-for는 예외 -->
+
+    <!-- directive -->
+
+    <!--v-bind-->
+    <!-- data bind property를 attribute에 넘기고 싶으면, v-bind directive를 이용한다. -->
+    <!-- 반응적으로 html 속성을 갱신하는데 사용된다. -->
+    <div class="v-bind-directive">
+      <h2># v-bind directive</h2>
+      <div v-bind:id="dynamicId">{{ dynamicId }}</div>
+      <div :id="dynamicId">shorthands : {{ dynamicId }}</div>
+      <div class="url-serve">
+          <a :href="'http://'+url"> http://{{ url }} </a>
+          <div>
+              <input v-model="url"/>
+          </div>      
+      </div>    
+      <!--falsy value를 다룰 때는 조심 해야된다.-->
+      <!-- false, null, undefined 값이 bind 될 경우, 렌더링 된 button 태그에는 해당 attr가 존재하지 않는다.-->
+      <button :disabled="isButtonDisabled">Button</button>
+      <p>{{ isButtonDisabled }}</p>
+    </div>
+    <hr>
+    <!-- v-if -->
+    <div class="v-if-directive">
+        <h2># v-if directive</h2>
+        <p v-if="seen">you can see me now!</p>
+        <button @click="onButtonClickEvent"> seen change</button>
+    </div>
+
+    <!-- v-on -->
+    <div class="v-on-directive">
+      <h2># v-on directive</h2>
+      <p>{{ changedText }}</p>
+      <button v-on:click="onButtonClickEvent2">click event</button>
+    </div>
+
+    <!-- short hands -->
+    <div class="short-hands">
+      <h2># short hands</h2>
+      <p>v-bind:test = :test</p>
+      <p>v-on:click = @click</p>
+    </div>
+  
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {      
+        msg : 'abcde',
+        splitMsg: 'nisioisin',
+        rawHtml: '<span style="color:blue">This should be blue</span>',
+        dynamicId: 'vueBind',
+        isButtonDisabled: false, // null, undefined 도 동일함
+        number: 0,
+        ok: true,
+        seen: false,
+        url: 'abc',
+        encodeIndex: 97,
+        changedText: ''
+      },
+      methods: {
+        onButtonClickEvent: function onButtonClickEvent(e) {
+          this.seen = !this.seen;
+        },
+        onButtonClickEvent2: function onButtonClickEvent2(e) {
+          if(this.encodeIndex - 26 >= 97 ) {
+            this.encodeIndex = 97;
+          }
+          
+          if(this.changedText.length >= 4) {
+            this.changedText = '';
+          }
+
+          this.changedText += String.fromCharCode(this.encodeIndex);
+          this.encodeIndex++;
+        },
+      }
+    })
+  </script>
+</body>
+</html>

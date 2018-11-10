@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <script src="https://unpkg.com/vue"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+</head>
+<style>
+  h2 {  
+    color: mediumseagreen;      
+  }
+  body {
+    background: rgba(214, 238, 227, 0.349);
+    font-family: 'Roboto Slab', sans-serif;
+    font-size: 13px;
+  }
+  hr {
+    border-color:  rgba(174, 208, 241, 0.288)
+  }
+</style>
+<body>
+  <div id="app">
+    <div class="v-if-used">
+      <h2># v-if</h2>
+      <p v-if="ok">Yes</p>
+      <input v-model="ok" type="checkbox">change OK</input>
+    </div>
+    <hr>
+    <div class="v-else-used">
+      <h2># v-else</h2>
+      <p v-if="isTrue">Yes</p>
+      <p v-else>No</p>
+      <input v-model="isTrue" type="checkbox">change Boolean</input>
+    </div>
+    <hr>
+    <div class="v-else-used">
+      <h2># v-else-if</h2>
+      <p v-if="value === 'A'"> A </p>
+      <p v-else-if="value === 'B'"> B </p>
+      <p v-else-if="value === 'C'"> C </p>
+      <p v-else> Not A/B/C </p>
+      <h4>input Character A, B or C.</h4>
+      <input v-model="value">
+    </div>
+    <hr>
+    <div class="use-key-property">
+      <h2># key or not key</h2>
+      <!-- 키를 할당하지 않으면 virtual dom을 동일하게 인지해서 추가 렌더링을 하지 않는다 -->
+      <template v-if="loginType === 'username'">
+        <label>사용자 이름</label>
+        <input placeholder="사용자 이름을 입력하세요" key="username-input">
+      </template>
+      <template v-else>
+        <label>이메일</label>
+        <input placeholder="이메일 주소를 입력하세요" key="email-input">
+      </template>
+      <button @click="changeLoginType"> change login type </button>
+    </div>
+    <hr>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+          ok : false,
+          isTrue: false,
+          value: 'A',
+          loginType: ''
+      },
+      methods: {
+          changeLoginType() {
+              this.loginType = this.loginType == 'username' ? 'email' : 'username';
+          }
+      }
+    })
+  </script>
+</body>
+</html>

@@ -3,7 +3,7 @@ var XMLineChart = (function () {
             if (!(this instanceof XMLineChart)) {
                 return new XMLineChart(args);
             }
-            XMCanvas.call(this, args);
+            // XMCanvas.call(this, args);
             this.width = 0; // 캔버스 넓이
             this.height = 0; // 캔버스 높이
             this.maxValueTip = {

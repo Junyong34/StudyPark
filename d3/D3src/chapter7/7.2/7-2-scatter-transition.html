@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html>
   <head>
         <meta charset="utf-8">
@@ -5,13 +6,26 @@
   </head>
   <style>
 
+=======
+<html>  
+  <head>  
+        <meta charset="utf-8">  
+        <title>7.3 散点图的过渡</title>  
+  </head> 
+  <style>
+  
+>>>>>>> remotes/origin/pjy_project
 .axis path,
 .axis line{
 	fill: none;
 	stroke: black;
 	shape-rendering: crispEdges;
 }
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> remotes/origin/pjy_project
 .axis text {
 	font-family: sans-serif;
 	font-size: 11px;
@@ -20,6 +34,7 @@
   </style>
 <body>
 
+<<<<<<< HEAD
 <script src="../../d3/3.x/d3.min.js" charset="utf-8"></script>
 <script>
 
@@ -30,20 +45,43 @@ var center = [[0.5,0.5],[0.7,0.8],[0.4,0.9],[0.11,0.32],[0.88,0.25],
 var width  = 500;	//SVG绘制区域的宽度
 var height = 500;	//SVG绘制区域的高度
 
+=======
+<script src="../../d3/3.x/d3.min.js" charset="utf-8"></script> 
+<script>  
+
+//圆心数据
+var center = [[0.5,0.5],[0.7,0.8],[0.4,0.9],[0.11,0.32],[0.88,0.25],
+			   [0.75,0.12],[0.5,0.1],[0.2,0.3],[0.4,0.1],[0.6,0.7]];		   
+
+var width  = 500;	//SVG绘制区域的宽度
+var height = 500;	//SVG绘制区域的高度
+	
+>>>>>>> remotes/origin/pjy_project
 var svg = d3.select("body")			//选择<body>
 			.append("svg")			//在<body>中添加<svg>
 			.attr("width", width)	//设定<svg>的宽度属性
 			.attr("height", height);//设定<svg>的高度属性
+<<<<<<< HEAD
 
 //外边框
 var padding = { top: 30 , right: 30, bottom: 30, left: 30 };
 
+=======
+			
+//外边框
+var padding = { top: 30 , right: 30, bottom: 30, left: 30 };
+			
+>>>>>>> remotes/origin/pjy_project
 //x轴宽度
 var xAxisWidth = 300;
 
 //y轴宽度
 var yAxisWidth = 300;
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> remotes/origin/pjy_project
 //x轴比例尺
 var xScale = d3.scale.linear()
 				.domain([0, 1])
@@ -52,6 +90,7 @@ var xScale = d3.scale.linear()
 //y轴比例尺
 var yScale = d3.scale.linear()
 				.domain([0, 1])
+<<<<<<< HEAD
 				.range([0,yAxisWidth]);
 
 
@@ -68,6 +107,24 @@ function drawCircle(){
 	var circleExit = circleUpdate.exit();
 
 
+=======
+				.range([0,yAxisWidth]);			
+				
+
+drawCircle();
+drawAxis();				
+				
+				
+function drawCircle(){
+	var circleUpdate = svg.selectAll("circle")
+						.data(center);		//绑定数据
+						
+	var circleEnter = circleUpdate.enter();
+
+	var circleExit = circleUpdate.exit();
+	
+	
+>>>>>>> remotes/origin/pjy_project
 	circleUpdate.transition()				//更新数据时启动过渡
 				.duration(500)
 				.attr("cx", function(d){	//新的x坐标
@@ -76,9 +133,15 @@ function drawCircle(){
 				.attr("cy", function(d){	//新的y坐标
 					return height- padding.bottom - yScale(d[1]);
 				});
+<<<<<<< HEAD
 
 	circleEnter.append("circle")			//添加元素
 				.attr("fill","black")
+=======
+				
+	circleEnter.append("circle")			//添加元素
+				.attr("fill","black")		
+>>>>>>> remotes/origin/pjy_project
 				.attr("cx", padding.left)				//过渡前的x坐标
 				.attr("cy", height- padding.bottom)		//过渡前的y坐标
 				.attr("r", 7 )
@@ -91,7 +154,11 @@ function drawCircle(){
 					console.log(d[1] + " " + yScale(d[1]));
 					return height- padding.bottom - yScale(d[1]);
 				});
+<<<<<<< HEAD
 
+=======
+				
+>>>>>>> remotes/origin/pjy_project
 	circleExit.transition()				//删除数据时启动过渡
 				.duration(500)			//时间为500ms
 				.attr("fill","white")	//设定过渡目标
@@ -107,22 +174,39 @@ function drawAxis(){
 				.ticks(5);
 
 	yScale.range([yAxisWidth,0]);
+<<<<<<< HEAD
 
+=======
+					
+>>>>>>> remotes/origin/pjy_project
 	var yAxis = d3.svg.axis()
 					.scale(yScale)
 					.orient("left")
 					.ticks(5);
+<<<<<<< HEAD
 
+=======
+					
+>>>>>>> remotes/origin/pjy_project
 	svg.append("g")
 			.attr("class","axis")
 			.attr("transform","translate(" + padding.left + "," + (height - padding.bottom) +  ")")
 			.call(xAxis);
+<<<<<<< HEAD
 
 	svg.append("g")
 			.attr("class","axis")
 			.attr("transform","translate(" + padding.left + "," + (height - padding.bottom - yAxisWidth) +  ")")
 			.call(yAxis);
 
+=======
+				
+	svg.append("g")
+			.attr("class","axis")
+			.attr("transform","translate(" + padding.left + "," + (height - padding.bottom - yAxisWidth) +  ")")
+			.call(yAxis); 
+			
+>>>>>>> remotes/origin/pjy_project
 	yScale.range([0,yAxisWidth]);
 }
 
@@ -145,7 +229,11 @@ function sub(){
 	drawCircle();
 }
 
+<<<<<<< HEAD
 </script>
+=======
+</script> 
+>>>>>>> remotes/origin/pjy_project
 
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -154,4 +242,8 @@ function sub(){
 <button type="button" onclick="sub()">   减少  </button>
 </body>
 
+<<<<<<< HEAD
 </html>
+=======
+</html>  
+>>>>>>> remotes/origin/pjy_project
