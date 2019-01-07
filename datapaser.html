@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>-- </title>
+    <style>
+
+
+    </style>
+</head>
+<body>
+
+</body>
+
+
+<script>
+
+    var dataSet = {
+        "statlist": {
+            "node": [
+                {
+                    "servertype": "ORACLE",
+                    "statname": "redo writes",
+                    "statname_display": "redo writes",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "gc cpu used by this session",
+                    "statname_display": "gc CPU used by this session",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "total number of slots",
+                    "statname_display": "total number of slots",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "instance recovery database freeze count",
+                    "statname_display": "instance recovery database freeze count",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "background checkpoints started",
+                    "statname_display": "background checkpoints started",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "active sessions",
+                    "statname_display": "active sessions",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "lock waiting sessions",
+                    "statname_display": "lock waiting sessions",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "user cpu",
+                    "statname_display": "user cpu",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "sys cpu",
+                    "statname_display": "sys cpu",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "idle cpu",
+                    "statname_display": "idle cpu",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "free memory",
+                    "statname_display": "free memory",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "total memory",
+                    "statname_display": "total memory",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "cpu",
+                    "statname_display": "CPU",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "active memory",
+                    "statname_display": "active memory",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "session logical reads",
+                    "statname_display": "session logical reads",
+                    "statformat": "SEC"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "physical reads",
+                    "statname_display": "physical reads",
+                    "statformat": "SEC"
+                },
+                {
+                    "servertype": "ORACLE",
+                    "statname": "physical reads cache",
+                    "statname_display": "physical reads cache",
+                    "statformat": "SIGMA"
+                },
+                {
+                    "servertype": "SQLSERVER",
+                    "statname": "#active sessions#",
+                    "statname_display": "Active Sessions",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "SQLSERVER",
+                    "statname": "#locks waiting#",
+                    "statname_display": "Locks Waiting",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "SQLSERVER",
+                    "statname": "buffer manager#page lookups/sec#",
+                    "statname_display": "Buffer Manager Page lookups/sec",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "SQLSERVER",
+                    "statname": "buffer manager#page reads/sec#",
+                    "statname_display": "Buffer Manager Page reads/sec",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "SQLSERVER",
+                    "statname": "sql statistics#batch requests/sec#",
+                    "statname_display": "SQL Statistics Batch Requests/sec",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "MYSQL",
+                    "statname": "bytes_sent",
+                    "statname_display": "Bytes_sent",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "SQLSERVER",
+                    "statname": "#cpu#",
+                    "statname_display": "CPU",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "SQLSERVER",
+                    "statname": "cpu(sql)",
+                    "statname_display": "CPU(SQL)",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "MYSQL",
+                    "statname": "cpu",
+                    "statname_display": "CPU",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "MYSQL",
+                    "statname": "cpu(sql)",
+                    "statname_display": "CPU(SQL)",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "MYSQL",
+                    "statname": "innodb_buffer_pool_reads",
+                    "statname_display": "Innodb_buffer_pool_reads",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "MYSQL",
+                    "statname": "replication_delay(sec)",
+                    "statname_display": "Replication_delay(sec)",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "MYSQL",
+                    "statname": "threads_connected",
+                    "statname_display": "Threads_connected",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "MYSQL",
+                    "statname": "threads_running",
+                    "statname_display": "Threads_running",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "MYSQL",
+                    "statname": "used memory(%)",
+                    "statname_display": "used memory(%)",
+                    "statformat": "DEFAULT"
+                },
+                {
+                    "servertype": "MYSQL",
+                    "statname": "bytes_received",
+                    "statname_display": "Bytes_received",
+                    "statformat": "DEFAULT"
+                }
+            ]
+        }
+    }
+
+///////////////////////////////////////////////////////////////////////
+    console.time("calculatingTime")
+    var result;
+    result = {};
+    var nd = dataSet.statlist.node;
+    var servertypeList = [];
+    var lxlen = nd.length;
+
+
+    for (var i = 0; i < lxlen; i++) {
+        var server = nd[i].servertype;
+        if (!servertypeList.includes(server)) {
+            servertypeList.push(server);
+            result[server] = [];
+        }
+        result[server].push(nd[i]);
+    }
+    var endTime = new Date().getTime();
+    console.log(result);
+
+
+    console.timeEnd('calculatingTime');
+    ///////////////////////////////////////////////////////////////////////
+    console.log('/////////////////////////////////////////////////////////////////////// ');
+
+    ///////////////////////////////////////////////////////////////////////
+
+    console.time("calculatingTime")
+    var createTreeStatList = function (statList) {
+        var stats = statList.statlist.node;
+        var dataBaseList = ['oracle', 'mysql', 'sqlserver', 'tibero', 'db2', 'mfaa', 'pgsql'];
+        var dataBaseGroup = {};
+
+        dataBaseList.map((db) => {
+            var fileterDb = stats.filter((val) => {
+                val.leaf = true;
+                val.ck = 'N';
+                return db.toUpperCase() === val.servertype;
+            });
+            dataBaseGroup[db] = fileterDb;
+        })
+
+        return dataBaseGroup;
+    };
+    console.log(createTreeStatList(dataSet));
+    console.timeEnd('calculatingTime');
+
+
+    var result = {};
+    let node = dataSet['statlist']['node'];
+
+    // 1.
+    /*
+    for(let i = 0; i < node.length; ++i) {
+        // property를 확인하여 없으면 배열을 생성해주고 있으면 push한다.
+        if(!result.hasOwnProperty(node[i]['servertype'].toLowerCase())) {
+            result[node[i]['servertype'].toLowerCase()] = [];
+        }
+        result[node[i]['servertype'].toLowerCase()].push(node[i]);
+    }
+    */
+    console.log('/////////////////////////////////////////////////////////////////////// ');
+
+    ///////////////////////////////////////////////////////////////////////
+
+    console.time("calculatingTime")
+    // 2.
+    const dataType = ['oracle', 'mysql', 'sqlserver', 'tibero', 'db2', 'mfaa', 'pgsql'];
+
+    const test = { aaa: 1, bbb: 1, bbb: 1, bbb: 1, bbb: 1 };
+
+
+
+
+    let lx = 0;
+    let lxLen = node.length;
+    for(ix = 0; ix < ixLen; ++ix;) {
+
+    }
+    for(let iz = 0; i < node.length; ++i) {
+        // servertype이 없음 error 처리.
+        if(!result.hasOwnProperty(node[i]['servertype'].toLowerCase())) {
+            // 임시 에러 처리
+            result[node[i]['servertype'].toLowerCase()] = [];
+        }
+        // console.log(data);
+        result[node[i]['servertype'].toLowerCase()].push(node[i]);
+    }
+
+    console.log(result);
+    console.timeEnd('calculatingTime');
+
+    ///////////////////////////////////////////////////////////////////////
+    // 결과
+    // {
+    //     "oracle": [
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "redo writes",
+    //         "statname_display": "redo writes",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "gc cpu used by this session",
+    //         "statname_display": "gc CPU used by this session",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "total number of slots",
+    //         "statname_display": "total number of slots",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "instance recovery database freeze count",
+    //         "statname_display": "instance recovery database freeze count",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "background checkpoints started",
+    //         "statname_display": "background checkpoints started",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "active sessions",
+    //         "statname_display": "active sessions",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "lock waiting sessions",
+    //         "statname_display": "lock waiting sessions",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "user cpu",
+    //         "statname_display": "user cpu",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "sys cpu",
+    //         "statname_display": "sys cpu",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "idle cpu",
+    //         "statname_display": "idle cpu",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "free memory",
+    //         "statname_display": "free memory",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "total memory",
+    //         "statname_display": "total memory",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "cpu",
+    //         "statname_display": "CPU",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "active memory",
+    //         "statname_display": "active memory",
+    //         "statformat": "SIGMA"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "session logical reads",
+    //         "statname_display": "session logical reads",
+    //         "statformat": "SEC"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "physical reads",
+    //         "statname_display": "physical reads",
+    //         "statformat": "SEC"
+    //     },
+    //     {
+    //         "servertype": "ORACLE",
+    //         "statname": "physical reads cache",
+    //         "statname_display": "physical reads cache",
+    //         "statformat": "SIGMA"
+    //     }
+    // ],
+    //     "mysql": [
+    //     {
+    //         "servertype": "MYSQL",
+    //         "statname": "bytes_sent",
+    //         "statname_display": "Bytes_sent",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "MYSQL",
+    //         "statname": "cpu",
+    //         "statname_display": "CPU",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "MYSQL",
+    //         "statname": "cpu(sql)",
+    //         "statname_display": "CPU(SQL)",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "MYSQL",
+    //         "statname": "innodb_buffer_pool_reads",
+    //         "statname_display": "Innodb_buffer_pool_reads",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "MYSQL",
+    //         "statname": "replication_delay(sec)",
+    //         "statname_display": "Replication_delay(sec)",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "MYSQL",
+    //         "statname": "threads_connected",
+    //         "statname_display": "Threads_connected",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "MYSQL",
+    //         "statname": "threads_running",
+    //         "statname_display": "Threads_running",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "MYSQL",
+    //         "statname": "used memory(%)",
+    //         "statname_display": "used memory(%)",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "MYSQL",
+    //         "statname": "bytes_received",
+    //         "statname_display": "Bytes_received",
+    //         "statformat": "DEFAULT"
+    //     }
+    // ],
+    //     "sqlserver": [
+    //     {
+    //         "servertype": "SQLSERVER",
+    //         "statname": "#active sessions#",
+    //         "statname_display": "Active Sessions",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "SQLSERVER",
+    //         "statname": "#locks waiting#",
+    //         "statname_display": "Locks Waiting",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "SQLSERVER",
+    //         "statname": "buffer manager#page lookups/sec#",
+    //         "statname_display": "Buffer Manager Page lookups/sec",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "SQLSERVER",
+    //         "statname": "buffer manager#page reads/sec#",
+    //         "statname_display": "Buffer Manager Page reads/sec",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "SQLSERVER",
+    //         "statname": "sql statistics#batch requests/sec#",
+    //         "statname_display": "SQL Statistics Batch Requests/sec",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "SQLSERVER",
+    //         "statname": "#cpu#",
+    //         "statname_display": "CPU",
+    //         "statformat": "DEFAULT"
+    //     },
+    //     {
+    //         "servertype": "SQLSERVER",
+    //         "statname": "cpu(sql)",
+    //         "statname_display": "CPU(SQL)",
+    //         "statformat": "DEFAULT"
+    //     }
+    // ],
+    //     "tibero": [],
+    //     "db2": [],
+    //     "mfaa": [],
+    //     "pgsql": []
+    // }
+
+
+</script>
+</html>

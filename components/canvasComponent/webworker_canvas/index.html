@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="main">
+    <canvas id="canvas" width="1000" height="700"></canvas>
+</div>
+</body>
+<script>
+    const presentationCanvas = document.getElementById('canvas');
+    const presentationContext = presentationCanvas.getContext('2d');
+    const backgroundCanvas = document.createElement('canvas');
+    backgroundCanvas.width = 1000;
+    backgroundCanvas.height = 700;
+    const backgroundContext = backgroundCanvas.getContext('2d');
+
+
+
+
+    presentationContext.beginPath();
+    presentationContext.rect(300, 50, 200, 100);
+    presentationContext.fillStyle = 'yellow';
+    presentationContext.fill();
+    presentationContext.lineWidth = 7;
+    presentationContext.strokeStyle = 'black';
+    presentationContext.stroke();
+
+
+    backgroundContext.beginPath();
+    backgroundContext.rect(188, 50, 200, 100);
+    backgroundContext.fillStyle = 'yellow';
+    backgroundContext.fill();
+    backgroundContext.lineWidth = 7;
+    backgroundContext.strokeStyle = 'black';
+    backgroundContext.stroke();
+
+    presentationContext.drawImage(backgroundCanvas,0,0,1000,700);
+
+
+
+    </script>
+</html>

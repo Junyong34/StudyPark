@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>-- </title>
+    <style>
+
+
+    </style>
+</head>
+<body>
+
+</body>
+
+
+<script>
+    const dataType = ['oracle', 'mysql', 'sqlserver', 'tibero', 'db2', 'mfaa', 'pgsql'];
+    const aData = {
+        "oracle": [
+            {
+                "servertype": "ORACLE",
+                "statname": "redo writes",
+                "statname_display": "redo writes",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "gc cpu used by this session",
+                "statname_display": "gc CPU used by this session",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "total number of slots",
+                "statname_display": "total number of slots",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "instance recovery database freeze count",
+                "statname_display": "instance recovery database freeze count",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "background checkpoints started",
+                "statname_display": "background checkpoints started",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "active sessions",
+                "statname_display": "active sessions",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "lock waiting sessions",
+                "statname_display": "lock waiting sessions",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "user cpu",
+                "statname_display": "user cpu",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "sys cpu",
+                "statname_display": "sys cpu",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "idle cpu",
+                "statname_display": "idle cpu",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "free memory",
+                "statname_display": "free memory",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "total memory",
+                "statname_display": "total memory",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "cpu",
+                "statname_display": "CPU",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "active memory",
+                "statname_display": "active memory",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "session logical reads",
+                "statname_display": "session logical reads",
+                "statformat": "SEC",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "physical reads",
+                "statname_display": "physical reads",
+                "statformat": "SEC",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "ORACLE",
+                "statname": "physical reads cache",
+                "statname_display": "physical reads cache",
+                "statformat": "SIGMA",
+                "leaf": true,
+                "ck": "N"
+            }
+        ],
+        "mysql": [
+            {
+                "servertype": "MYSQL",
+                "statname": "bytes_sent",
+                "statname_display": "Bytes_sent",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "MYSQL",
+                "statname": "cpu",
+                "statname_display": "CPU",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "MYSQL",
+                "statname": "cpu(sql)",
+                "statname_display": "CPU(SQL)",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "MYSQL",
+                "statname": "innodb_buffer_pool_reads",
+                "statname_display": "Innodb_buffer_pool_reads",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "MYSQL",
+                "statname": "replication_delay(sec)",
+                "statname_display": "Replication_delay(sec)",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "MYSQL",
+                "statname": "threads_connected",
+                "statname_display": "Threads_connected",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "MYSQL",
+                "statname": "threads_running",
+                "statname_display": "Threads_running",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "MYSQL",
+                "statname": "used memory(%)",
+                "statname_display": "used memory(%)",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "MYSQL",
+                "statname": "bytes_received",
+                "statname_display": "Bytes_received",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            }
+        ],
+        "sqlserver": [
+            {
+                "servertype": "SQLSERVER",
+                "statname": "#active sessions#",
+                "statname_display": "Active Sessions",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "SQLSERVER",
+                "statname": "#locks waiting#",
+                "statname_display": "Locks Waiting",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "SQLSERVER",
+                "statname": "buffer manager#page lookups/sec#",
+                "statname_display": "Buffer Manager Page lookups/sec",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "SQLSERVER",
+                "statname": "buffer manager#page reads/sec#",
+                "statname_display": "Buffer Manager Page reads/sec",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "SQLSERVER",
+                "statname": "sql statistics#batch requests/sec#",
+                "statname_display": "SQL Statistics Batch Requests/sec",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "SQLSERVER",
+                "statname": "#cpu#",
+                "statname_display": "CPU",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            },
+            {
+                "servertype": "SQLSERVER",
+                "statname": "cpu(sql)",
+                "statname_display": "CPU(SQL)",
+                "statformat": "DEFAULT",
+                "leaf": true,
+                "ck": "N"
+            }
+        ],
+        "tibero": [],
+        "db2": [],
+        "mfaa": [],
+        "pgsql": []
+    }
+    let dataDiff = [
+        {
+            "oracle": [
+                "redo writes"
+            ],
+            "mysql": ['aaaaa'],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": [],
+            "title": "redo writes"
+        },
+        {
+            "oracle": [
+                "gc cpu used by this session"
+            ],
+            "mysql": [],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": ['accc'],
+            "title": "gc cpu used by this session"
+        },
+        {
+            "oracle": [
+                "total number of slots"
+            ],
+            "mysql": [],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": [],
+            "title": "total number of slots"
+        },
+        {
+            "oracle": [
+                "instance recovery database freeze count"
+            ],
+            "mysql": ['qwe'],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": [],
+            "title": "instance recovery database freeze count"
+        },
+        {
+            "oracle": [
+                "background checkpoints started"
+            ],
+            "mysql": [],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": [],
+            "title": "background checkpoints started"
+        },
+        {
+            "oracle": [
+                "active sessions"
+            ],
+            "mysql": [],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": [],
+            "title": "active sessions"
+        },
+        {
+            "oracle": [
+                "lock waiting sessions"
+            ],
+            "mysql": [],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": [],
+            "title": "lock waiting sessions"
+        },
+        {
+            "oracle": [
+                "user cpu"
+            ],
+            "mysql": [],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": [],
+            "title": "user cpu"
+        },
+        {
+            "oracle": [
+                "sys cpu"
+            ],
+            "mysql": [],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": [],
+            "title": "sys cpu"
+        },
+        {
+            "oracle": [
+                "idle cpu"
+            ],
+            "mysql": [],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": [],
+            "title": "idle cpu"
+        },
+        {
+            "oracle": [
+                "free memory"
+            ],
+            "mysql": [],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": [],
+            "title": "free memory"
+        },
+        {
+            "oracle": [
+                "total memory"
+            ],
+            "mysql": [],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": [],
+            "title": "total memory"
+        },
+        {
+            "oracle": [
+                "cpu"
+            ],
+            "mysql": [],
+            "sqlserver": [],
+            "tibero": [],
+            "db2": [],
+            "mfaa": [],
+            "pgsql": [],
+            "title": "cpu"
+        }
+    ]
+
+    var stataDiff = function (dataDiff) {
+
+    };
+
+    console.log('사용하지 않는 지표는 : ');
+
+</script>
+</html>

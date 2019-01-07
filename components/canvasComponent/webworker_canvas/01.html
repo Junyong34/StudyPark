@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="main">
+    <canvas id="canvas" width="1000" height="700"></canvas>
+</div>
+</body>
+<script>
+    const presentationCanvas = document.getElementById('canvas');
+    const presentationContext = presentationCanvas.getContext('2d');
+
+
+    var randomCircle = () => {
+        presentationContext.clearRect(0,0,1000,700);
+        for(i=0; i<500000; i++) {
+
+            var x = Math.floor(Math.random()*1000);
+            var y = Math.floor(Math.random()*700);
+            var radius = Math.floor(Math.random()*20);
+
+            var r = Math.floor(Math.random()*255);
+            var g = Math.floor(Math.random()*255);
+            var b = Math.floor(Math.random()*255);
+
+            presentationContext.beginPath();
+            presentationContext.arc(x,y,radius,Math.PI*2,0,false);
+            presentationContext.fillStyle = "rgba(" + r + "," + g + "," + b + ",1)";
+            presentationContext.fill();
+            presentationContext.closePath();
+
+        }
+    }
+
+    console.time("calculatingTime")
+    randomCircle();
+    console.timeEnd("calculatingTime")
+
+
+
+
+</script>
+</html>
