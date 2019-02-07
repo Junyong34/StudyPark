@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    object{
+        width: 100%;
+        height:100%;
+    }
+</style>
+<body>
+<div id="target" style="background-color: red; "></div>
+<object></object>
+</body>
+<script>
+    var timer;
+    window.addEventListener('resize', function(e) {
+// 1. timer 값이 undefined니까 if문 실행
+        if (!timer) {
+// 3-1. setTimeout이 끝나기 전에 다시 이벤트 실행 시 time함수 클리어 (이벤트 호출 시 마다 반복)
+            timer = setTimeout(function() {
+                finish();
+                console.log('여기에 ajax 요청', e.target.value);
+            }, 1000);
+        }
+// 2. 함수 할당
+// 3-2. 함수 할당 (이벤트 호출 시 마다 반복)
+
+// 4. 설정 시간 지나면 함수 종료
+
+        /* timer의 log를 찍어보면 return시키지 않은 숫자 값이 찍히는데, 이게 setTimeout의 id인 듯 하다. (id_of_settimeout)
+        time함수를 clear하기 위해선 이 특정 id값이 필요한데, 그걸 변수에 담아서 clear함수에 넘기는 것 */
+    });
+
+   function finish(){
+       console.log('종료');
+   }
+</script>
+</html>
