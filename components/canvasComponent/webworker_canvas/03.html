@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="main">
+    <canvas id="canvas" width="1000" height="700"></canvas>
+</div>
+</body>
+<script>
+    const canvas = document.getElementById('canvas');
+    const offscreen = canvas.transferControlToOffscreen();
+
+    console.time("calculatingTime")
+    var sum = 0;
+    for (var i = 1; i <= 5000000; i++) {
+        sum += i;
+    }
+
+
+    const worker = new Worker('./canvas-worker.js');
+    worker.postMessage({ canvas: offscreen }, [offscreen]);
+    console.timeEnd('calculatingTime');
+
+</script>
+</html>

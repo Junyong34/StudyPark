@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <canvas id="canvas"  width="600" height="600"></canvas>
+<!--<transferControlToOffscreen></transferControlToOffscreen>-->
+</body>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const offscreen = canvas.transferControlToOffscreen();
+    // let ctx = canvas.getContext('2d');
+
+
+
+    const webWokers = new Worker('./canvasWorker.js');
+    debugger
+    webWokers.postMessage({canvas : offscreen} , [offscreen]);
+
+
+    // webWokers.addEventListener("message", data => {
+    //     console.log(data);
+    // });
+
+
+    let sumFn = () => {
+        let sum = 0;
+        for(let ix=0; ix < 1000000000; ix++){
+            sum += ix;
+        }
+        console.log(sum);
+    }
+
+    setTimeout(sumFn, 3000);
+    setTimeout(sumFn, 5000);
+    setTimeout(sumFn, 8000);
+    setTimeout(sumFn, 10000);
+
+
+</script>
+
+</html>

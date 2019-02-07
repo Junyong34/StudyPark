@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="main">
+    <canvas id="canvas" width="1000" height="700"></canvas>
+</div>
+</body>
+<script>
+    const presentationCanvas = document.getElementById('canvas');
+    const presentationContext = presentationCanvas.getContext('2d');
+    const backgroundCanvas = document.createElement('canvas');
+    backgroundCanvas.width = 1000;
+    backgroundCanvas.height = 700;
+    const backgroundContext = backgroundCanvas.getContext('2d');
+
+    var randomCircle = () => {
+        backgroundContext.clearRect(0,0,1000,700);
+        for(i=0; i<500000; i++) {
+
+            var x = Math.floor(Math.random()*1000);
+            var y = Math.floor(Math.random()*700);
+            var radius = Math.floor(Math.random()*20);
+
+            var r = Math.floor(Math.random()*255);
+            var g = Math.floor(Math.random()*255);
+            var b = Math.floor(Math.random()*255);
+
+            backgroundContext.beginPath();
+            backgroundContext.arc(x,y,radius,Math.PI*2,0,false);
+            backgroundContext.fillStyle = "rgba(" + r + "," + g + "," + b + ",1)";
+            backgroundContext.fill();
+            backgroundContext.closePath();
+
+        }
+    }
+
+    console.time("calculatingTime");
+    var sum = 0;
+    for (var i = 1; i <= 5000000; i++) {
+        sum += i;
+    }
+    randomCircle();
+    presentationContext.drawImage(backgroundCanvas,0,0,1000,700);
+    console.timeEnd("calculatingTime")
+
+
+
+
+</script>
+</html>
