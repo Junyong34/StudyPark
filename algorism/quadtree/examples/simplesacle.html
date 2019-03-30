@@ -149,8 +149,8 @@
         var myCursor = {
             x: 0,
             y: 0,
-            width: 1,
-            height:1
+            width: 0.0000001,
+            height:0.0000001
         };
 
         var isMouseover = false;
@@ -246,6 +246,7 @@
             //no subnodes? draw the current node
             if (node.nodes.length === 0) {
                 ctx.strokeStyle = 'red';
+                console.log(bounds.width, bounds.height);
                 ctx.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
 
                 //has subnodes? drawQuadtree them!

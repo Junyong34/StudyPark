@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas {
+            display:block;
+            margin:15px;
+            border:1px solid #000;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="viewport" width="1000" height="500">HTML5 Canvas not supported!</canvas>
+<canvas id="canvas" width="1000" height="500"></canvas>
+
+</body>
+</html>
+<script type="text/javascript">
+    var onClick,
+        onLoad = function () {
+            var canvas,
+                viewport,
+                context,
+                canvasWidth,
+                canvasHeight,
+                viewportContext,
+                background = {},
+                camera,
+                scale = 4;
+
+            function init() {
+                background.image = new Image();
+                background.image.src = "http://upload.wikimedia.org/wikipedia/commons/4/4e/Coronation_of_Ahmad_Shah_Durrani_in_1747_by_Breshna.jpg";
+                canvas = document.getElementById("canvas");
+                context = canvas.getContext("2d");
+                viewport = document.getElementById("viewport");
+                viewportContext = viewport.getContext("2d");
+                camera = {
+                    x: canvas.width/2,
+                    y: canvas.height/2,
+                    width: canvas.width/scale,
+                    height: canvas.height/scale
+                };
+                background.width = canvas.width * scale;
+                background.height = canvas.height * scale;
+
+            };
+
+            // Translate viewport's context to camera pos
+            function moveContext() {
+                viewportContext.setTransform(1, 0, 0, 1, 0, 0); // Reset context
+                viewportContext.translate(
+                    (viewport.width/2-camera.x+camera.width/2)*scale,
+                    (viewport.height/2-camera.y+camera.height/2)*scale
+                );
+            };
+
+            // Update camera's position
+            function moveCamera(vector) {
+                camera.x = vector.x;
+                camera.y = vector.y;
+                moveContext();
+            };
+
+            function draw() {
+                context.drawImage(background.image, 0, 0, canvas.width, canvas.height);
+                // Draw camera guide
+                context.strokeStyle = 'red';
+                context.beginPath();
+                context.moveTo(camera.x - camera.width / 2, camera.y - camera.height / 2);
+                context.lineTo(camera.x + camera.width / 2, camera.y - camera.height / 2);
+                context.lineTo(camera.x + camera.width / 2, camera.y + camera.height / 2);
+                context.lineTo(camera.x - camera.width / 2, camera.y + camera.height / 2);
+                context.lineTo(camera.x - camera.width / 2, camera.y - camera.height / 2);
+                context.stroke();
+
+                // Draw viewport background
+                viewportContext.clearRect(0, 0, viewport.width, viewport.height);
+                viewportContext.drawImage(background.image, -background.width/2, -background.height/2, background.width, background.height);
+            };
+
+            function update() {
+            };
+
+            function gameLoop() {
+                update();
+                draw();
+                requestAnimationFrame(gameLoop);
+            };
+
+
+            onClick = function (event) {
+                var x = event.offsetX,
+                    y = event.offsetY;
+
+                //alert("x: " + x + "\ny: " + y);
+                moveCamera({ x: x, y: y });
+            };
+
+
+            init();
+            requestAnimationFrame(gameLoop);
+
+
+        };
+
+    if (window.addEventListener) {
+        window.addEventListener("load", onLoad, false);
+        window.addEventListener("click", function () { onClick(event) }, false);
+    }
+    function moveContext() {
+        viewportContext.setTransform(1, 0, 0, 1, 0, 0); // Reset context
+        viewportContext.translate(
+            (viewport.width/2-camera.x+camera.width/2)*scale,
+            (viewport.height/2-camera.y+camera.height/2)*scale
+        );
+    };
+
+</script>
+</body>
+</html>

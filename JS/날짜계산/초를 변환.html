@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+</head>
+<body>
+
+</body>
+<script>
+    // 19161919
+    // 7167140919
+
+    const timerCalcu = () => (value) => {
+        let age;
+        const podAge = moment(+new Date() + value);
+        const currentTime = moment(+new Date());
+        const diffYear = podAge.diff(currentTime, 'year');
+
+
+        //[year, month, day, hour, minute, second, millisecond]
+        if (diffYear === 0) {
+            const diffMonth = podAge.diff(currentTime, 'month');
+
+            if (diffMonth === 0) {
+                const diffDay = podAge.diff(currentTime, 'day');
+                if (diffDay === 0) {
+                    const diffHour = podAge.diff(currentTime, 'hour');
+                    if (diffHour === 0) {
+                        const diffMinute = podAge.diff(currentTime, 'minute');
+                        if (diffMinute === 0) {
+                            return [0, "second"];
+                        } else {
+                            return [diffMinute, "minute"];
+                        }
+                    } else {
+                        return [diffHour, "hour"];
+                    }
+                } else {
+                    return [diffDay, "day"];
+                }
+            } else {
+                return [diffMonth, "month"];
+            }
+        } else {
+            return [diffYear, 'year'];
+        }
+
+    };
+    const val = timerCalcu();
+    val(19161919);
+    // 0.001 --> 1초
+    // 60초 -->
+</script>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas {
+            border: red 2px solid;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="canvas" width="1000" height="800"></canvas>
+
+
+</body>
+</html>
+<script type="text/javascript">
+    /**********************************************************************
+     * zoom.js
+     *
+     * Zooming and panning by resetting context transform each time displayed.
+     * Viewing parameters are:
+     *   xleftView: x coordinate of left side of view
+     *   ytopView:  y coordinate of top side of view
+     *   widthView:  width of view
+     *   heightView: height of view
+     * Used as follows before drawing:
+     *   ctx.setTransform(1,0,0,1,0,0);
+     *   ctx.scale(domWidth/widthView, domHeight/heightView);
+     *   ctx.translate(-xleftView,-ytopView);
+     *
+     * Chuck Anderson, 2012, with lots of help from examples by others on the net.
+     *
+     * Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
+     * See http://creativecommons.org/licenses/by-nc/4.0/
+     *
+     * Example use in HTML file:
+     */
+
+
+    var canvas;
+    var ctx;
+    var domWidth;
+    var domHeight;
+
+    // View parameters
+    var xleftView = 0;
+    var ytopView = 0;
+    var screnScale = 1000;
+    var widthViewOriginal = 1.0;        // 캔버스 확대/축소 비율
+    var heightViewOriginal = 1.0;
+    var widthView = widthViewOriginal;           // 캔버스 확대/축소 비율
+    var heightView = heightViewOriginal;
+
+    var lastX = 0;
+    var lastY = 0;
+    window.addEventListener("load", setup, false);
+
+    function setup() {
+        canvas = document.getElementById("canvas");
+        ctx = canvas.getContext("2d");
+
+        domWidth = canvas.width;
+        domHeight = canvas.height;
+
+        // canvas.addEventListener("dblclick", handleDblClick, false);  // dblclick to zoom in at point, shift dblclick to zoom out.
+        canvas.addEventListener("mousedown", handleMouseDown, false); // click and hold to pan
+        canvas.addEventListener("mousemove", handleMouseMove, false);
+        canvas.addEventListener("mouseup", handleMouseUp, false);
+        // canvas.addEventListener("mousewheel", handleMouseWheel, false); // mousewheel duplicates dblclick function
+        // canvas.addEventListener("DOMMouseScroll", handleMouseWheel, false); // for Firefox
+
+        // draw();
+        redraw();
+    }
+    function draw() {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(screnScale / widthView, screnScale / heightView);
+        ctx.translate(-xleftView, -ytopView);
+
+        ctx.fillStyle = "yellow";
+        console.log(xleftView, ytopView, widthView, heightView);
+        ctx.fillRect(xleftView, ytopView, widthView, heightView);
+        ctx.fillStyle = "blue";
+        ctx.fillRect(0.3, 0.5,10, 0.1);
+        ctx.fillStyle = "orange";
+        ctx.fillRect(0,  0, 100 / screnScale, 100 / screnScale);
+        ctx.fillStyle = "red";
+        ctx.fillRect(0.3, 0.2, 0.4, 0.2);
+        ctx.fillStyle = "green";
+        ctx.beginPath();
+        ctx.arc(widthView / 2 + xleftView, heightView / 2 + ytopView, 0.05, 0, 360, false);
+        ctx.fill();
+    }
+    function redraw() {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        // ctx.scale(widthView, heightView);
+        // console.log(-xleftView, -ytopView);
+        ctx.translate(-xleftView, -ytopView);
+
+        ctx.fillStyle = "yellow";
+        ctx.fillRect(0, 0, domWidth, domHeight);
+        ctx.fillStyle = "blue";
+        console.log((100),(500));
+        ctx.fillRect((100),(500),100, 100);
+        ctx.fillStyle = "red";
+        ctx.fillRect(300, 200, 400, 200);
+        ctx.fillStyle = "green";
+        ctx.beginPath();
+        ctx.arc(domWidth / 2, domHeight / 2 , 50, 0, 360, false);
+        ctx.fill();
+    }
+    function handleMouseMove(event) {
+        var X = event.clientX - this.offsetLeft - this.clientLeft + this.scrollLeft;
+        var Y = event.clientY - this.offsetTop - this.clientTop + this.scrollTop;
+
+        if (mouseDown) {
+            var dx = (X - lastX)
+            var dy = (Y - lastY)
+            // console.log(dx, dy);
+            xleftView -= dx;
+            ytopView -= dy;
+        }
+        // 마우스 좌표
+        lastX = X;
+        lastY = Y;
+
+
+        // draw();
+        redraw();
+    }
+
+    function handleDblClick(event) {
+        var X = event.clientX - this.offsetLeft - this.clientLeft + this.scrollLeft; //Canvas coordinates
+        var Y = event.clientY - this.offsetTop - this.clientTop + this.scrollTop;
+        var x = X / domWidth * widthView + xleftView;  // View coordinates
+        var y = Y / domHeight * heightView + ytopView;
+
+        var scale = event.shiftKey == 1 ? 1.5 : 0.5; // shrink (1.5) if shift key pressed
+        widthView *= scale;
+        heightView *= scale;
+
+        if (widthView > widthViewOriginal || heightView > heightViewOriginal) {
+            widthView = widthViewOriginal;
+            heightView = heightViewOriginal;
+            x = widthView / 2;
+            y = heightView / 2;
+        }
+
+        xleftView = x - widthView / 2;
+        ytopView = y - heightView / 2;
+
+        draw();
+    }
+
+    var mouseDown = false;
+
+    function handleMouseDown(event) {
+        mouseDown = true;
+    }
+
+    function handleMouseUp(event) {
+        mouseDown = false;
+    }
+
+
+
+
+    function handleMouseWheel(event) {
+        var x = widthView / 2 + xleftView;  // View coordinates
+        var y = heightView / 2 + ytopView;
+
+        var scale = (event.wheelDelta < 0 || event.detail > 0) ? 1.1 : 0.9;
+        widthView *= scale;
+        heightView *= scale;
+
+        if (widthView > widthViewOriginal || heightView > heightViewOriginal) {
+            widthView = widthViewOriginal;
+            heightView = heightViewOriginal;
+            x = widthView / 2;
+            y = heightView / 2;
+        }
+
+// scale about center of view, rather than mouse position. This is different than dblclick behavior.
+        xleftView = x - widthView / 2;
+        ytopView = y - heightView / 2;
+
+        draw();
+    }
+
+</script>
+</body>
+</html>

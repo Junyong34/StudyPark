@@ -219,7 +219,7 @@ var RTMEqualizerChart = (function () {
                     // 서버목록 객체가아니면 마우스 무브 이벤트 걸지않는다.
 
                     if (entity) {
-                        console.dir(entity.bizName);
+                        // console.dir(entity.bizName);
                         self.dom.style.cursor = 'pointer';
                         // 툴팁 이벤트 건다.
                         // alarmLevel !== 0 일때만 실행(normal 이 아닐때만)

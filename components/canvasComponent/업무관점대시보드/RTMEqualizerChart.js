@@ -46,7 +46,7 @@ var RTMEqualizerChart = (function () {
             RTMEqualizerChart.prototype.initResize = function (bizData) {
                 var ix, ixLen;
                 var domSize = this.dom.getBoundingClientRect();
-                console.log("Window size: width=" + domSize.width + ", height=" + domSize.height);
+                // console.log("Window size: width=" + domSize.width + ", height=" + domSize.height);
                 this.width = domSize.width; // 캔버스 넓이
                 this.height = domSize.height; // 캔버스 높이
                 for (ix = 0, ixLen = this.canvasList.length; ix < ixLen; ix++) {
@@ -219,7 +219,7 @@ var RTMEqualizerChart = (function () {
                     // 서버목록 객체가아니면 마우스 무브 이벤트 걸지않는다.
 
                     if (entity) {
-                        console.dir(entity.bizName);
+                        // console.dir(entity.bizName);
                         self.dom.style.cursor = 'pointer';
                         // 툴팁 이벤트 건다.
                         // alarmLevel !== 0 일때만 실행(normal 이 아닐때만)
@@ -382,7 +382,7 @@ var RTMEqualizerChart = (function () {
                 } else {
                     this.eqName.fontColor = this.colors.fontColor;
                 }
-                console.log(this.alarmBox.lineLength);
+                // console.log(this.alarmBox.lineLength);
                 this.eqName.text = bizName;
                 if (this.alarmBox.lineLength > 195) {
                     txtspace = this.Hspace * 0.5;
@@ -547,7 +547,7 @@ var RTMEqualizerChart = (function () {
                 this.alarmDiv.id = divId;
                 this.svgId.push(divId);
                 this.alarmDiv.className = "alarmSVG";
-                console.log(this.alarmDiv);
+                // console.log(this.alarmDiv);
                 this.dom.appendChild(this.alarmDiv);
 
             }
@@ -621,7 +621,7 @@ var RTMEqualizerChart = (function () {
 
 
                         // 전체에 대한 비율 값 정보 추출
-                        console.log(alarmLevel);
+                        // console.log(alarmLevel);
                         if (alarmLevel !== 3) this.activeRect(this.ratioCalu(bizData, totalActiveTxn));
 
                         this.sy = (this.sy) + this.alarmBox.height + this.Vspace + 5;
