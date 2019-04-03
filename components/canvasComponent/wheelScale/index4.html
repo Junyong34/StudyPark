@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Canvas Click, Drag, and Zoom</title>
+    <style>
+        * {
+            font-family: Arial, sans-serif;
+        }
+
+        #myCanvas {
+            border: 1px solid gray;
+            margin: auto;
+            cursor: move;
+            position: relative;
+        }
+
+        #main {
+            width: 800px;
+            height: 500px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #0078A8;
+            overflow: auto;
+            /*overflow: hidden;*/
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+<body>
+<div id="myDiagramDiv"
+     style="background-color: whitesmoke; border: 1px solid black; width: 100%; height: 400px;
+      position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0); cursor: auto;
+       font: 10pt helvetica, arial, sans-serif;">
+    <canvas tabindex="0" width="1889" height="608" id="drawScene"
+            style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; width: 1889px; height: 608px; cursor: auto;">
+        This text is displayed if your browser does not support the Canvas HTML element.
+    </canvas>
+    <div style="position: absolute;overflow: auto;width: 1906px;height: 608px;background: #dbedff;z-index: 1;">
+        <div id="viewport" style="position: absolute; width: 1px; height: 1px;"></div>
+    </div>
+</div>
+<script>
+
+    //
+    const domCanvas = document.getElementById("drawScene");
+    const ctxScene = domCanvas.getContext("2d");
+    const domViewPort = document.getElementById("viewport");
+    var mouseDown = false;
+    var mPointer = {
+        x: 0,
+        y: 0,
+    };
+    let scale = 4;
+    let translation = {x: 0, y: 0};
+    const randMinMax = (min, max, round) => {
+        let val = min + (Math.random() * (max - min));
+        if (round) val = Math.round(val);
+        return val;
+    }
+
+    domCanvas.addEventListener("mousedown", handleMouseDown, false); // click and hold to pan
+    domCanvas.addEventListener("mousemove", handleMouseMove, false);
+    domCanvas.addEventListener("mouseup", handleMouseUp, false);
+
+    domCanvas.addEventListener("mousewheel", handleMouseWheel, false); // mousewheel duplicates dblclick function
+
+    function init() {
+        wheelPixelRatio(scale);
+        viewportResize(1906, 608);
+    }
+
+    init();
+
+    function viewportResize(w, h) {
+        domViewPort.style.width = w + "px";
+        domViewPort.style.height = h + "px";
+
+    }
+
+    const target = [];
+    const createData = () => {
+        for (let ix = 0; ix < 1000; ix++) {
+            const data = {};
+            data.id = "node" + ix;
+            data.x = randMinMax(0, 2906);
+            data.y = randMinMax(0, 800);
+            data.size = 8;
+            data.color = "#" + getRandomColor();
+            target.push(data);
+        }
+    };
+    createData();
+
+
+    // function draw() {
+    //     for (let ix = 0; ix < target.length; ix++) {
+    //         const targetData = target[ix];
+    //         ctxScene.save();
+    //         ctxScene.fillStyle = targetData.color;
+    //         ctxScene.beginPath();
+    //         // ctxScene.fillRect(node.pos2dX, node.y, node.width, node.height);
+    //         ctxScene.arc(
+    //             targetData.x,
+    //             targetData.y,
+    //             targetData.size,
+    //             0,
+    //             Math.PI * 2,
+    //             true,
+    //         );
+    //
+    //
+    //         ctxScene.fill();
+    //         ctxScene.closePath();
+    //         ctxScene.restore();
+    //     }
+    //
+    // }
+
+    function zoomIn() {
+        scale += 0.05;
+
+    }
+
+    function zoomOut() {
+        scale -= 0.05;
+    }
+
+    function handleMouseWheel(e) {
+        const wheelDelta = getDelta(e);
+
+        if (wheelDelta !== 0) {
+            // const scale = 0.05;
+            let setScale = wheelDelta > 0 ? 0.05 : -0.05;
+            scale = scale + setScale;
+            // console.log(scale);
+            wheelPixelRatio(scale);
+            draw();
+            // 이벤트 전파 방지
+            if (e.preventDefault) {
+                e.preventDefault();
+            } else {
+                e.returnValue = false;
+            }
+            e.stopPropagation();
+        }
+    }
+
+    function wheelPixelRatio(ratio) {
+        console.log(ratio);
+        if (ratio < 1.000001) {
+            scale = 1;
+            return;
+        }
+        if (ratio > 4.000001) {
+            scale = 4;
+            return;
+        }
+        ctxClear(ctxScene);
+        ctxScene.setTransform(1, 0, 0, 1, 0, 0);
+        // console.log(this.widthView, this.heightView, "비율");
+        ctxScene.scale(ratio, ratio);
+        // ctxScene.scale(this.widthView, this.heightView);
+        // console.log(-this.xleftView, -this.ytopView);
+        // ctxScene.translate(-this.xleftView, -this.ytopView);
+
+    }
+
+    function ctxClear(ctx, ratio) {
+        ctx.clearRect(0, 0, domCanvas.getBoundingClientRect().width, domCanvas.getBoundingClientRect().height);
+    }
+
+    function handleMouseDown(e) {
+        e.preventDefault();
+
+        if (e.which !== 1) {
+            return;
+        }
+        mouseXY(e);
+        mouseDown = true;
+
+    }
+
+    function handleMouseMove(e) {
+
+    }
+
+    function handleMouseUp(e) {
+
+    }
+
+    function mouseXY(e) {
+        if (!e.offsetX) {
+            e.offsetX = e.layerX - e.target.offsetLeft;
+            e.offsetY = e.layerY - e.target.offsetTop;
+        }
+
+        mPointer.x = e.offsetX;
+        mPointer.y = e.offsetY;
+
+
+    }
+
+    function getRandomColor() {
+        return Math.floor(Math.random() * 16777215).toString(16);
+    }
+
+    function getDelta(e) {
+        return (
+            (e.wheelDelta !== undefined && e.wheelDelta) ||
+            (e.detail !== undefined && -e.detail)
+        );
+    }
+    var i = 1;
+    function circle() {
+        console.log(1111);
+        ctxScene.save();
+        // ctx.translate(400,250);
+        setInterval(circleAni, 1000);
+    }
+
+    function circleAni() {
+        ctxScene.fillStyle = 'rgba(' + (255 - i) + ',' + (255 - 10 * i) + ',100, 0.5)';
+
+        for (var j = 0; j < i * 6; j++) { // draw individual dots
+            ctxScene.rotate(Math.PI * 2 / (i * 6));
+            ctxScene.beginPath();
+            ctxScene.arc(300, i * 12.5, 5, 0, Math.PI * 2, true);
+            ctxScene.fill();
+        }
+
+        i += 1.5;
+
+        if (i > 45) {
+            ctxScene.restore();
+            ctxScene.save();
+            i = 1;
+            ctxScene.clearRect(0, 0, 1000, 1000);
+            // ctx.translate(400,250);
+        }
+    }
+
+    circle();
+    // 그리기
+    draw();
+</script>
+</body>
+</html>
+

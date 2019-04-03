@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas {
+            border: red 2px solid;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<button onclick="loop();" style="position: absolute;top:100px;left: 1200px;">Click me</button>
+<canvas id="canvas" width="1000" height="800"
+        style="position: absolute;top:0px;left: 0px;"></canvas>
+<canvas id="anim" width="1000" height="800" style="position: absolute;top:0px;left: 0px;"></canvas>
+
+</body>
+</html>
+<script type="text/javascript">
+    /**********************************************************************
+     * zoom.js
+     *
+     * Zooming and panning by resetting context transform each time displayed.
+     * Viewing parameters are:
+     *   xleftView: x coordinate of left side of view
+     *   ytopView:  y coordinate of top side of view
+     *   widthView:  width of view
+     *   heightView: height of view
+     * Used as follows before drawing:
+     *   ctx.setTransform(1,0,0,1,0,0);
+     *   ctx.scale(domWidth/widthView, domHeight/heightView);
+     *   ctx.translate(-xleftView,-ytopView);
+     *
+     * Chuck Anderson, 2012, with lots of help from examples by others on the net.
+     *
+     * Licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
+     * See http://creativecommons.org/licenses/by-nc/4.0/
+     *
+     * Example use in HTML file:
+     */
+
+
+    var canvas;
+    var ctx;
+    var domWidth;
+    var domHeight, canvas2, ctxani;
+
+    // View parameters
+    var xleftView = 0;
+    var ytopView = 0;
+    var screnScale = 1000;
+    var widthViewOriginal = 1.0;        // 캔버스 확대/축소 비율
+    var heightViewOriginal = 1.0;
+    var widthView = widthViewOriginal;           // 캔버스 확대/축소 비율
+    var heightView = heightViewOriginal;
+
+    var lastX = 0;
+    var lastY = 0;
+    window.addEventListener("load", setup, false);
+
+    function setup() {
+        canvas = document.getElementById("canvas");
+        ctx = canvas.getContext("2d");
+        canvas2 = document.getElementById("anim");
+        ctxani = canvas.getContext("2d");
+
+        domWidth = canvas.width;
+        domHeight = canvas.height;
+
+
+        // draw();
+        // loop();
+        draw();
+    }
+
+    function draw() {
+        ctx.save();
+        ctx.fillStyle = "#70ff61";
+        ctx.beginPath();
+        // ctx.fillRect(node.pos2dX, node.y, node.width, node.height);
+        ctx.arc(
+            500,
+            300,
+            30,
+            0,
+            Math.PI * 2,
+            true,
+        );
+        ctx.fill();
+        ctx.closePath();
+        // ctx.fillStyle = "blue";
+        // ctx.fillRect(
+        //     node.pos2dX - node.size,
+        //     node.pos2dY - node.size,
+        //     node.width,
+        //     node.height,
+        // );
+        ctx.restore();
+    }
+
+    var alpha = 1;
+    var velocity = 0.05;
+    var radius = 35;
+    var circleLoop = null;
+    var animationTimer = null;
+    var fps = 16;
+    function loop() {
+
+        if (circleLoop != null) {
+            cancelAnimationFrame(circleLoop);
+        }
+
+        ctxani.clearRect(0, 0, 1000, 900);
+        ctxani.save();
+        ctxani.globalAlpha = alpha;
+        ctxani.fillStyle = "#ff523c";
+        ctxani.beginPath();
+        // ctxani.fillRect(node.pos2dX, node.y, node.width, node.height);
+        ctxani.arc(
+            500,
+            300,
+            radius,
+            0,
+            Math.PI * 2,
+            true,
+        );
+        ctxani.fill();
+        ctxani.closePath();
+        // ctxani.fillStyle = "blue";
+        // ctxani.fillRect(
+        //     node.pos2dX - node.size,
+        //     node.pos2dY - node.size,
+        //     node.width,
+        //     node.height,
+        // );
+        ctxani.restore();
+        draw();
+        radius = radius > 40 ? 35 : radius + 0.3;
+        alpha = alpha < 0 ? 1 : alpha - velocity;
+
+        circleLoop = requestAnimationFrame(loop);
+    }
+
+    function myFunction() {
+        console.log(111111);
+        loop();
+    }
+
+</script>
+</body>
+</html>

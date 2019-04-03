@@ -70,11 +70,11 @@
         canvas.addEventListener("mousedown", handleMouseDown, false); // click and hold to pan
         canvas.addEventListener("mousemove", handleMouseMove, false);
         canvas.addEventListener("mouseup", handleMouseUp, false);
-        // canvas.addEventListener("mousewheel", handleMouseWheel, false); // mousewheel duplicates dblclick function
+        canvas.addEventListener("mousewheel", handleMouseWheel, false); // mousewheel duplicates dblclick function
         // canvas.addEventListener("DOMMouseScroll", handleMouseWheel, false); // for Firefox
 
         // draw();
-        redraw();
+        draw();
     }
     function draw() {
         ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -82,7 +82,7 @@
         ctx.translate(-xleftView, -ytopView);
 
         ctx.fillStyle = "yellow";
-        console.log(xleftView, ytopView, widthView, heightView);
+        // console.log(xleftView, ytopView, widthView, heightView);
         ctx.fillRect(xleftView, ytopView, widthView, heightView);
         ctx.fillStyle = "blue";
         ctx.fillRect(0.3, 0.5,10, 0.1);
@@ -104,7 +104,7 @@
         ctx.fillStyle = "yellow";
         ctx.fillRect(0, 0, domWidth, domHeight);
         ctx.fillStyle = "blue";
-        console.log((100),(500));
+        // console.log((100),(500));
         ctx.fillRect((100),(500),100, 100);
         ctx.fillStyle = "red";
         ctx.fillRect(300, 200, 400, 200);
@@ -120,7 +120,7 @@
         if (mouseDown) {
             var dx = (X - lastX)
             var dy = (Y - lastY)
-            // console.log(dx, dy);
+            console.log(dx, dy);
             xleftView -= dx;
             ytopView -= dy;
         }
@@ -130,7 +130,7 @@
 
 
         // draw();
-        redraw();
+        draw();
     }
 
     function handleDblClick(event) {
@@ -170,6 +170,7 @@
 
 
     function handleMouseWheel(event) {
+        debugger
         var x = widthView / 2 + xleftView;  // View coordinates
         var y = heightView / 2 + ytopView;
 

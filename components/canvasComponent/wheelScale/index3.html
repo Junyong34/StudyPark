@@ -66,7 +66,7 @@
             };
 
             function draw() {
-                context.drawImage(background.image, 0, 0, canvas.width, canvas.height);
+                context.drawImage(background.image, 0, 0, canvas.width , canvas.height);
                 // Draw camera guide
                 context.strokeStyle = 'red';
                 context.beginPath();
@@ -79,16 +79,33 @@
 
                 // Draw viewport background
                 viewportContext.clearRect(0, 0, viewport.width, viewport.height);
+                console.log(background.width, background.height);
                 viewportContext.drawImage(background.image, -background.width/2, -background.height/2, background.width, background.height);
+                // viewportContext.drawImage(background.image, 0, 0, background.width, background.height);
+                viewportContext.fillStyle = "red"
+                viewportContext.beginPath();
+                // viewportContext.fillRect(node.pos2dX, node.y, node.width, node.height);
+                viewportContext.arc(
+                    100,
+                    200,
+                    4,
+                    0,
+                    Math.PI * 2,
+                    true,
+                );
+
+                viewportContext.fill();
+                viewportContext.closePath();
             };
 
             function update() {
             };
 
             function gameLoop() {
+                console.log(1111);
                 update();
                 draw();
-                requestAnimationFrame(gameLoop);
+                // requestAnimationFrame(gameLoop);
             };
 
 
@@ -97,12 +114,14 @@
                     y = event.offsetY;
 
                 //alert("x: " + x + "\ny: " + y);
-                moveCamera({ x: x, y: y });
-            };
+                moveCamera({x: x, y: y});
 
+                gameLoop();
+            }
 
             init();
-            requestAnimationFrame(gameLoop);
+            setTimeout(() => gameLoop(),2000);
+            // requestAnimationFrame(gameLoop);
 
 
         };
