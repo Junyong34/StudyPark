@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgb(34, 34, 34);
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>var canvas = document.getElementById('canvas'),
+    c = canvas.getContext('2d'),
+    w = window.innerWidth,
+    h = window.innerHeight,
+    opt = {
+        canvas: {
+            pAmount: 1,
+            bgColor: 'rgba(34, 34, 34, .2)'
+        },
+        particle: {
+            speed: 1,
+            directions: [
+                [1, 0], //right
+
+            ],
+            color: [255, 255, 255],
+            size: 5
+        }
+
+    },
+    Particle = function (x, y) {
+        this.x = x || 0;
+        this.y = y || 0;
+        this.direction = opt.particle.directions[Math.floor(Math.random() * opt.particle.directions.length)];
+
+        this.recalc = function () {
+            this.direction = opt.particle.directions[Math.floor(Math.random() * opt.particle.directions.length)];
+        }
+
+
+        this.update = function () {
+
+            this.x += this.direction[0] * opt.particle.speed;
+            this.y += this.direction[1] * opt.particle.speed;
+            Math.random() < 0.1 ? this.recalc() : undefined;
+        };
+
+        this.render = function () {
+
+            c.fillStyle = 'rgba(' + opt.particle.color[0] + ',' + opt.particle.color[1] + ',' + opt.particle.color[2] + ', 1)';
+            // c.fillRect(this.x, this.y, opt.particle.size, opt.particle.size);
+            c.beginPath();
+            c.arc(this.x, this.y, opt.particle.size, 0, 2 * Math.PI, false);
+            c.closePath();
+            c.fill();
+        };
+        this.checkBorder = function () {
+            if (this.x < 0) {
+                this.direction[0] *= -1;
+                this.x = 0;
+            }
+            if (this.x > w - opt.particle.size) {
+                this.direction[0] *= -1;
+                this.x = w - opt.particle.size
+            }
+            if (this.y < 0) {
+                this.direction[1] *= -1;
+                this.y = 0;
+            }
+            if (this.y > h - opt.particle.size) {
+                this.direction[1] *= -1;
+                this.y = h - opt.particle.size;
+            }
+        };
+    }
+
+var particles = [];
+
+setInterval(function () {
+    opt.particle.color = randomColor();
+}, opt.particle.speed * 500);
+
+canvas.width = w;
+canvas.height = h;
+
+window.addEventListener('resize', function () {
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w;
+    canvas.height = h;
+});
+
+
+function randomColor() {
+    var color = [
+        [244, 67, 54],
+        [233, 30, 99],
+        [63, 81, 181],
+        [33, 150, 243],
+        [3, 169, 244],
+        [0, 150, 136],
+        [0, 230, 118],
+        [253, 216, 53],
+        [255, 87, 34]
+    ];
+
+    return color[Math.floor(Math.random() * color.length)];
+}
+
+function setup() {
+    for (var i = 0; i < opt.canvas.pAmount; i++) {
+        particles.push(new Particle(
+            Math.random() * w,
+            Math.random() * h
+        ));
+    }
+
+    setTimeout(function () {
+        window.requestAnimationFrame(loop);
+    }, 1000 / 30);
+
+}
+
+function loop() {
+    c.fillStyle = opt.canvas.bgColor;
+    c.fillRect(0, 0, w, h);
+
+    particles.map(function (P) {
+        P.update();
+        P.render();
+        // P.checkBorder();
+    });
+
+
+    setTimeout(function () {
+        window.requestAnimationFrame(loop);
+    }, 1000 / 30);
+
+}
+
+setup();
+</script>
+</body>
+</html>
