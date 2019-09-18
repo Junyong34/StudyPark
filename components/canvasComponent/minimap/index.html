@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Line Chart</title>
+    <style>
+        #main {
+            position: relative;
+            /*left: 50px;*/
+            /*top: 50px;*/
+            width: 1000px;
+            height: 500px;
+            background-color: #393c43;
+            overflow: auto;
+        }
+        #mainView {
+        }
+
+        #main2 {
+            position: absolute;
+            /*left: 500px;*/
+            /*top: 50px;*/
+        }
+
+        #container {
+            position: absolute;
+            left: 100px;
+            top: 100px;
+        }
+
+        body {
+            /*background:url(/image/equalizers.png) no-repeat;*/
+            /*padding-left: 206px;*/
+            /*padding-top: 40px;*/
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="Mmain">
+
+    <div id="main">
+        <canvas id="mainView" width="2000px" height="1500px"></canvas>
+
+    </div>
+</div>
+<div style="background-color: #5E97FF; width:300px; height:300px;">
+
+</div>
+</body>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+<script>
+    const domVP = document.getElementById("main");
+    const canvas = document.getElementById("mainView");
+    const canvasContext = canvas.getContext("2d");
+
+
+    var ratio = 1; // 비율
+    var vpx = 0; // viewPort X
+    var vpy = 0; // viewPort Y
+    debugger;
+    var vpw = window.innerWidth;
+    var vph = window.innerHeight;
+
+    var orig_width = 4000
+    var orig_height = 4000
+
+    var width = 4000
+    var height = 4000
+    var is_down, is_drag, last_drag
+
+    canvas.addEventListener("mousedown", this.handleMouseDown);
+    canvas.addEventListener("mousemove", this.handleMouseMove);
+    canvas.addEventListener("mouseup", this.handleMouseUp);
+    canvas.addEventListener("mouseout", this.handleMouseOut);
+    canvas.addEventListener("wheel", this.handleMouseWheel);
+
+    function handleMouseDown(ev) {
+        is_down = true
+        is_drag = false
+        last_drag = {x: ev.clientX, y: ev.clientY}
+    }
+
+    function handleMouseMove(ev) {
+        is_drag = true
+
+        if (is_down) {
+            var x = vpx - (last_drag.x - ev.clientX)
+            var y = vpy - (last_drag.y - ev.clientY)
+
+            if (x <= 0 && vpw < x + width) {
+                vpx = x
+            }
+
+            if (y <= 0 && vph < y + height) {
+                vpy = y
+            }
+
+            last_drag = {x: ev.clientX, y: ev.clientY}
+        }
+    }
+
+    function handleMouseUp(ev) {
+        is_down = false
+        last_drag = null
+
+        var was_click = !is_drag
+        is_drag = false
+
+        if (was_click) {
+
+        }
+    }
+
+    function handleMouseOut() {
+
+    }
+
+    function handleMouseWheel(ev) {
+
+        ev.preventDefault() // for stackoverflow
+
+        var step
+
+        if (ev.wheelDelta) {
+            step = (ev.wheelDelta > 0) ? 0.05 : -0.05
+        }
+
+        if (ev.deltaY) {
+            step = (ev.deltaY > 0) ? 0.05 : -0.05
+        }
+
+        if (!step) return false // yea..
+
+        var new_ratio = ratio + step
+        var min_ratio = Math.max(vpw / orig_width, vph / orig_height)
+        var max_ratio = 3.0
+
+        if (new_ratio < min_ratio) {
+            new_ratio = min_ratio
+        }
+
+        if (new_ratio > max_ratio) {
+            new_ratio = max_ratio
+        }
+
+        // zoom center point
+        var targetX = ev.clientX || (vpw / 2)
+        var targetY = ev.clientY || (vph / 2)
+
+        // percentages from side
+        var pX = ((vpx * -1) + targetX) * 100 / width
+        var pY = ((vpy * -1) + targetY) * 100 / height
+
+        // update ratio and dimentsions
+        ratio = new_ratio
+        width = orig_width * new_ratio
+        height = orig_height * new_ratio
+
+        // translate view back to center point
+        var x = ((width * pX / 100) - targetX)
+        var y = ((height * pY / 100) - targetY)
+
+        // don't let viewport go over edges
+        if (x < 0) {
+            x = 0
+        }
+
+        if (x + vpw > width) {
+            x = width - vpw
+        }
+
+        if (y < 0) {
+            y = 0
+        }
+
+        if (y + vph > height) {
+            y = height - vph
+        }
+
+        vpx = x * -1
+        vpy = y * -1
+    }
+
+
+    // $(window).on('resize', function () {
+    //     $(canvas).prop({
+    //         width: window.innerWidth,
+    //         height: window.innerHeight,
+    //     })
+    // }).trigger('resize')
+    //
+    // $(canvas).on('wheel', function (ev) {
+    //     debugger;
+    // })
+
+
+    //
+    // $(canvas).on('mousedown', function (ev) {
+    //
+    // })
+
+    // $(canvas).on('mousemove', function (ev) {
+    //
+    // })
+
+    // $(canvas).on('mouseup', function (ev) {
+    //
+    // })
+
+    // $(canvas).css({ position: 'absolute', top: 0, left: 0 }).appendTo(document.body)
+
+    function animate() {
+        window.requestAnimationFrame(animate);
+
+        canvasContext.clearRect(0, 0, canvas.width, canvas.height)
+        // for (let ix = 0; ix < 500; ix++) {
+            canvasContext.beginPath();
+            canvasContext.arc( 500 + vpx,
+                 300 + vpy, 10 * ratio, 0, 2 * Math.PI, false
+            );
+            canvasContext.fillStyle = "#" + Math.round(Math.random() * 0xffffff).toString(16);
+            canvasContext.fill();
+        // }
+        // canvasContext.lineWidth = 1
+        // canvasContext.strokeStyle = '#ccc'
+
+        // var step = 100 * ratio
+
+        // for (var x = vpx; x < width + vpx; x += step) {
+        //     canvasContext.beginPath()
+        //     canvasContext.moveTo(x, vpy)
+        //     canvasContext.lineTo(x, vpy + height)
+        //     canvasContext.stroke()
+        // }
+        // for (var y = vpy; y < height + vpy; y += step) {
+        //     canvasContext.beginPath()
+        //     canvasContext.moveTo(vpx, y)
+        //     canvasContext.lineTo(vpx + width, y)
+        //     canvasContext.stroke()
+        // }
+        //
+        // canvasContext.strokeRect(vpx, vpy, width, height)
+        //
+        // canvasContext.beginPath()
+        // canvasContext.moveTo(vpx, vpy)
+        // canvasContext.lineTo(vpx + width, vpy + height)
+        // canvasContext.stroke()
+        //
+        // canvasContext.beginPath()
+        // canvasContext.moveTo(vpx + width, vpy)
+        // canvasContext.lineTo(vpx, vpy + height)
+        // canvasContext.stroke()
+
+        canvasContext.restore()
+    }
+
+    animate()
+
+
+</script>
+</html>
