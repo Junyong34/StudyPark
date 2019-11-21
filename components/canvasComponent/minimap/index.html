@@ -13,7 +13,9 @@
             background-color: #393c43;
             overflow: auto;
         }
+
         #mainView {
+
         }
 
         #main2 {
@@ -41,7 +43,7 @@
 <div id="Mmain">
 
     <div id="main">
-        <canvas id="mainView" width="2000px" height="1500px"></canvas>
+        <canvas id="mainView" width="1440" height="1440"></canvas>
 
     </div>
 </div>
@@ -49,17 +51,16 @@
 
 </div>
 </body>
+<!--<script src="minimap.js"></script>-->
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
 <script>
     const domVP = document.getElementById("main");
     const canvas = document.getElementById("mainView");
     const canvasContext = canvas.getContext("2d");
 
-
     var ratio = 1; // 비율
     var vpx = 0; // viewPort X
     var vpy = 0; // viewPort Y
-    debugger;
     var vpw = window.innerWidth;
     var vph = window.innerHeight;
 
@@ -79,7 +80,7 @@
     function handleMouseDown(ev) {
         is_down = true
         is_drag = false
-        last_drag = {x: ev.clientX, y: ev.clientY}
+        last_drag = { x: ev.clientX, y: ev.clientY }
     }
 
     function handleMouseMove(ev) {
@@ -90,10 +91,12 @@
             var y = vpy - (last_drag.y - ev.clientY)
 
             if (x <= 0 && vpw < x + width) {
+                console.log(1111);
                 vpx = x
             }
 
             if (y <= 0 && vph < y + height) {
+                console.log(222);
                 vpy = y
             }
 
@@ -118,7 +121,6 @@
     }
 
     function handleMouseWheel(ev) {
-
         ev.preventDefault() // for stackoverflow
 
         var step
@@ -213,45 +215,44 @@
 
     function animate() {
         window.requestAnimationFrame(animate);
+        const raduis = 10 * ratio
+        canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+        // for (let ix = 0; ix < 500; ix++) {
+
+        canvasContext.beginPath();
+        window.requestAnimationFrame(animate)
 
         canvasContext.clearRect(0, 0, canvas.width, canvas.height)
-        // for (let ix = 0; ix < 500; ix++) {
-            canvasContext.beginPath();
-            canvasContext.arc( 500 + vpx,
-                 300 + vpy, 10 * ratio, 0, 2 * Math.PI, false
-            );
-            canvasContext.fillStyle = "#" + Math.round(Math.random() * 0xffffff).toString(16);
-            canvasContext.fill();
-        // }
-        // canvasContext.lineWidth = 1
-        // canvasContext.strokeStyle = '#ccc'
 
-        // var step = 100 * ratio
+        canvasContext.lineWidth = 1
+        canvasContext.strokeStyle = '#ccc'
 
-        // for (var x = vpx; x < width + vpx; x += step) {
-        //     canvasContext.beginPath()
-        //     canvasContext.moveTo(x, vpy)
-        //     canvasContext.lineTo(x, vpy + height)
-        //     canvasContext.stroke()
-        // }
-        // for (var y = vpy; y < height + vpy; y += step) {
-        //     canvasContext.beginPath()
-        //     canvasContext.moveTo(vpx, y)
-        //     canvasContext.lineTo(vpx + width, y)
-        //     canvasContext.stroke()
-        // }
-        //
-        // canvasContext.strokeRect(vpx, vpy, width, height)
-        //
-        // canvasContext.beginPath()
-        // canvasContext.moveTo(vpx, vpy)
-        // canvasContext.lineTo(vpx + width, vpy + height)
-        // canvasContext.stroke()
-        //
-        // canvasContext.beginPath()
-        // canvasContext.moveTo(vpx + width, vpy)
-        // canvasContext.lineTo(vpx, vpy + height)
-        // canvasContext.stroke()
+        var step = 100 * ratio
+
+        for (var x = vpx; x < width + vpx; x += step) {
+            canvasContext.beginPath()
+            canvasContext.moveTo(x, vpy)
+            canvasContext.lineTo(x, vpy + height)
+            canvasContext.stroke()
+        }
+        for (var y = vpy; y < height + vpy; y += step) {
+            canvasContext.beginPath()
+            canvasContext.moveTo(vpx, y)
+            canvasContext.lineTo(vpx + width, y)
+            canvasContext.stroke()
+        }
+
+        canvasContext.strokeRect(vpx, vpy, width, height)
+
+        canvasContext.beginPath()
+        canvasContext.moveTo(vpx, vpy)
+        canvasContext.lineTo(vpx + width, vpy + height)
+        canvasContext.stroke()
+
+        canvasContext.beginPath()
+        canvasContext.moveTo(vpx + width, vpy)
+        canvasContext.lineTo(vpx, vpy + height)
+        canvasContext.stroke()
 
         canvasContext.restore()
     }
