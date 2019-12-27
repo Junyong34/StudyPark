@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./BHex.Core.js"></script>
+    <script src="./BHex.Drawing.js"></script>
+    <script src="./BinaryHeap.js"></script>
+    <style>
+        .main {
+            width: 500px;
+            height: 500px;
+            background: #2f2f2f;
+        }
+
+        #hexmap {
+            background: #ffa955;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <canvas id="hexmap" width="500" height="500"></canvas>
+</div>
+<script>
+    var grid;
+    var canvas = document.getElementById('hexmap');
+    var ctx = canvas.getContext('2d');
+    function setup() {
+// Setup options: Size of the a single side, orientation (or PointyTop) and where the center of the grid should be.
+        var options = new BHex.Drawing.Options(10, BHex.Drawing.Static.Orientation.PointyTop, new BHex.Drawing.Point(250, 250));
+// Create the grid as before.
+        grid = new BHex.Grid(8);
+        BHex.Drawing.Drawing(grid, options);
+        // grid.getHexAtPoint(BHex.Drawing.Point(50, 75));
+//grid = new BHex.Grid(3); - This works
+    }
+
+    function draw() {
+
+
+        const hexList = grid.hexes;
+        // ctx.translate(150, 150);
+        hexList.forEach(Hex => {
+            const HexP = Hex.points;
+
+
+            ctx.save();
+            ctx.beginPath();
+
+            ctx.moveTo(HexP[0].x, HexP[0].y);
+            // dotDraw(ctx, Hex.center.x, Hex.center.y, "#5160ff");
+            for (let i = 1; i < HexP.length; i++) {
+                const point = HexP[i];
+                // dotDraw(ctx, point.x, point.y, "#5160ff");
+                ctx.lineTo(point.x, point.y);
+            }
+            ctx.lineTo(HexP[0].x, HexP[0].y);
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 3;
+            ctx.globalAlpha = 1;
+            // ctx.fillStyle = "rgba(48, 48, 55, 0.6)";
+            ctx.fillStyle = "rgba(48, 48, 55, 0.6)";
+            ctx.globalAlpha = 0.6;
+
+            ctx.font = "bolder 10pt Roboto-Regular,Tahoma,Verdana,Arial,sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            // var textWidth = ctx.measureText(this.Planet.BoundingHex.Id);
+            ctx.fillText(Hex.x + ", "+ Hex.y , Hex.center.x, Hex.center.y);
+            ctx.fill();
+            ctx.stroke();
+            // ctx.shadowColor = "gray";
+            ctx.closePath();
+            ctx.restore();
+
+
+        });
+
+    }
+    function dotDraw(ctx, X, Y, color) {
+        ctx.save();
+        ctx.fillStyle = color;
+        ctx.beginPath();
+
+        ctx.arc(
+            X,
+            Y,
+            2,
+            0,
+            Math.PI * 2,
+            true,
+        );
+        ctx.fill();
+        ctx.closePath();
+        ctx.restore();
+    }
+
+
+    setup();
+    draw();
+    // var heap = new BinaryHeap(function(x){return x;});
+    // 00FFF8
+    function drawNi(hexList, color) {
+        hexList.forEach(Hex => {
+            const HexP = Hex.points;
+
+
+            ctx.save();
+            ctx.beginPath();
+
+            ctx.moveTo(HexP[0].x, HexP[0].y);
+            // dotDraw(ctx, HexP[0].x, HexP[0].y, "#5160ff");
+            for (let i = 1; i < HexP.length; i++) {
+                const point = HexP[i];
+                // dotDraw(ctx, point.x, point.y, "#5160ff");
+                ctx.lineTo(point.x, point.y);
+            }
+            ctx.lineTo(HexP[0].x, HexP[0].y);
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 3;
+            ctx.globalAlpha = 1;
+            // ctx.fillStyle = "rgba(48, 48, 55, 0.6)";
+            ctx.fillStyle = color;
+            ctx.globalAlpha = 0.6;
+
+            ctx.font = "bolder 10pt Roboto-Regular,Tahoma,Verdana,Arial,sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            // var textWidth = ctx.measureText(this.Planet.BoundingHex.Id);
+            ctx.fillText(Hex.x + ", "+ Hex.y , Hex.center.x, Hex.center.y);
+            ctx.fill();
+            ctx.stroke();
+            // ctx.shadowColor = "gray";
+            ctx.closePath();
+            ctx.restore();
+
+
+        });
+    }
+    // forEach([10, 3, 4, 8, 2, 9, 7, 1, 2, 6, 5],
+    //     method(heap, "push"));
+    //
+    // heap.remove(2);
+    // while (heap.size() > 0)
+    //     print(heap.pop());
+</script>
+</body>
+</html>
