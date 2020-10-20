@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style lang="scss" scoped>
+        .treemap-service-container {
+            width: 800px;
+            height: 600px;
+        @include flex-align($d: column, $j: center, $a: center);
+            background-color: #121212;
+            padding: 0 25px 25px 25px;
+        .title-panel {
+            line-height: 50px;
+            flex-basis: 50px;
+            width: 100%;
+            background-color: #121212;
+        .hint-legend {
+            display: inline-block;
+            height: 50px;
+            line-height: 60px;
+            float: right;
+            width: 150px;
+        img {
+            vertical-align: middle;
+        }
+        }
+        .service-map-legend {
+            display: inline-block;
+            height: 50px;
+            line-height: 60px;
+            float: right;
+            width: 375px;
+        .image-list {
+            display: inline-block;
+            float: right;
+        .hex-event {
+            margin-left: 5px;
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+        .legend-text {
+            margin-left: 3px;
+            width: 25px;
+            opacity: 0.7;
+            font-family: Roboto;
+            font-size: 12px;
+            font-weight: normal;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            color: rgba(255, 255, 255, 0.54);
+        }
+        }
+        }
+        .title {
+            margin-left: 15px;
+            font-family: Roboto;
+            font-size: 14px;
+            font-weight: 500;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+        }
+        }
+        .service-panel {
+            position: relative;
+            flex: 1;
+            width: 100%;
+            background-color: #121212;
+        }
+        }
+    </style>
+
+</head>
+<body>
+<div class="treemap-service-container">
+    <div class="title-panel">
+        <label class="title">cluster Service Map</label>
+        <div class="service-map-legend">
+            <div
+                    class="image-list"
+                    v-for="(podState, i) in podStateList"
+                    :key="i"
+            >
+                <img
+                        class="hex-event"
+                        :src="podStateDataList[podState].src"
+                />
+                <label class="legend-text">{{ podState }}</label>
+            </div>
+        </div>
+        <div class="hint-legend">
+            <img
+                    :src="
+						require('@/assets/svg/views/workload/pod/new/icon_restart_count.svg')
+					"
+            />
+            <label>n = Restarts Counts</label>
+        </div>
+    </div>
+    <div ref="serviceGroup" class="service-panel"></div>
+</div>
+</body>
+</html>

@@ -77,7 +77,6 @@ BHex.Drawing.Drawing = function (grid, options) {
  */
 BHex.Drawing.Drawing.getCorners = function (center, options) {
     var points = [];
-
     for (var i = 0; i < 6; i++) {
         points.push(BHex.Drawing.Drawing.getCorner(center, options, i));
     }

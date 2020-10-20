@@ -47,7 +47,6 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             drawBoard(ctx, boardWidth, boardHeight);
-debugger
             // Check if the mouse's coords are on the board
             if(hexX >= 0 && hexX < boardWidth) {
                 if(hexY >= 0 && hexY < boardHeight) {
@@ -66,8 +65,8 @@ debugger
             for(j = 0; j < height; ++j) {
                 drawHexagon(
                     ctx,
-                    i * hexRectangleWidth + ((j % 2) * hexRadius),
                     j * (sideLength + hexHeight),
+                    i * hexRectangleWidth + ((j % 2) * hexRadius),
                     false
                 );
             }
@@ -86,6 +85,7 @@ debugger
         canvasContext.lineTo(x, y + hexHeight);
         canvasContext.closePath();
 
+        debugger
         if(fill) {
             canvasContext.fill();
         } else {

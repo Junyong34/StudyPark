@@ -26,11 +26,12 @@
     var grid;
     var canvas = document.getElementById('hexmap');
     var ctx = canvas.getContext('2d');
+
     function setup() {
 // Setup options: Size of the a single side, orientation (or PointyTop) and where the center of the grid should be.
-        var options = new BHex.Drawing.Options(10, BHex.Drawing.Static.Orientation.PointyTop, new BHex.Drawing.Point(250, 250));
+        var options = new BHex.Drawing.Options(30, BHex.Drawing.Static.Orientation.PointyTop, new BHex.Drawing.Point(250, 250));
 // Create the grid as before.
-        grid = new BHex.Grid(8);
+        grid = new BHex.Grid(3);
         BHex.Drawing.Drawing(grid, options);
         // grid.getHexAtPoint(BHex.Drawing.Point(50, 75));
 //grid = new BHex.Grid(3); - This works
@@ -67,7 +68,7 @@
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             // var textWidth = ctx.measureText(this.Planet.BoundingHex.Id);
-            ctx.fillText(Hex.x + ", "+ Hex.y , Hex.center.x, Hex.center.y);
+            ctx.fillText(Hex.x + ", " + Hex.y, Hex.center.x, Hex.center.y);
             ctx.fill();
             ctx.stroke();
             // ctx.shadowColor = "gray";
@@ -78,6 +79,7 @@
         });
 
     }
+
     function dotDraw(ctx, X, Y, color) {
         ctx.save();
         ctx.fillStyle = color;
@@ -96,9 +98,53 @@
         ctx.restore();
     }
 
+    function testDraw() {
+        var points = [];
 
+        const center = new BHex.Drawing.Point(250, 250);
+        const options = new BHex.Drawing.Options(30, BHex.Drawing.Static.Orientation.PointyTop, new BHex.Drawing.Point(250, 250));
+        for (var i = 0; i < 6; i++) {
+            points.push(BHex.Drawing.Drawing.getCorner(center, options, i));
+        }
+
+        console.log(points);
+        return [points, center];
+    }
+
+    function onDraw(ones, center) {
+        ctx.save();
+        ctx.beginPath();
+
+        ctx.moveTo(ones[0].x, ones[0].y);
+        // dotDraw(ctx, Hex.center.x, Hex.center.y, "#5160ff");
+        for (let i = 1; i < ones.length; i++) {
+            const point = ones[i];
+            // dotDraw(ctx, point.x, point.y, "#5160ff");
+            ctx.lineTo(point.x, point.y);
+        }
+        ctx.lineTo(ones[0].x, ones[0].y);
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 3;
+        ctx.globalAlpha = 1;
+        // ctx.fillStyle = "rgba(48, 48, 55, 0.6)";
+        ctx.fillStyle = "rgba(48, 48, 55, 0.6)";
+        ctx.globalAlpha = 0.6;
+
+        ctx.font = "bolder 10pt Roboto-Regular,Tahoma,Verdana,Arial,sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        // var textWidth = ctx.measureText(this.Planet.BoundingHex.Id);
+        ctx.fillText(center.x + ", " + center.y, center.x, center.y);
+        ctx.fill();
+        ctx.stroke();
+        // ctx.shadowColor = "gray";
+        ctx.closePath();
+        ctx.restore();
+    }
     setup();
-    draw();
+    onDraw(testDraw()[0], testDraw()[1]);
+
+    // draw();
     // var heap = new BinaryHeap(function(x){return x;});
     // 00FFF8
     function drawNi(hexList, color) {
@@ -128,7 +174,7 @@
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             // var textWidth = ctx.measureText(this.Planet.BoundingHex.Id);
-            ctx.fillText(Hex.x + ", "+ Hex.y , Hex.center.x, Hex.center.y);
+            ctx.fillText(Hex.x + ", " + Hex.y, Hex.center.x, Hex.center.y);
             ctx.fill();
             ctx.stroke();
             // ctx.shadowColor = "gray";
@@ -138,6 +184,7 @@
 
         });
     }
+
     // forEach([10, 3, 4, 8, 2, 9, 7, 1, 2, 6, 5],
     //     method(heap, "push"));
     //
