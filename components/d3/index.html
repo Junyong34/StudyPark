@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>d3 Svg</title>
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
+    <script src="js/NodeJoinSeach.js"></script>
+    <script src="js/DisjointSet.js"></script>
+    <script src="js/queue.js"></script>
+    <script src="debug/perf.js"></script>
+</head>
+<body>
+<div id="step01">
+<!--    // 테스트-->
+    <!--<svg width="300" height="200">-->
+
+    <!--<rect width="300" height="200" fill="red"/>-->
+
+    <!--<circle cx="150" cy="100" r="80" fill="green"/>-->
+
+    <!--<text x="150" y="125" font-size="60" text-anchor="middle" fill="white">SVG</text>-->
+
+    <!--</svg>-->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         xmlns:xlink="http://www.w3.org/1999/xlink">
+
+        <polygon points="50,5   100,5  125,30  125,80 100,105
+                   50,105  25,80  25, 30"
+                 style="stroke:#660000; fill:#cc3333; stroke-width: 3;"/>
+
+    </svg>
+</div>
+</body>
+<script>
+    var parent = $('#step02');
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+
+    //var svg = document.createElement('svg'); // not work
+
+    parent.append(svg);
+    svg.setAttribute('width', '300');
+    svg.setAttribute('height', '200');
+
+
+    var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+
+    svg.appendChild(rect);
+    rect.setAttribute('width', '300');
+    rect.setAttribute('height', '200');
+    rect.setAttribute('fill', 'red');
+
+    var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+
+    svg.appendChild(circle);
+    circle.setAttribute("cx", "150");
+    circle.setAttribute("cy", "100");
+    circle.setAttribute("r", 80);
+    circle.setAttribute('fill', 'green');
+
+
+    var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+
+    svg.appendChild(text);
+    text.setAttribute("x", "150");
+    text.setAttribute("y", "125");
+    text.setAttribute("font-size", "60");
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute('fill', 'white');
+    text.appendChild(document.createTextNode("SVG"))
+
+    // disjoin set
+
+    // var set = new NodeJoinSeach();
+    // var start1 = new Date();
+    // for (var i = 0; i < 31; i++) {
+    //     set.add(objects[i]);
+    // };
+    // console.log('100000 add() ', new Date() - start1);
+    // //
+    // var start2 = new Date();
+    // for (var i = 0; i < 30; i++) {
+    //     set.union(objects[i], objects[i+1]);
+    // };
+    // console.log('100000 union() ', new Date() - start2);
+    // // //
+    // var start3 = new Date();
+    // for (var i = 0; i < 31; i++) {
+    //     set.find(objects[i]);
+    // };
+    // console.log('100000 find() ', new Date() - start3);
+    // //
+    // var start4 = new Date();
+    // set.extract();
+    // console.log('extract() ', new Date() - start4);
+    // console.dir( set.extract());
+
+    /** quick-find
+     10000 add() 11
+     10000 union() 23810
+     10000 find() 1
+     */
+
+    /** quick-union
+     10000 add() 12
+     10000 union() 6
+     10000 find() 5103
+     */
+
+    /** weighted quick-union
+     10000 add()  12
+     10000 union()  7
+     10000 find()  1
+     */
+
+    // Objects
+
+    /*
+    100000 add()  1561
+    100000 union()  4455
+    100000 find()  1672
+    extract()  4592
+    */
+
+    /* stringify keys changed to ids
+    100000 add()  132
+    100000 union()  212
+    100000 find()  217
+    extract()  25
+    */
+
+    /* type checking cache added
+    100000 add()  84
+    100000 union()  34
+    100000 find()  24
+    extract()  94
+    */
+
+    const cloudData = {
+        "node": [{
+            "name": "gangnam",
+            "namespace": "default",
+            "id": "gangnam",
+            "type": "kubernetes",
+            "itype": "node",
+            "level": 5,
+            "group": 1
+        }, {
+            "name": "cassandra",
+            "namespace": "default",
+            "selector": {
+                "app": "cassandra"
+            },
+            "parent": ["150a4a26-bc98-11e8-ae77-fa163e28414b", "28c1db84-bc98-11e8-ae77-fa163e28414b", "3c253b19-bc98-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "14efcf6c-bc98-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "grafana",
+            "namespace": "default",
+            "selector": {
+                "name": "grafana"
+            },
+            "parent": ["438c6f5d-bc97-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "436bb99e-bc97-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "jaeger-agent",
+            "namespace": "default",
+            "selector": {
+                "jaeger-infra": "jaeger-pod"
+            },
+            "parent": ["dcc428a1-bc98-11e8-ae77-fa163e28414b", "47233fbf-bc97-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "dcd4d435-bc98-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "jaeger-collector",
+            "namespace": "default",
+            "selector": {
+                "jaeger-infra": "jaeger-pod"
+            },
+            "parent": ["dcc428a1-bc98-11e8-ae77-fa163e28414b", "47233fbf-bc97-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "dcc45caa-bc98-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "jaeger-hotrod",
+            "namespace": "default",
+            "selector": {
+                "hotrod-infra": "hotrod-instance"
+            },
+            "parent": ["47233fbf-bc97-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "472b0494-bc97-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "jaeger-query",
+            "namespace": "default",
+            "selector": {
+                "jaeger-infra": "jaeger-pod"
+            },
+            "parent": ["dcc428a1-bc98-11e8-ae77-fa163e28414b", "47233fbf-bc97-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "dcbc1b16-bc98-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "postgres",
+            "namespace": "default",
+            "selector": {
+                "app": "postgres"
+            },
+            "parent": ["07767eb9-bc97-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "07642356-bc97-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "prometheus",
+            "namespace": "default",
+            "selector": {
+                "app": "prometheus"
+            },
+            "parent": ["5226aae4-c87b-11e8-9b77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "5224ab5a-c87b-11e8-9b77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "tpcc-delivery",
+            "namespace": "default",
+            "selector": {
+                "app": "tpcc-delivery"
+            },
+            "parent": ["fdcb605c-bc79-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "fdba3871-bc79-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "tpcc-main",
+            "namespace": "default",
+            "selector": {
+                "app": "tpcc-main"
+            },
+            "parent": ["5e905835-bc97-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "5e6f299a-bc97-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "tpcc-orderstatus",
+            "namespace": "default",
+            "selector": {
+                "app": "tpcc-orderstatus"
+            },
+            "parent": ["650641a7-bc97-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "64b56bd9-bc97-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "tpcc-payment",
+            "namespace": "default",
+            "selector": {
+                "app": "tpcc-payment"
+            },
+            "parent": ["62c5606c-bc97-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "6288c0a7-bc97-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "tpcc-sendmail",
+            "namespace": "default",
+            "selector": {
+                "app": "tpcc-sendmail"
+            },
+            "parent": ["6c511999-bc97-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "6bde8286-bc97-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "tpcc-stocklevel",
+            "namespace": "default",
+            "selector": {
+                "app": "tpcc-stocklevel"
+            },
+            "parent": ["67dc8b0b-bc97-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "67a04fe5-bc97-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "zipkin",
+            "namespace": "default",
+            "selector": {
+                "jaeger-infra": "jaeger-pod"
+            },
+            "parent": ["dcc428a1-bc98-11e8-ae77-fa163e28414b", "47233fbf-bc97-11e8-ae77-fa163e28414b"],
+            "type": "service",
+            "itype": "node",
+            "id": "dcd87fef-bc98-11e8-ae77-fa163e28414b",
+            "level": 7,
+            "group": 1
+        }, {
+            "name": "busybox",
+            "namespace": "default",
+            "labels": null,
+            "node": "node-1",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["9b0b4221-bbee-11e8-ae77-fa163e28414b"],
+            "id": "ce28f8f9-c87a-11e8-9b77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "cassandra-0",
+            "namespace": "default",
+            "labels": {
+                "app": "cassandra",
+                "controller-revision-hash": "cassandra-7f7c87967",
+                "jaeger-infra": "cassandra-replica",
+                "statefulset.kubernetes.io/pod-name": "cassandra-0"
+            },
+            "node": "node-5",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["1f17cd8e-bbef-11e8-ae77-fa163e28414b"],
+            "id": "150a4a26-bc98-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "cassandra-1",
+            "namespace": "default",
+            "labels": {
+                "app": "cassandra",
+                "controller-revision-hash": "cassandra-7f7c87967",
+                "jaeger-infra": "cassandra-replica",
+                "statefulset.kubernetes.io/pod-name": "cassandra-1"
+            },
+            "node": "node-6",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["4bc1e64c-bbef-11e8-ae77-fa163e28414b"],
+            "id": "28c1db84-bc98-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "cassandra-2",
+            "namespace": "default",
+            "labels": {
+                "app": "cassandra",
+                "controller-revision-hash": "cassandra-7f7c87967",
+                "jaeger-infra": "cassandra-replica",
+                "statefulset.kubernetes.io/pod-name": "cassandra-2"
+            },
+            "node": "node-1",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["9b0b4221-bbee-11e8-ae77-fa163e28414b"],
+            "id": "3c253b19-bc98-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "grafana-75b7f4f6bd-n44wn",
+            "namespace": "default",
+            "labels": {
+                "name": "grafana",
+                "pod-template-hash": "3163909268"
+            },
+            "node": "node-3",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["e5e77fa7-bbee-11e8-ae77-fa163e28414b"],
+            "id": "438c6f5d-bc97-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "jaeger-deployment-59ffb979c8-jh6pz",
+            "namespace": "default",
+            "labels": {
+                "app": "jaeger",
+                "jaeger-infra": "jaeger-pod",
+                "pod-template-hash": "1599653574"
+            },
+            "node": "node-7",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["632f57f6-bbef-11e8-ae77-fa163e28414b"],
+            "id": "dcc428a1-bc98-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "jaeger-hotrod-84cf8b9bf4-zq9p5",
+            "namespace": "default",
+            "labels": {
+                "app": "jaeger",
+                "component": "hotrod",
+                "hotrod-infra": "hotrod-instance",
+                "jaeger-infra": "jaeger-pod",
+                "pod-template-hash": "4079465690",
+                "release": "v1beta1"
+            },
+            "node": "node-5",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["1f17cd8e-bbef-11e8-ae77-fa163e28414b"],
+            "id": "47233fbf-bc97-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "postgres-cls82",
+            "namespace": "default",
+            "labels": {
+                "app": "postgres"
+            },
+            "node": "node-8",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["76ded5e6-bbef-11e8-ae77-fa163e28414b"],
+            "id": "07767eb9-bc97-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "prometheus-844695c767-z44vh",
+            "namespace": "default",
+            "labels": {
+                "app": "prometheus",
+                "pod-template-hash": "4002517323"
+            },
+            "node": "node-4",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["0440391a-bbef-11e8-ae77-fa163e28414b"],
+            "id": "5226aae4-c87b-11e8-9b77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "tpcc-delivery-rfbwl",
+            "namespace": "default",
+            "labels": {
+                "app": "tpcc-delivery"
+            },
+            "node": "node-6",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["4bc1e64c-bbef-11e8-ae77-fa163e28414b"],
+            "id": "fdcb605c-bc79-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "tpcc-main-7fpmq",
+            "namespace": "default",
+            "labels": {
+                "app": "tpcc-main"
+            },
+            "node": "node-7",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["632f57f6-bbef-11e8-ae77-fa163e28414b"],
+            "id": "5e905835-bc97-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "tpcc-orderstatus-6mmxt",
+            "namespace": "default",
+            "labels": {
+                "app": "tpcc-orderstatus"
+            },
+            "node": "node-2",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["b462999f-bbee-11e8-ae77-fa163e28414b"],
+            "id": "650641a7-bc97-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "tpcc-payment-x48v4",
+            "namespace": "default",
+            "labels": {
+                "app": "tpcc-payment"
+            },
+            "node": "node-3",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["e5e77fa7-bbee-11e8-ae77-fa163e28414b"],
+            "id": "62c5606c-bc97-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "tpcc-sendmail-m76kp",
+            "namespace": "default",
+            "labels": {
+                "app": "tpcc-sendmail"
+            },
+            "node": "node-4",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["0440391a-bbef-11e8-ae77-fa163e28414b"],
+            "id": "6c511999-bc97-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "tpcc-stocklevel-d6nfj",
+            "namespace": "default",
+            "labels": {
+                "app": "tpcc-stocklevel"
+            },
+            "node": "node-8",
+            "type": "pod",
+            "itype": "node",
+            "parent": ["76ded5e6-bbef-11e8-ae77-fa163e28414b"],
+            "id": "67dc8b0b-bc97-11e8-ae77-fa163e28414b",
+            "level": 6,
+            "group": 1
+        }, {
+            "name": "kube-master",
+            "namespace": null,
+            "id": "86a9f302-bbee-11e8-ae77-fa163e28414b",
+            "ip": "203.0.113.108",
+            "type": "node",
+            "itype": "node",
+            "parent": ["4f93da10-0acf-4f1c-ae8a-39af6c087b69"],
+            "level": 5,
+            "group": 1,
+            "cid": "kube-master"
+        }, {
+            "name": "node-1",
+            "namespace": null,
+            "id": "9b0b4221-bbee-11e8-ae77-fa163e28414b",
+            "ip": "203.0.113.107",
+            "type": "node",
+            "itype": "node",
+            "parent": ["e6adb082-38f6-4eb2-bc81-e7feaacf1ece"],
+            "level": 5,
+            "group": 1,
+            "cid": "inst-1"
+        }, {
+            "name": "node-2",
+            "namespace": null,
+            "id": "b462999f-bbee-11e8-ae77-fa163e28414b",
+            "ip": "203.0.113.110",
+            "type": "node",
+            "itype": "node",
+            "parent": ["52a99ab7-fa65-46e1-b7ef-b207a1cbaf76"],
+            "level": 5,
+            "group": 1,
+            "cid": "inst-2"
+        }, {
+            "name": "node-3",
+            "namespace": null,
+            "id": "e5e77fa7-bbee-11e8-ae77-fa163e28414b",
+            "ip": "203.0.113.105",
+            "type": "node",
+            "itype": "node",
+            "parent": ["2890ec1f-5a17-4938-821f-1d25840501aa"],
+            "level": 5,
+            "group": 1,
+            "cid": "inst-3"
+        }, {
+            "name": "node-4",
+            "namespace": null,
+            "id": "0440391a-bbef-11e8-ae77-fa163e28414b",
+            "ip": "203.0.113.106",
+            "type": "node",
+            "itype": "node",
+            "parent": ["b25fbf5e-a41c-46a1-948f-d2a4b576a83c"],
+            "level": 5,
+            "group": 1,
+            "cid": "inst-4"
+        }, {
+            "name": "node-5",
+            "namespace": null,
+            "id": "1f17cd8e-bbef-11e8-ae77-fa163e28414b",
+            "ip": "203.0.113.112",
+            "type": "node",
+            "itype": "node",
+            "parent": ["9c384b1e-f6e4-4dff-ab19-d2a7247e67b8"],
+            "level": 5,
+            "group": 1,
+            "cid": "inst-5"
+        }, {
+            "name": "node-6",
+            "namespace": null,
+            "id": "4bc1e64c-bbef-11e8-ae77-fa163e28414b",
+            "ip": "203.0.113.103",
+            "type": "node",
+            "itype": "node",
+            "parent": ["2d8fee90-ae98-4a44-b4d1-e1a44050ec9a"],
+            "level": 5,
+            "group": 1,
+            "cid": "inst-6"
+        }, {
+            "name": "node-7",
+            "namespace": null,
+            "id": "632f57f6-bbef-11e8-ae77-fa163e28414b",
+            "ip": "203.0.113.115",
+            "type": "node",
+            "itype": "node",
+            "parent": ["4a5e9729-15d7-475c-8adf-cf9b9aaa68bb"],
+            "level": 5,
+            "group": 1,
+            "cid": "inst-7"
+        }, {
+            "name": "node-8",
+            "namespace": null,
+            "id": "76ded5e6-bbef-11e8-ae77-fa163e28414b",
+            "ip": "203.0.113.113",
+            "type": "node",
+            "itype": "node",
+            "parent": ["2ad09d39-2f65-4702-9541-602993ba030c"],
+            "level": 5,
+            "group": 1,
+            "cid": "inst-8"
+        }, {
+            "id": "internal",
+            "name": "internal",
+            "type": "availability-zone",
+            "itype": "node",
+            "level": 2,
+            "group": 10
+        }, {
+            "id": "zone1",
+            "name": "zone1",
+            "type": "availability-zone",
+            "itype": "node",
+            "level": 2,
+            "group": 10
+        }, {
+            "id": "block1",
+            "name": "block1",
+            "type": "host",
+            "itype": "node",
+            "level": 3,
+            "htype": "block",
+            "detail": {
+                "status": "available",
+                "service": "cinder-volume",
+                "state": "enabled",
+                "zone": "nova"
+            },
+            "group": 10
+        }, {
+            "id": "compute1",
+            "name": "compute1",
+            "type": "host",
+            "itype": "node",
+            "level": 3,
+            "htype": "compute",
+            "group": 10
+        }, {
+            "id": "compute2",
+            "name": "compute2",
+            "type": "host",
+            "itype": "node",
+            "level": 3,
+            "htype": "compute",
+            "group": 10
+        }, {
+            "id": "controller",
+            "name": "controller",
+            "type": "host",
+            "itype": "node",
+            "level": 3,
+            "htype": "controller",
+            "group": 10
+        }, {
+            "id": "2890ec1f-5a17-4938-821f-1d25840501aa",
+            "name": "inst-3",
+            "type": "instance",
+            "itype": "node",
+            "level": 4,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "ip": "203.0.113.105",
+            "group": 10,
+            "cnid": "cluster_2890ec1f-5a17-4938-821f-1d25840501aa",
+            "cid": "inst-3"
+        }, {
+            "id": "2ad09d39-2f65-4702-9541-602993ba030c",
+            "name": "inst-8",
+            "type": "instance",
+            "itype": "node",
+            "level": 4,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "ip": "203.0.113.113",
+            "group": 10,
+            "cnid": "cluster_2ad09d39-2f65-4702-9541-602993ba030c",
+            "cid": "inst-8"
+        }, {
+            "id": "2d8fee90-ae98-4a44-b4d1-e1a44050ec9a",
+            "name": "inst-6",
+            "type": "instance",
+            "itype": "node",
+            "level": 4,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "ip": "203.0.113.103",
+            "group": 10,
+            "cnid": "cluster_2d8fee90-ae98-4a44-b4d1-e1a44050ec9a",
+            "cid": "inst-6"
+        }, {
+            "id": "4a5e9729-15d7-475c-8adf-cf9b9aaa68bb",
+            "name": "inst-7",
+            "type": "instance",
+            "itype": "node",
+            "level": 4,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "ip": "203.0.113.115",
+            "group": 10,
+            "cnid": "cluster_4a5e9729-15d7-475c-8adf-cf9b9aaa68bb",
+            "cid": "inst-7"
+        }, {
+            "id": "4f93da10-0acf-4f1c-ae8a-39af6c087b69",
+            "name": "kube-master",
+            "type": "instance",
+            "itype": "node",
+            "level": 4,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "ip": "203.0.113.108",
+            "group": 10,
+            "cnid": "cluster_4f93da10-0acf-4f1c-ae8a-39af6c087b69",
+            "cid": "kube-master"
+        }, {
+            "id": "52a99ab7-fa65-46e1-b7ef-b207a1cbaf76",
+            "name": "inst-2",
+            "type": "instance",
+            "itype": "node",
+            "level": 4,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "ip": "203.0.113.110",
+            "group": 10,
+            "cnid": "cluster_52a99ab7-fa65-46e1-b7ef-b207a1cbaf76",
+            "cid": "inst-2"
+        }, {
+            "id": "9c384b1e-f6e4-4dff-ab19-d2a7247e67b8",
+            "name": "inst-5",
+            "type": "instance",
+            "itype": "node",
+            "level": 4,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "ip": "203.0.113.112",
+            "group": 10,
+            "cnid": "cluster_9c384b1e-f6e4-4dff-ab19-d2a7247e67b8",
+            "cid": "inst-5"
+        }, {
+            "id": "b25fbf5e-a41c-46a1-948f-d2a4b576a83c",
+            "name": "inst-4",
+            "type": "instance",
+            "itype": "node",
+            "level": 4,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "ip": "203.0.113.106",
+            "group": 10,
+            "cnid": "cluster_b25fbf5e-a41c-46a1-948f-d2a4b576a83c",
+            "cid": "inst-4"
+        }, {
+            "id": "e6adb082-38f6-4eb2-bc81-e7feaacf1ece",
+            "name": "inst-1",
+            "type": "instance",
+            "itype": "node",
+            "level": 4,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "ip": "203.0.113.107",
+            "group": 10,
+            "cnid": "cluster_e6adb082-38f6-4eb2-bc81-e7feaacf1ece",
+            "cid": "inst-1"
+        }, {
+            "id": "a9d954ab-03ef-4fa0-b864-bf3044dca82d",
+            "name": "provider",
+            "type": "network",
+            "itype": "node",
+            "level": 3,
+            "project_id": "208b47c7e98546fd8ca604bcc927636e",
+            "detail": {
+                "external": true,
+                "availability_zones": ["nova"],
+                "subnets": ["3d6a652f-9e73-4a3c-807b-18e85c9789ec"],
+                "status": "ACTIVE",
+                "shared": true
+            },
+            "group": 10
+        }, {
+            "id": "RegionOne",
+            "name": "RegionOne",
+            "type": "region",
+            "itype": "node",
+            "level": 1,
+            "group": 10
+        }, {
+            "id": "31063550-0a76-4671-a6fd-6fef8ede7b69",
+            "name": "31063550-0a76-4671-a6fd-6fef8ede7b69",
+            "type": "volume",
+            "itype": "node",
+            "level": 5,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "detail": {
+                "availability_zone": "nova",
+                "status": "in-use",
+                "size(GB)": 50
+            },
+            "group": 10
+        }, {
+            "id": "4c13a78c-a18b-4f15-bb4f-3c8438c43f3b",
+            "name": "4c13a78c-a18b-4f15-bb4f-3c8438c43f3b",
+            "type": "volume",
+            "itype": "node",
+            "level": 5,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "detail": {
+                "availability_zone": "nova",
+                "status": "available",
+                "size(GB)": 50
+            },
+            "group": 10
+        }, {
+            "id": "64dd4a97-7918-49d5-b816-7c99624fbbf7",
+            "name": "64dd4a97-7918-49d5-b816-7c99624fbbf7",
+            "type": "volume",
+            "itype": "node",
+            "level": 5,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "detail": {
+                "availability_zone": "nova",
+                "status": "in-use",
+                "size(GB)": 50
+            },
+            "group": 10
+        }, {
+            "id": "95589f24-f290-4e24-94bd-eafca3694a79",
+            "name": "95589f24-f290-4e24-94bd-eafca3694a79",
+            "type": "volume",
+            "itype": "node",
+            "level": 5,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "detail": {
+                "availability_zone": "nova",
+                "status": "in-use",
+                "size(GB)": 50
+            },
+            "group": 10
+        }, {
+            "id": "a875507e-daa0-4662-851e-1fba7af6a7c2",
+            "name": "a875507e-daa0-4662-851e-1fba7af6a7c2",
+            "type": "volume",
+            "itype": "node",
+            "level": 5,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "detail": {
+                "availability_zone": "nova",
+                "status": "in-use",
+                "size(GB)": 50
+            },
+            "group": 10
+        }, {
+            "id": "b55473b5-b5cd-4e8f-aa40-ed30b941b9a8",
+            "name": "b55473b5-b5cd-4e8f-aa40-ed30b941b9a8",
+            "type": "volume",
+            "itype": "node",
+            "level": 5,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "detail": {
+                "availability_zone": "nova",
+                "status": "in-use",
+                "size(GB)": 50
+            },
+            "group": 10
+        }, {
+            "id": "c2e66a22-8482-497c-934a-c61bf4c0a792",
+            "name": "master-vol",
+            "type": "volume",
+            "itype": "node",
+            "level": 5,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "detail": {
+                "availability_zone": "nova",
+                "status": "in-use",
+                "size(GB)": 50
+            },
+            "group": 10
+        }, {
+            "id": "c813cadf-c419-45b8-904e-5273ec29e90e",
+            "name": "c813cadf-c419-45b8-904e-5273ec29e90e",
+            "type": "volume",
+            "itype": "node",
+            "level": 5,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "detail": {
+                "availability_zone": "nova",
+                "status": "in-use",
+                "size(GB)": 50
+            },
+            "group": 10
+        }, {
+            "id": "f60ae7ee-510c-41d1-babf-2ac604916faf",
+            "name": "f60ae7ee-510c-41d1-babf-2ac604916faf",
+            "type": "volume",
+            "itype": "node",
+            "level": 5,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "detail": {
+                "availability_zone": "nova",
+                "status": "in-use",
+                "size(GB)": 50
+            },
+            "group": 10
+        }, {
+            "id": "fd048bad-397c-405e-8c79-4f9d62c73c0c",
+            "name": "fd048bad-397c-405e-8c79-4f9d62c73c0c",
+            "type": "volume",
+            "itype": "node",
+            "level": 5,
+            "project_id": "a236b04e3d34436a9804f377f5906b00",
+            "detail": {
+                "availability_zone": "nova",
+                "status": "in-use",
+                "size(GB)": 50
+            },
+            "group": 10
+        }],
+        "edge": [{
+            "to": "14efcf6c-bc98-11e8-ae77-fa163e28414b",
+            "from": "150a4a26-bc98-11e8-ae77-fa163e28414b",
+            "id": "150a4a26-bc98-11e8-ae77-fa163e28414b---14efcf6c-bc98-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "14efcf6c-bc98-11e8-ae77-fa163e28414b",
+            "from": "28c1db84-bc98-11e8-ae77-fa163e28414b",
+            "id": "28c1db84-bc98-11e8-ae77-fa163e28414b---14efcf6c-bc98-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "14efcf6c-bc98-11e8-ae77-fa163e28414b",
+            "from": "3c253b19-bc98-11e8-ae77-fa163e28414b",
+            "id": "3c253b19-bc98-11e8-ae77-fa163e28414b---14efcf6c-bc98-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "436bb99e-bc97-11e8-ae77-fa163e28414b",
+            "from": "438c6f5d-bc97-11e8-ae77-fa163e28414b",
+            "id": "438c6f5d-bc97-11e8-ae77-fa163e28414b---436bb99e-bc97-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "dcd4d435-bc98-11e8-ae77-fa163e28414b",
+            "from": "dcc428a1-bc98-11e8-ae77-fa163e28414b",
+            "id": "dcc428a1-bc98-11e8-ae77-fa163e28414b---dcd4d435-bc98-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "dcc45caa-bc98-11e8-ae77-fa163e28414b",
+            "from": "dcc428a1-bc98-11e8-ae77-fa163e28414b",
+            "id": "dcc428a1-bc98-11e8-ae77-fa163e28414b---dcc45caa-bc98-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "dcbc1b16-bc98-11e8-ae77-fa163e28414b",
+            "from": "dcc428a1-bc98-11e8-ae77-fa163e28414b",
+            "id": "dcc428a1-bc98-11e8-ae77-fa163e28414b---dcbc1b16-bc98-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "dcd87fef-bc98-11e8-ae77-fa163e28414b",
+            "from": "dcc428a1-bc98-11e8-ae77-fa163e28414b",
+            "id": "dcc428a1-bc98-11e8-ae77-fa163e28414b---dcd87fef-bc98-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "dcd4d435-bc98-11e8-ae77-fa163e28414b",
+            "from": "47233fbf-bc97-11e8-ae77-fa163e28414b",
+            "id": "47233fbf-bc97-11e8-ae77-fa163e28414b---dcd4d435-bc98-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "dcc45caa-bc98-11e8-ae77-fa163e28414b",
+            "from": "47233fbf-bc97-11e8-ae77-fa163e28414b",
+            "id": "47233fbf-bc97-11e8-ae77-fa163e28414b---dcc45caa-bc98-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "472b0494-bc97-11e8-ae77-fa163e28414b",
+            "from": "47233fbf-bc97-11e8-ae77-fa163e28414b",
+            "id": "47233fbf-bc97-11e8-ae77-fa163e28414b---472b0494-bc97-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "dcbc1b16-bc98-11e8-ae77-fa163e28414b",
+            "from": "47233fbf-bc97-11e8-ae77-fa163e28414b",
+            "id": "47233fbf-bc97-11e8-ae77-fa163e28414b---dcbc1b16-bc98-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "dcd87fef-bc98-11e8-ae77-fa163e28414b",
+            "from": "47233fbf-bc97-11e8-ae77-fa163e28414b",
+            "id": "47233fbf-bc97-11e8-ae77-fa163e28414b---dcd87fef-bc98-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "07642356-bc97-11e8-ae77-fa163e28414b",
+            "from": "07767eb9-bc97-11e8-ae77-fa163e28414b",
+            "id": "07767eb9-bc97-11e8-ae77-fa163e28414b---07642356-bc97-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "5224ab5a-c87b-11e8-9b77-fa163e28414b",
+            "from": "5226aae4-c87b-11e8-9b77-fa163e28414b",
+            "id": "5226aae4-c87b-11e8-9b77-fa163e28414b---5224ab5a-c87b-11e8-9b77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "fdba3871-bc79-11e8-ae77-fa163e28414b",
+            "from": "fdcb605c-bc79-11e8-ae77-fa163e28414b",
+            "id": "fdcb605c-bc79-11e8-ae77-fa163e28414b---fdba3871-bc79-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "5e6f299a-bc97-11e8-ae77-fa163e28414b",
+            "from": "5e905835-bc97-11e8-ae77-fa163e28414b",
+            "id": "5e905835-bc97-11e8-ae77-fa163e28414b---5e6f299a-bc97-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "64b56bd9-bc97-11e8-ae77-fa163e28414b",
+            "from": "650641a7-bc97-11e8-ae77-fa163e28414b",
+            "id": "650641a7-bc97-11e8-ae77-fa163e28414b---64b56bd9-bc97-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "6288c0a7-bc97-11e8-ae77-fa163e28414b",
+            "from": "62c5606c-bc97-11e8-ae77-fa163e28414b",
+            "id": "62c5606c-bc97-11e8-ae77-fa163e28414b---6288c0a7-bc97-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "6bde8286-bc97-11e8-ae77-fa163e28414b",
+            "from": "6c511999-bc97-11e8-ae77-fa163e28414b",
+            "id": "6c511999-bc97-11e8-ae77-fa163e28414b---6bde8286-bc97-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "to": "67a04fe5-bc97-11e8-ae77-fa163e28414b",
+            "from": "67dc8b0b-bc97-11e8-ae77-fa163e28414b",
+            "id": "67dc8b0b-bc97-11e8-ae77-fa163e28414b---67a04fe5-bc97-11e8-ae77-fa163e28414b",
+            "type": "service-pod",
+            "itype": "edge"
+        }, {
+            "from": "gangnam",
+            "to": "86a9f302-bbee-11e8-ae77-fa163e28414b",
+            "id": "gangnam---86a9f302-bbee-11e8-ae77-fa163e28414b",
+            "type": "center-node",
+            "itype": "edge"
+        }, {
+            "from": "gangnam",
+            "to": "9b0b4221-bbee-11e8-ae77-fa163e28414b",
+            "id": "gangnam---9b0b4221-bbee-11e8-ae77-fa163e28414b",
+            "type": "center-node",
+            "itype": "edge"
+        }, {
+            "to": "ce28f8f9-c87a-11e8-9b77-fa163e28414b",
+            "from": "9b0b4221-bbee-11e8-ae77-fa163e28414b",
+            "id": "9b0b4221-bbee-11e8-ae77-fa163e28414b---ce28f8f9-c87a-11e8-9b77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "to": "3c253b19-bc98-11e8-ae77-fa163e28414b",
+            "from": "9b0b4221-bbee-11e8-ae77-fa163e28414b",
+            "id": "9b0b4221-bbee-11e8-ae77-fa163e28414b---3c253b19-bc98-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "from": "gangnam",
+            "to": "b462999f-bbee-11e8-ae77-fa163e28414b",
+            "id": "gangnam---b462999f-bbee-11e8-ae77-fa163e28414b",
+            "type": "center-node",
+            "itype": "edge"
+        }, {
+            "to": "650641a7-bc97-11e8-ae77-fa163e28414b",
+            "from": "b462999f-bbee-11e8-ae77-fa163e28414b",
+            "id": "b462999f-bbee-11e8-ae77-fa163e28414b---650641a7-bc97-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "from": "gangnam",
+            "to": "e5e77fa7-bbee-11e8-ae77-fa163e28414b",
+            "id": "gangnam---e5e77fa7-bbee-11e8-ae77-fa163e28414b",
+            "type": "center-node",
+            "itype": "edge"
+        }, {
+            "to": "438c6f5d-bc97-11e8-ae77-fa163e28414b",
+            "from": "e5e77fa7-bbee-11e8-ae77-fa163e28414b",
+            "id": "e5e77fa7-bbee-11e8-ae77-fa163e28414b---438c6f5d-bc97-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "to": "62c5606c-bc97-11e8-ae77-fa163e28414b",
+            "from": "e5e77fa7-bbee-11e8-ae77-fa163e28414b",
+            "id": "e5e77fa7-bbee-11e8-ae77-fa163e28414b---62c5606c-bc97-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "from": "gangnam",
+            "to": "0440391a-bbef-11e8-ae77-fa163e28414b",
+            "id": "gangnam---0440391a-bbef-11e8-ae77-fa163e28414b",
+            "type": "center-node",
+            "itype": "edge"
+        }, {
+            "to": "5226aae4-c87b-11e8-9b77-fa163e28414b",
+            "from": "0440391a-bbef-11e8-ae77-fa163e28414b",
+            "id": "0440391a-bbef-11e8-ae77-fa163e28414b---5226aae4-c87b-11e8-9b77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "to": "6c511999-bc97-11e8-ae77-fa163e28414b",
+            "from": "0440391a-bbef-11e8-ae77-fa163e28414b",
+            "id": "0440391a-bbef-11e8-ae77-fa163e28414b---6c511999-bc97-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "from": "gangnam",
+            "to": "1f17cd8e-bbef-11e8-ae77-fa163e28414b",
+            "id": "gangnam---1f17cd8e-bbef-11e8-ae77-fa163e28414b",
+            "type": "center-node",
+            "itype": "edge"
+        }, {
+            "to": "150a4a26-bc98-11e8-ae77-fa163e28414b",
+            "from": "1f17cd8e-bbef-11e8-ae77-fa163e28414b",
+            "id": "1f17cd8e-bbef-11e8-ae77-fa163e28414b---150a4a26-bc98-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "to": "47233fbf-bc97-11e8-ae77-fa163e28414b",
+            "from": "1f17cd8e-bbef-11e8-ae77-fa163e28414b",
+            "id": "1f17cd8e-bbef-11e8-ae77-fa163e28414b---47233fbf-bc97-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "from": "gangnam",
+            "to": "4bc1e64c-bbef-11e8-ae77-fa163e28414b",
+            "id": "gangnam---4bc1e64c-bbef-11e8-ae77-fa163e28414b",
+            "type": "center-node",
+            "itype": "edge"
+        }, {
+            "to": "28c1db84-bc98-11e8-ae77-fa163e28414b",
+            "from": "4bc1e64c-bbef-11e8-ae77-fa163e28414b",
+            "id": "4bc1e64c-bbef-11e8-ae77-fa163e28414b---28c1db84-bc98-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "to": "fdcb605c-bc79-11e8-ae77-fa163e28414b",
+            "from": "4bc1e64c-bbef-11e8-ae77-fa163e28414b",
+            "id": "4bc1e64c-bbef-11e8-ae77-fa163e28414b---fdcb605c-bc79-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "from": "gangnam",
+            "to": "632f57f6-bbef-11e8-ae77-fa163e28414b",
+            "id": "gangnam---632f57f6-bbef-11e8-ae77-fa163e28414b",
+            "type": "center-node",
+            "itype": "edge"
+        }, {
+            "to": "dcc428a1-bc98-11e8-ae77-fa163e28414b",
+            "from": "632f57f6-bbef-11e8-ae77-fa163e28414b",
+            "id": "632f57f6-bbef-11e8-ae77-fa163e28414b---dcc428a1-bc98-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "to": "5e905835-bc97-11e8-ae77-fa163e28414b",
+            "from": "632f57f6-bbef-11e8-ae77-fa163e28414b",
+            "id": "632f57f6-bbef-11e8-ae77-fa163e28414b---5e905835-bc97-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "from": "gangnam",
+            "to": "76ded5e6-bbef-11e8-ae77-fa163e28414b",
+            "id": "gangnam---76ded5e6-bbef-11e8-ae77-fa163e28414b",
+            "type": "center-node",
+            "itype": "edge"
+        }, {
+            "to": "07767eb9-bc97-11e8-ae77-fa163e28414b",
+            "from": "76ded5e6-bbef-11e8-ae77-fa163e28414b",
+            "id": "76ded5e6-bbef-11e8-ae77-fa163e28414b---07767eb9-bc97-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "to": "67dc8b0b-bc97-11e8-ae77-fa163e28414b",
+            "from": "76ded5e6-bbef-11e8-ae77-fa163e28414b",
+            "id": "76ded5e6-bbef-11e8-ae77-fa163e28414b---67dc8b0b-bc97-11e8-ae77-fa163e28414b",
+            "type": "node-pod",
+            "itype": "edge"
+        }, {
+            "id": "2890ec1f-5a17-4938-821f-1d25840501aa---a875507e-daa0-4662-851e-1fba7af6a7c2",
+            "_from": "2890ec1f-5a17-4938-821f-1d25840501aa",
+            "_to": "a875507e-daa0-4662-851e-1fba7af6a7c2",
+            "itype": "edge",
+            "type": "instance-volume"
+        }, {
+            "id": "2ad09d39-2f65-4702-9541-602993ba030c---fd048bad-397c-405e-8c79-4f9d62c73c0c",
+            "_from": "2ad09d39-2f65-4702-9541-602993ba030c",
+            "_to": "fd048bad-397c-405e-8c79-4f9d62c73c0c",
+            "itype": "edge",
+            "type": "instance-volume"
+        }, {
+            "id": "2d8fee90-ae98-4a44-b4d1-e1a44050ec9a---f60ae7ee-510c-41d1-babf-2ac604916faf",
+            "_from": "2d8fee90-ae98-4a44-b4d1-e1a44050ec9a",
+            "_to": "f60ae7ee-510c-41d1-babf-2ac604916faf",
+            "itype": "edge",
+            "type": "instance-volume"
+        }, {
+            "id": "4a5e9729-15d7-475c-8adf-cf9b9aaa68bb---b55473b5-b5cd-4e8f-aa40-ed30b941b9a8",
+            "_from": "4a5e9729-15d7-475c-8adf-cf9b9aaa68bb",
+            "_to": "b55473b5-b5cd-4e8f-aa40-ed30b941b9a8",
+            "itype": "edge",
+            "type": "instance-volume"
+        }, {
+            "id": "4f93da10-0acf-4f1c-ae8a-39af6c087b69---c2e66a22-8482-497c-934a-c61bf4c0a792",
+            "_from": "4f93da10-0acf-4f1c-ae8a-39af6c087b69",
+            "_to": "c2e66a22-8482-497c-934a-c61bf4c0a792",
+            "itype": "edge",
+            "type": "instance-volume"
+        }, {
+            "id": "52a99ab7-fa65-46e1-b7ef-b207a1cbaf76---c813cadf-c419-45b8-904e-5273ec29e90e",
+            "_from": "52a99ab7-fa65-46e1-b7ef-b207a1cbaf76",
+            "_to": "c813cadf-c419-45b8-904e-5273ec29e90e",
+            "itype": "edge",
+            "type": "instance-volume"
+        }, {
+            "id": "9c384b1e-f6e4-4dff-ab19-d2a7247e67b8---31063550-0a76-4671-a6fd-6fef8ede7b69",
+            "_from": "9c384b1e-f6e4-4dff-ab19-d2a7247e67b8",
+            "_to": "31063550-0a76-4671-a6fd-6fef8ede7b69",
+            "itype": "edge",
+            "type": "instance-volume"
+        }, {
+            "id": "RegionOne---internal",
+            "_from": "RegionOne",
+            "_to": "internal",
+            "itype": "edge",
+            "type": "region-az"
+        }, {
+            "id": "RegionOne---nova",
+            "_from": "RegionOne",
+            "_to": "nova",
+            "itype": "edge",
+            "type": "region-az"
+        }, {
+            "id": "RegionOne---zone1",
+            "_from": "RegionOne",
+            "_to": "zone1",
+            "itype": "edge",
+            "type": "region-az"
+        }, {
+            "id": "b25fbf5e-a41c-46a1-948f-d2a4b576a83c---95589f24-f290-4e24-94bd-eafca3694a79",
+            "_from": "b25fbf5e-a41c-46a1-948f-d2a4b576a83c",
+            "_to": "95589f24-f290-4e24-94bd-eafca3694a79",
+            "itype": "edge",
+            "type": "instance-volume"
+        }, {
+            "id": "block1---31063550-0a76-4671-a6fd-6fef8ede7b69",
+            "_from": "block1",
+            "_to": "31063550-0a76-4671-a6fd-6fef8ede7b69",
+            "itype": "edge",
+            "type": "host-volume"
+        }, {
+            "id": "block1---4c13a78c-a18b-4f15-bb4f-3c8438c43f3b",
+            "_from": "block1",
+            "_to": "4c13a78c-a18b-4f15-bb4f-3c8438c43f3b",
+            "itype": "edge",
+            "type": "host-volume"
+        }, {
+            "id": "block1---64dd4a97-7918-49d5-b816-7c99624fbbf7",
+            "_from": "block1",
+            "_to": "64dd4a97-7918-49d5-b816-7c99624fbbf7",
+            "itype": "edge",
+            "type": "host-volume"
+        }, {
+            "id": "block1---95589f24-f290-4e24-94bd-eafca3694a79",
+            "_from": "block1",
+            "_to": "95589f24-f290-4e24-94bd-eafca3694a79",
+            "itype": "edge",
+            "type": "host-volume"
+        }, {
+            "id": "block1---a875507e-daa0-4662-851e-1fba7af6a7c2",
+            "_from": "block1",
+            "_to": "a875507e-daa0-4662-851e-1fba7af6a7c2",
+            "itype": "edge",
+            "type": "host-volume"
+        }, {
+            "id": "block1---b55473b5-b5cd-4e8f-aa40-ed30b941b9a8",
+            "_from": "block1",
+            "_to": "b55473b5-b5cd-4e8f-aa40-ed30b941b9a8",
+            "itype": "edge",
+            "type": "host-volume"
+        }, {
+            "id": "block1---c2e66a22-8482-497c-934a-c61bf4c0a792",
+            "_from": "block1",
+            "_to": "c2e66a22-8482-497c-934a-c61bf4c0a792",
+            "itype": "edge",
+            "type": "host-volume"
+        }, {
+            "id": "block1---c813cadf-c419-45b8-904e-5273ec29e90e",
+            "_from": "block1",
+            "_to": "c813cadf-c419-45b8-904e-5273ec29e90e",
+            "itype": "edge",
+            "type": "host-volume"
+        }, {
+            "id": "block1---f60ae7ee-510c-41d1-babf-2ac604916faf",
+            "_from": "block1",
+            "_to": "f60ae7ee-510c-41d1-babf-2ac604916faf",
+            "itype": "edge",
+            "type": "host-volume"
+        }, {
+            "id": "block1---fd048bad-397c-405e-8c79-4f9d62c73c0c",
+            "_from": "block1",
+            "_to": "fd048bad-397c-405e-8c79-4f9d62c73c0c",
+            "itype": "edge",
+            "type": "host-volume"
+        }, {
+            "id": "compute1---2ad09d39-2f65-4702-9541-602993ba030c",
+            "_from": "compute1",
+            "_to": "2ad09d39-2f65-4702-9541-602993ba030c",
+            "itype": "edge",
+            "type": "host-instance"
+        }, {
+            "id": "compute1---2d8fee90-ae98-4a44-b4d1-e1a44050ec9a",
+            "_from": "compute1",
+            "_to": "2d8fee90-ae98-4a44-b4d1-e1a44050ec9a",
+            "itype": "edge",
+            "type": "host-instance"
+        }, {
+            "id": "compute1---4f93da10-0acf-4f1c-ae8a-39af6c087b69",
+            "_from": "compute1",
+            "_to": "4f93da10-0acf-4f1c-ae8a-39af6c087b69",
+            "itype": "edge",
+            "type": "host-instance"
+        }, {
+            "id": "compute1---52a99ab7-fa65-46e1-b7ef-b207a1cbaf76",
+            "_from": "compute1",
+            "_to": "52a99ab7-fa65-46e1-b7ef-b207a1cbaf76",
+            "itype": "edge",
+            "type": "host-instance"
+        }, {
+            "id": "compute1---a9d954ab-03ef-4fa0-b864-bf3044dca82d",
+            "_from": "compute1",
+            "_to": "a9d954ab-03ef-4fa0-b864-bf3044dca82d",
+            "itype": "edge",
+            "type": "network-host"
+        }, {
+            "id": "compute1---b25fbf5e-a41c-46a1-948f-d2a4b576a83c",
+            "_from": "compute1",
+            "_to": "b25fbf5e-a41c-46a1-948f-d2a4b576a83c",
+            "itype": "edge",
+            "type": "host-instance"
+        }, {
+            "id": "compute2---2890ec1f-5a17-4938-821f-1d25840501aa",
+            "_from": "compute2",
+            "_to": "2890ec1f-5a17-4938-821f-1d25840501aa",
+            "itype": "edge",
+            "type": "host-instance"
+        }, {
+            "id": "compute2---4a5e9729-15d7-475c-8adf-cf9b9aaa68bb",
+            "_from": "compute2",
+            "_to": "4a5e9729-15d7-475c-8adf-cf9b9aaa68bb",
+            "itype": "edge",
+            "type": "host-instance"
+        }, {
+            "id": "compute2---9c384b1e-f6e4-4dff-ab19-d2a7247e67b8",
+            "_from": "compute2",
+            "_to": "9c384b1e-f6e4-4dff-ab19-d2a7247e67b8",
+            "itype": "edge",
+            "type": "host-instance"
+        }, {
+            "id": "compute2---a9d954ab-03ef-4fa0-b864-bf3044dca82d",
+            "_from": "compute2",
+            "_to": "a9d954ab-03ef-4fa0-b864-bf3044dca82d",
+            "itype": "edge",
+            "type": "network-host"
+        }, {
+            "id": "compute2---e6adb082-38f6-4eb2-bc81-e7feaacf1ece",
+            "_from": "compute2",
+            "_to": "e6adb082-38f6-4eb2-bc81-e7feaacf1ece",
+            "itype": "edge",
+            "type": "host-instance"
+        }, {
+            "id": "controller---a9d954ab-03ef-4fa0-b864-bf3044dca82d",
+            "_from": "controller",
+            "_to": "a9d954ab-03ef-4fa0-b864-bf3044dca82d",
+            "itype": "edge",
+            "type": "network-host"
+        }, {
+            "id": "e6adb082-38f6-4eb2-bc81-e7feaacf1ece---64dd4a97-7918-49d5-b816-7c99624fbbf7",
+            "_from": "e6adb082-38f6-4eb2-bc81-e7feaacf1ece",
+            "_to": "64dd4a97-7918-49d5-b816-7c99624fbbf7",
+            "itype": "edge",
+            "type": "instance-volume"
+        }, {
+            "id": "internal---controller",
+            "_from": "internal",
+            "_to": "controller",
+            "itype": "edge",
+            "type": "az-host"
+        }, {
+            "id": "nova---a9d954ab-03ef-4fa0-b864-bf3044dca82d",
+            "_from": "nova",
+            "_to": "a9d954ab-03ef-4fa0-b864-bf3044dca82d",
+            "itype": "edge",
+            "type": "az-network"
+        }, {
+            "id": "nova---block1",
+            "_from": "nova",
+            "_to": "block1",
+            "itype": "edge",
+            "type": "az-host"
+        }, {
+            "id": "openstack---RegionOne",
+            "_from": "openstack",
+            "_to": "RegionOne",
+            "itype": "edge",
+            "type": "openstack-region"
+        }, {
+            "id": "zone1---compute1",
+            "_from": "zone1",
+            "_to": "compute1",
+            "itype": "edge",
+            "type": "az-host"
+        }, {
+            "id": "zone1---compute2",
+            "_from": "zone1",
+            "_to": "compute2",
+            "itype": "edge",
+            "type": "az-host"
+        }, {
+            "from": "4f93da10-0acf-4f1c-ae8a-39af6c087b69",
+            "to": "86a9f302-bbee-11e8-ae77-fa163e28414b",
+            "id": "4f93da10-0acf-4f1c-ae8a-39af6c087b69---86a9f302-bbee-11e8-ae77-fa163e28414b",
+            "itype": "edge",
+            "type": "node-node"
+        }, {
+            "from": "e6adb082-38f6-4eb2-bc81-e7feaacf1ece",
+            "to": "9b0b4221-bbee-11e8-ae77-fa163e28414b",
+            "id": "e6adb082-38f6-4eb2-bc81-e7feaacf1ece---9b0b4221-bbee-11e8-ae77-fa163e28414b",
+            "itype": "edge",
+            "type": "node-node"
+        }, {
+            "from": "52a99ab7-fa65-46e1-b7ef-b207a1cbaf76",
+            "to": "b462999f-bbee-11e8-ae77-fa163e28414b",
+            "id": "52a99ab7-fa65-46e1-b7ef-b207a1cbaf76---b462999f-bbee-11e8-ae77-fa163e28414b",
+            "itype": "edge",
+            "type": "node-node"
+        }, {
+            "from": "2890ec1f-5a17-4938-821f-1d25840501aa",
+            "to": "e5e77fa7-bbee-11e8-ae77-fa163e28414b",
+            "id": "2890ec1f-5a17-4938-821f-1d25840501aa---e5e77fa7-bbee-11e8-ae77-fa163e28414b",
+            "itype": "edge",
+            "type": "node-node"
+        }, {
+            "from": "b25fbf5e-a41c-46a1-948f-d2a4b576a83c",
+            "to": "0440391a-bbef-11e8-ae77-fa163e28414b",
+            "id": "b25fbf5e-a41c-46a1-948f-d2a4b576a83c---0440391a-bbef-11e8-ae77-fa163e28414b",
+            "itype": "edge",
+            "type": "node-node"
+        }, {
+            "from": "9c384b1e-f6e4-4dff-ab19-d2a7247e67b8",
+            "to": "1f17cd8e-bbef-11e8-ae77-fa163e28414b",
+            "id": "9c384b1e-f6e4-4dff-ab19-d2a7247e67b8---1f17cd8e-bbef-11e8-ae77-fa163e28414b",
+            "itype": "edge",
+            "type": "node-node"
+        }, {
+            "from": "2d8fee90-ae98-4a44-b4d1-e1a44050ec9a",
+            "to": "4bc1e64c-bbef-11e8-ae77-fa163e28414b",
+            "id": "2d8fee90-ae98-4a44-b4d1-e1a44050ec9a---4bc1e64c-bbef-11e8-ae77-fa163e28414b",
+            "itype": "edge",
+            "type": "node-node"
+        }, {
+            "from": "4a5e9729-15d7-475c-8adf-cf9b9aaa68bb",
+            "to": "632f57f6-bbef-11e8-ae77-fa163e28414b",
+            "id": "4a5e9729-15d7-475c-8adf-cf9b9aaa68bb---632f57f6-bbef-11e8-ae77-fa163e28414b",
+            "itype": "edge",
+            "type": "node-node"
+        }, {
+            "from": "2ad09d39-2f65-4702-9541-602993ba030c",
+            "to": "76ded5e6-bbef-11e8-ae77-fa163e28414b",
+            "id": "2ad09d39-2f65-4702-9541-602993ba030c---76ded5e6-bbef-11e8-ae77-fa163e28414b",
+            "itype": "edge",
+            "type": "node-node"
+        }]
+    }
+    // console.log(cloudData);
+
+    var set = new NodeJoinSeach();// instantiate disjoint-set data structure
+
+    function nodeDataSet(cloudData) {
+        var nodeData = cloudData.node;
+        for (var ix = 0; ix < nodeData.length; ix += 1) {
+            set.add(nodeData[ix]);
+        }
+
+    }
+
+    function nodeEdgeSet(cloudData) {
+        var edgeData = cloudData.edge;
+        for (var ix = 0; ix < edgeData.length; ix += 1) {
+            set.add(edgeData[ix]);
+        }
+    }
+
+    nodeDataSet(cloudData);
+    nodeEdgeSet(cloudData);
+
+    set.unionConnet(
+    // {
+    //     "id": "compute2",
+    //     "name": "compute2",
+    //     "type": "host",
+    //     "itype": "node",
+    //     "level": 3,
+    //     "htype": "compute",
+    //     "group": 10,
+    //     disjointSetId: 44,
+    // }
+    {
+        "name": "node-4",
+        "namespace": null,
+        "id": "0440391a-bbef-11e8-ae77-fa163e28414b",
+        "ip": "203.0.113.106",
+        "type": "node",
+        "itype": "node",
+        "parent": ["b25fbf5e-a41c-46a1-948f-d2a4b576a83c"],
+        "level": 5,
+        "group": 1,
+        "cid": "inst-4",
+        disjointSetId: 35,
+    },
+    //     {
+    //         "id": "compute1",
+    //         "name": "compute1",
+    //         "type": "host",
+    //         "itype": "node",
+    //         "level": 3,
+    //         "htype": "compute",
+    //         "group": 10,
+    //         disjointSetId: 43,
+    //     }
+        );
+    // console.log(set.extract());
+    //
+    // function unionData() {
+    //
+    //     for (var ix = 0; ix < 160; ix += 1) {
+    //         set.union(set._objects[ix], set._objects[ix + 1]);
+    //     }
+    // }
+    //
+    // unionData();
+    //
+    // var arrow_Fn = (a,tree=[1,2,3]) => {
+    //     console.log(a, tree);
+    // }
+    // arrow_Fn(1,[1,2]);
+
+
+    //
+    // var set2 = new disjointSet();// instantiate disjoint-set2 data structure
+    //
+    // var person1 = {
+    //     name: 'Volodymyr',
+    //     surname: 'Velykyj'
+    // }
+    // var person2 = {
+    //     name: 'Yaroslav',
+    //     surname: 'Mydryi'
+    // }
+    // var person3 = {
+    //     name: 'Bohdan',
+    //     surname: 'Khmelnytskyi'
+    // }
+    // var person4 = {
+    //     name: 'Ivan',
+    //     surname: 'Mazepa'
+    // }
+    // var person5 = {
+    //     name: 'Viktor',
+    //     surname: 'Yanukovich'
+    // }
+    // var person6 = {
+    //     name: 'Volodymyr',
+    //     surname: 'Putin'
+    // }
+    //
+    // // add objects to the set2
+    // set2.add(person1)
+    //     .add(person2)
+    //     .add(person3)
+    //     .add(person4)
+    //     .add(person5)
+    //     .add(person6);
+    //
+    // // connect some objects to each other
+    // set2.union(person1, person5);
+    // set2.union(person5, person3);
+    // set2.union(person4, person2);
+    // set2.union(person2, person6);
+    //
+    // // check connections
+    // console.log(set2.connected(person1, person2)); // returns true. Direct connection
+    // console.log(set2.connected(person1, person4)); // returns true. Indirect connection
+    // console.log(set2.connected(person5, person6)); // returns true. Another direct connection
+    // console.log(set2.connected(person4, person5)); // returns false. No connection
+    //
+    // /**
+    //  * returns two arrays grouped by connection:
+    //  * [
+    //  *     [person1, person2, person3, person4],
+    //  *     [person5, person6]
+    //  * ] 41 44 56
+    //  */
+    // console.log(set2.extract());
+</script>
+</html>
