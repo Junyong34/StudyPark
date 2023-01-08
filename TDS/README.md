@@ -1,5 +1,7 @@
 
 
+하루 정리
 
-#### [01](https://github.com/Junyong34/StudyPark/tree/master/TDS/01)
+#### [1주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/01)
 
+#### [2주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/02)
