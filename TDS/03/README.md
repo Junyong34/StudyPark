@@ -62,3 +62,30 @@ head meta tag에 속성을 부여 한다.
 <!-- *일부 상황*에서는 이 설명이 검색 결과에 표시된 스니펫의 일부로 사용됩니다. -->
 <meta name="description" content="A description of the page">
 ```
+
+### ESLint, Prettier 셋팅
+```bash
+# eslint와 prettier
+$ pnpm add -D eslint prettier
+
+# eslint의 formatter을 off하고 prettier를 사용하기 위한 패키지들
+$ pnpm add -D eslint-config-prettier eslint-plugin-prettier
+
+# typescript를 lint하기 위한 패키지들
+$ pnpm add -D @typescript-eslint/eslint-plugin @typescript-eslint/parser
+
+# next 규칙 플러그인
+$ pnpm add -D @next/eslint-plugin-next
+
+# airbnb 규칙
+$ pnpm add -D eslint-config-airbnb
+
+# airbnb 규칙의 의존성 패키지들
+$ pnpm add -D eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react eslint-plugin-react-hooks
+
+# airbnb 타입스크립트 규칙
+$ pnpm add -D eslint-config-airbnb-typescript
+
+# jest를 규칙 플러그인
+$ pnpm add -D eslint-plugin-jest
+```
