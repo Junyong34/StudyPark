@@ -26,3 +26,32 @@
 
 이처럼 pnpm + lerna를 사용하면, 패키지 관리, 배포, 의존성 관리 등을 쉽게 관리할 수 있습니다.
 
+
+### 모노레포 관리 명령어
+
+
+1.  `lerna bootstrap` : 모든 패키지간의 의존성을 설치하고 연결합니다.
+2.  `lerna list` : 모든 패키지 목록을 표시합니다.
+3.  `lerna clean` : 모든 패키지에서 node_modules 디렉토리를 삭제합니다.
+4.  `lerna exec` : 모든 패키지에서 명령
+    1. lerna exec -- rm -rf ./node_modules : workspace 하위 node_modules 전부 삭제
+5.  `lerna run` : 모든 패키지에서 npm script를 실행합니다.
+6.  `lerna import` : 외부 패키지를 현재 모노레포로 가져옵니다.
+7.  `lerna create` : 새로운 패키지를 생성합니다.
+8.  `lerna add` : 패키지에 의존성을 추가합니다.
+9.  `lerna remove` : 패키지에서 의존성을 제거합니다.
+10.  `lerna updated` : 업데이트된 패키지를 목록으로 보여줍니다.
+11.  `lerna version` : 패키지 버전을 업데이트 합니다.
+12. `lerna publish`: 명령어는 lerna를 사용해 패키지를 배포할 때 사용하는 명령어 입니다.
+
+이 명령어를 사용하면 패키지의 버전을 업데이트 하고, 이를 기반으로 패키지를 배포합니다.
+
+배포 전 패키지의 버전을 업데이트 할 때 `lerna version` 명령어를 사용할 수 있으며, 이때 `--force-publish` 옵션을 사용하면 버전을 강제로 업데이트 할 수 있다.
+
+버전 업데이트 후 `lerna publish` 명령어를 사용하면, 패키지를 배포할 수 있다.
+
+배포시 `--skip-npm`,`--skip-git` 옵션을 사용하면 NPM, git 에 배포하지 않는다.
+
+옵션을 추가하여 배포할때는 `lerna publish <version> --exact` 를 사용하면 버전을 정확히 지정해 배포할 수 있다.
+
+`lerna publish` 명령어를 사용하면 패키지를 쉽게 배포 할 수 있다.
