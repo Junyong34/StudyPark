@@ -76,3 +76,17 @@ function MyComponent() {
 ```
 
 이 예제에서 `handleOpenModal`메서드는 사용자가 "Open Modal" 버튼을 클릭할 때 호출되며 현재 URL이 '/my-modal'인 브라우저의 기록 스택에 새 상태를 푸시하고 모달을 엽니다. 그런 다음 `handleCloseModal`사용자가
+
+
+### nslookup 명령어
+nslookup 명령어는 Domain Name System (DNS) 정보를 조회합니다.
+
+언제 사용: 도메인 이름에 대한 IP 주소, MX 레코드, NS 레코드 등의 DNS 정보를 확인할 때 사용합니다.
+어떤 상황에서 쓰면 좋은지: 네트워크 설정을 확인하거나, 도메인 이름에 대한 DNS 정보를 확인할 때 유용합니다.
+
+```
+nslookup google.com
+nslookup google.com 8.8.8.8
+```
+도메인 google.com이랑 연결된 IP주소를 반환합니다.
+
