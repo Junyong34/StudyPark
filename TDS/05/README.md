@@ -117,4 +117,37 @@ azure는 구독이 있어야 리소스 만들 수가 있다
 관리 그룹을 통화 구독을 관리할 수 있다.
 
 
+### pm2 + nextjs  웹서버 띄우기
+
+다음은 Next.js 앱을 시작하고 프로세스를 관리하기 위한 몇 가지 일반적인 PM2 명령입니다.
+
+1.  Next.js 앱을 시작합니다.
+
+`pm2 start npm --name "app-name" -- start`
+
+2.  프로세스 중지:
+
+`pm2 stop app-name`
+
+3.  프로세스를 다시 시작합니다.
+
+`pm2 restart app-name`
+
+4.  실행 중인 프로세스 나열:
+
+`pm2 list`
+
+5.  프로세스 로그 모니터링:
+
+`pm2 logs app-name`
+
+6.  프로세스 제거:
+
+`pm2 delete app-name`
+
+7.  프로세스 정보 표시:
+
+`pm2 show app-name`
+
+참고: "app-name"을 실제 앱 이름으로 바꾸십시오.
 
