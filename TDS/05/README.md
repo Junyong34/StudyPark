@@ -151,3 +151,98 @@ azure는 구독이 있어야 리소스 만들 수가 있다
 
 참고: "app-name"을 실제 앱 이름으로 바꾸십시오.
 
+
+### pm2 환경 설정
+1.  다음 명령을 사용하여 시스템에 전역적으로 PM2를 설치합니다.
+
+코드 복사
+
+`npm install pm2 -g`
+
+2.  다음 명령으로 PM2를 사용하여 Node.js 애플리케이션을 시작합니다.
+
+`pm2 start <your_app_script>`
+
+3.  서버를 다시 시작한 후 Node.js 애플리케이션이 자동으로 시작되도록 하려면 다음 명령을 사용할 수 있습니다.
+
+`pm2 save`
+
+4.  애플리케이션 상태를 모니터링하려면 다음 명령을 사용할 수 있습니다.
+
+`pm2 monit`
+
+5.  PM2에서 생성된 로그를 보려면 다음 명령을 사용할 수 있습니다.
+
+`pm2 logs`
+
+6.  애플리케이션을 다시 시작하려면 다음 명령을 사용할 수 있습니다.
+
+`pm2 restart <your_app_script>`
+
+7.  애플리케이션을 중지하려면 다음 명령을 사용할 수 있습니다.
+
+`pm2 stop <your_app_script>`
+
+참고: `<your_app_script>`Node.js 애플리케이션의 실제 스크립트 파일 이름으로 바꾸십시오.
+
+프로덕션 환경의 경우 클러스터 모드에서 PM2를 실행하는 것이 좋습니다. 들어오는 요청을 여러 작업자 프로세스 간에 분산하여 애플리케이션의 성능을 향상시킬 수 있기 때문입니다. 다음 명령을 사용하여 클러스터 모드에서 애플리케이션을 실행할 수 있습니다.
+
+`pm2 start <your_app_script> -i <number_of_instances>`
+
+`<number_of_instances>`원하는 수의 작업자 프로세스로 교체하십시오 .
+
+###  pm2 클러스터 설정
+
+M2 클러스터 모드 설정 방법:
+
+1.  PM2 설치:
+
+`npm install pm2 -g`
+
+2.  애플리케이션 파일에서 PM2를 통해 애플리케이션 실행:
+
+`pm2 start app.js -i max`
+
+-   `-i max`옵션은 최대로 설정할 수 있는 옵션입니다.
+
+PM2 촬영 방법:
+
+1.  PM2촬영:
+
+`pm2 monit`
+
+2.  PM2 관리자 대시보드 확인:
+
+`pm2 dashboard`
+
+PM2 환경설정에 대한 추천:
+
+1.  애플리케이션 이전 PM2의 프로세스 상태 저장:
+
+`pm2 save`
+
+2.  농구 후 PM2 애플리케이션 자동 시작:
+
+`pm2 startup`
+
+3.  PM2 고정 설정:
+
+`pm2 logrotate -u <user_name>`
+
+4.  PM2 관리자 대시보드 설정:
+
+`pm2 install pm2-web`
+
+PM2 사진 촬영 방법:
+
+1.  PM2촬영:
+
+`pm2 monit`
+
+2.  PM2 클러스터 상태 확인:
+
+`pm2 show <app_name>`
+
+3.  PM2 상태 그래프:
+
+`pm2 show <app_name> --graph`
