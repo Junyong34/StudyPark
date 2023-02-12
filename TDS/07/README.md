@@ -13,3 +13,7 @@ wget -qO - [https://pkg.jenkins.io/debian-stable/jenkins.io.key](https://pkg.jen
 - sudo apt-get update && sudo apt-get install jenkins -y
 - sudo service jenkins restart
 ```
+
+Jenkins 2.375.3 버전은 JAVA 11 버전에서 설치가 가능하다.
+워크 스페이스 경로 : /var/lib/jenkins/workspace
+ant 경로 : /var/lib/jenkins/tools/hudson.tasks.Ant_AntInstallation/ant-1.9.7/lib
