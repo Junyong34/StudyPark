@@ -15,3 +15,5 @@
 #### [6주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/06)
 
 #### [7주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/07)
+
+#### [8주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/08)
