@@ -1,0 +1,9 @@
+{
+	"nodes":[
+		{"id":"e1acfae1ba614629","x":-340,"y":-320,"width":400,"height":400,"type":"file","file":"Note/01/테스트2.md"},
+		{"id":"2aa549bb4120e7c4","x":140,"y":-320,"width":400,"height":400,"type":"file","file":"Note/01/테스트.md"}
+	],
+	"edges":[
+		{"id":"11921932318485e3","fromNode":"e1acfae1ba614629","fromSide":"right","toNode":"2aa549bb4120e7c4","toSide":"left"}
+	]
+}
