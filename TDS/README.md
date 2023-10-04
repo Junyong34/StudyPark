@@ -2,18 +2,18 @@
 
 하루 정리
 
-#### [1주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/01)
+#### [정리1](https://github.com/Junyong34/StudyPark/tree/master/TDS/01)
 
-#### [2주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/02)
+#### [정리2](https://github.com/Junyong34/StudyPark/tree/master/TDS/02)
 
-#### [3주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/03)
+#### [정리3](https://github.com/Junyong34/StudyPark/tree/master/TDS/03)
 
-#### [4주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/04)
+#### [정리4](https://github.com/Junyong34/StudyPark/tree/master/TDS/04)
 
-#### [5주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/05)
+#### [정리5](https://github.com/Junyong34/StudyPark/tree/master/TDS/05)
 
-#### [6주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/06)
+#### [정리6](https://github.com/Junyong34/StudyPark/tree/master/TDS/06)
 
-#### [7주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/07)
+#### [정리7](https://github.com/Junyong34/StudyPark/tree/master/TDS/07)
 
-#### [8주차](https://github.com/Junyong34/StudyPark/tree/master/TDS/08)
+#### [정리8](https://github.com/Junyong34/StudyPark/tree/master/TDS/08)
