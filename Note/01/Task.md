@@ -25,7 +25,8 @@ function App() {
               <Link to="/mypage">My Page</Link>  
             </li>  
           </ul>  
-        </nav>        <Switch>  
+        </nav>      
+          <Switch>  
           <Route path="/mypage" component={MyPage} />  
         </Switch>  
       </div>  
