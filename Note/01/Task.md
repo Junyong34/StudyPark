@@ -11,3 +11,68 @@
 
 
 340,200
+
+```javascript
+import React from 'react';  
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+function App() {  
+  return (  
+    <Router>  
+      <div className="App">  
+        <nav>  
+          <ul>  
+            <li>  
+              <Link to="/mypage">My Page</Link>  
+            </li>  
+          </ul>  
+        </nav>        <Switch>  
+          <Route path="/mypage" component={MyPage} />  
+        </Switch>  
+      </div>  
+    </Router>  
+  );  
+}function MyPage(props) {  
+  return (  
+    <div>  
+      <div className="left-sidebar">  
+        <ul>  
+          <li>  
+            <Link to="/mypage/order">Order</Link>  
+          </li>  
+          <li>  
+            <Link to="/mypage/point">Point</Link>  
+          </li>  
+          <li>  
+            <Link to="/mypage/coupon">Coupon</Link>  
+          </li>  
+        </ul>  
+      </div>  
+      <div className="contents">  
+        <Switch>  
+          <Route path="/mypage/order" component={Order} />  
+          <Route path="/mypage/point" component={Point} />  
+          <Route path="/mypage/coupon" component={Coupon} />  
+        </Switch>  
+      </div>  
+    </div>  
+  );  
+}function Order(props) {  
+  return (  
+    <div>  
+      {/* Order 페이지의 내용을 여기에 추가하세요 */}  
+    </div>  
+  );  
+}function Point(props) {  
+  return (  
+    <div>  
+      {/* Point 페이지의 내용을 여기에 추가하세요 */}  
+    </div>  
+  );  
+}function Coupon(props) {  
+  return (  
+    <div>  
+      {/* Coupon 페이지의 내용을 여기에 추가하세요 */}  
+    </div>  
+  );  
+}export default App;
+```
