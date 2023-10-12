@@ -12,6 +12,7 @@
 - [ ] 🛫 2023-10-12  MYPAGE 관련 화면 PC인 경우 classname 수정
 - [ ] 🛫 2023-10-12  MYPAGE_MAIN 은 PC랑 Mobile 2가지 화면 존재  분기 처리 필요 ! 마이페이지로 이동하는 버튼마다
 
+AS353NB3A, AS353NG3A,AS353NS3A
 
 340,200
 
