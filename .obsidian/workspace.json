@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/01/Task.md",
+                "file": "Note/01/성과 관리.md",
                 "mode": "source",
                 "source": false
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/01/Task.md",
+                "file": "Note/01/성과 관리.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/01/Task.md",
+                "file": "Note/01/성과 관리.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/01/Task.md"
+                "file": "Note/01/성과 관리.md"
               }
             }
           }
@@ -161,9 +161,9 @@
   },
   "active": "e37552ed2e072d45",
   "lastOpenFiles": [
+    "Note/01/Task.md",
     "Note/01/성과 관리.md",
     "Note/01/Pasted image 20231011175510.png",
-    "Note/01/Task.md",
     "Note/01/Pasted image 20231004101224.png",
     "Note/01/테스트2.md",
     "components/canvasComponent/hexagons/class화/README.md",
