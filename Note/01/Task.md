@@ -11,6 +11,8 @@
 - [x] 🛫 2023-10-12  MYPAGE 관련 PATH --> MYPAGE_PATH로 전부 변경 ✅ 2023-10-12
 - [x] 🛫 2023-10-12  MYPAGE 관련 화면 PC인 경우 classname 수정 ✅ 2023-10-12
 - [x] 🛫 2023-10-12  MYPAGE_MAIN 은 PC랑 Mobile 2가지 화면 존재  분기 처리 필요 ! 마이페이지로 이동하는 버튼마다 ✅ 2023-10-12
+- [ ] 🛫 2023-10-17 search filter props 정리
+- [ ] 
 
 쿠폰 ALICOUPON018
 
