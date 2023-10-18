@@ -33,6 +33,10 @@
 ## 대형 웹 애플리케이션 Micro Frontends 전환기
 
 
-search?addSubCategoryYn=Y&categoryDepth=3&categoryId=300211&entry=direct&inputKeyword=우유&keyword=우유&searchType=NONE
+search?addSubCategoryYn=&categoryDepth=&categoryId=&entry=direct&inputKeyword=&keyword=우유&searchType=
 
 /search?addSubCategoryYn=Y&categoryDepth=3&categoryId=300211&entry=direct&inputKeyword=우유&keyword=우유&searchType=NONE
+
+![[Pasted image 20231018150702.png]]
+
+![[Pasted image 20231018150931.png]]
