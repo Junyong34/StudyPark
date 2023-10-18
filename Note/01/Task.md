@@ -32,3 +32,7 @@
 16:20 - 17:00 / Track A
 ## 대형 웹 애플리케이션 Micro Frontends 전환기
 
+
+search?addSubCategoryYn=Y&categoryDepth=3&categoryId=300211&entry=direct&inputKeyword=우유&keyword=우유&searchType=NONE
+
+/search?addSubCategoryYn=Y&categoryDepth=3&categoryId=300211&entry=direct&inputKeyword=우유&keyword=우유&searchType=NONE
