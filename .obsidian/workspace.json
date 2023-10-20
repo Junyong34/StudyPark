@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/01/딥링크 이슈.md",
+                "file": "Note/01/이슈.md",
                 "mode": "source",
                 "source": false
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/01/딥링크 이슈.md",
+                "file": "Note/01/이슈.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/01/딥링크 이슈.md",
+                "file": "Note/01/이슈.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/01/딥링크 이슈.md"
+                "file": "Note/01/이슈.md"
               }
             }
           }
@@ -175,7 +175,7 @@
   "lastOpenFiles": [
     "Note/01/Pasted image 20231018161111.png",
     "Note/01/Task.md",
-    "Note/01/딥링크 이슈.md",
+    "Note/01/이슈.md",
     "Note/01/Pasted image 20231018150931.png",
     "Note/01/Pasted image 20231018150702.png",
     "Note/01/성과 관리.md",
