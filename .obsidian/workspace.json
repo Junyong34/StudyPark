@@ -42,9 +42,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "df0fc005afc4e42f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Note/01/이슈.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -110,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/01/Linked 리팩토링.md",
+                "file": "Note/01/이슈.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/01/Linked 리팩토링.md",
+                "file": "Note/01/이슈.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/01/Linked 리팩토링.md"
+                "file": "Note/01/이슈.md"
               }
             }
           }
@@ -171,7 +183,7 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "81b22f37883e2359",
+  "active": "df0fc005afc4e42f",
   "lastOpenFiles": [
     "Note/01/이슈.md",
     "Note/01/Linked 리팩토링.md",
