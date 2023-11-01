@@ -64,6 +64,7 @@
             "totItemPrice": 63600,
             "totDcItemPrice": 63600,
             "voucherUseYn": "N",
+            "plasticBagYn": "N",
             "currentItemQty": 4
           },{
             "purchaseOrderNo": 3017574568,
@@ -85,7 +86,7 @@
             "totItemPrice": 100,
             "totDcItemPrice": 100,
             "voucherUseYn": "N",
-            "plasticBagYn": "N",
+            "plasticBagYn": "Y",
             "currentItemQty": 1
           }
         ],
