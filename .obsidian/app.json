@@ -2,5 +2,6 @@
   "attachmentFolderPath": "./",
   "trashOption": "local",
   "newFileLocation": "current",
-  "showUnsupportedFiles": true
+  "showUnsupportedFiles": true,
+  "alwaysUpdateLinks": true
 }
