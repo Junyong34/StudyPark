@@ -1,5 +1,8 @@
 [
   "obsidian-git",
   "obsidian-tasks-plugin",
-  "editing-toolbar"
+  "editing-toolbar",
+  "obsidian-icon-folder",
+  "remember-cursor-position",
+  "obsidian-projects"
 ]
