@@ -9,3 +9,13 @@
 
 이벤트 스케줄 6개 등록 되었습니다.
 이벤트 스케줄 6개 제거 되었ㅅ브니다.
+
+
+서버 init flow
+1. express 기동
+2. router 연결
+3. lowdb 연결
+4. API 호출하여 결과 값 lowdb 전송
+완료
+
+API 문서
