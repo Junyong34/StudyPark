@@ -14,3 +14,15 @@ node_option 추가
 
 core-js 설치
 ![[Pasted image 20231213093919.png]]
+
+KB 제휴 
+- PC 서비스 종료
+- Mobile은 계약은 되어있지만 작업이 안되어있는 상황
+
+신한 (확인)
+- PC 하고 있음
+- Mobile 제휴예정
+
+삼성 (확인)
+- PC만 제휴
+- Mobile 제휴예정
