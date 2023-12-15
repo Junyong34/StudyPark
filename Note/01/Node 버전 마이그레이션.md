@@ -15,6 +15,10 @@ node_option 추가
 core-js 설치
 ![[Pasted image 20231213093919.png]]
 
+- noti
+
+
+
 KB 제휴 
 - PC 서비스 종료
 - Mobile은 계약은 되어있지만 작업이 안되어있는 상황
