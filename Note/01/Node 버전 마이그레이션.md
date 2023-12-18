@@ -82,6 +82,12 @@ You can install this package by running: npm install core-js/modules/es.array.un
 - `npm install ci --legacy-peer-deps`
 
 
+## node type 버전
+- @types/node **12.12.47**. --> **20.10.0**
+
+
+## webStorm Node interpreter 설정 변경
+
 
 
 KB 제휴 
