@@ -104,7 +104,3 @@ KB 제휴
 -
 
 
-```json
-{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-scrollbar-width:thin;-moz-scrollbar-width:thin;-ms-scrollbar-width:thin;scrollbar-width:thin;white-space:nowrap;overflow-x:auto;overflow-scrolling:touch;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-ms-overflow-style:none;
-}
-```
