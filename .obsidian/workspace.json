@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md",
+                "file": "Note/01/충돌 해결 해야하는 파일.md",
                 "mode": "source",
                 "source": false
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md",
+                "file": "Note/01/충돌 해결 해야하는 파일.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md",
+                "file": "Note/01/충돌 해결 해야하는 파일.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md"
+                "file": "Note/01/충돌 해결 해야하는 파일.md"
               }
             }
           }
@@ -198,13 +198,14 @@
   },
   "active": "99482047c30a86b8",
   "lastOpenFiles": [
+    "Note/01/Pasted image 20231220154214.png",
+    "Note/01/이슈 봉투비.md",
+    "Note/01/Node 버전 마이그레이션.md",
     "Note/01/이미지 업로드.md",
     "Note/01/Pasted image 20231219134744.png",
     "Note/01/Pasted image 20231219133845.png",
-    "Note/01/Node 버전 마이그레이션.md",
     "Note/01/Linked 리팩토링.md",
     "Note/01/충돌 해결 해야하는 파일.md",
-    "Note/01/이슈 봉투비.md",
     "Note/02.event-bot/Notify Evnet Time.md",
     "Note/02.event-bot/Pasted image 20231213093919.png",
     "Note/01/Task.md",
