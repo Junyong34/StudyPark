@@ -105,8 +105,9 @@ KB 제휴
 
 
 
+npm config set strict-ssl false -g
 
-
+npm config set strict-ssl true -g
 
 
 
