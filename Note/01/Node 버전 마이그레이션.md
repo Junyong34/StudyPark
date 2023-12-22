@@ -105,6 +105,8 @@ KB 제휴
 
 
 
+- 프로그레스
+
 npm config set strict-ssl false -g
 
 npm config set strict-ssl true -g
