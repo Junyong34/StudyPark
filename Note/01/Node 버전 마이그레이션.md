@@ -196,52 +196,5 @@ console.log("Middle Frequency:", middleFrequencyResult);
 
 ```
 
-{
-    "spaceBetween": 10,
-    "autoplay": {
-        "pauseOnMouseEnter": true,
-        "delay": 4000,
-        "disableOnInteraction": false
-    },
-    "navigation": {
-        "enabled": false,
-        "nextEl": ".swiper-button-next-hide",
-        "prevEl": ".swiper-button-prev-hide"
-    },
-    "slidesPerView": 1,
-    "width": 500,
-    "centeredSlides": true,
-    "lazyPreloadPrevNext": 3,
-    "slidesPerGroup": 1,
-    "loopAddBlankSlides": true,
-    "loopAdditionalSlides": 3,
-    "resizeObserver": false,
-    "simulateTouch": false,
-    "updateOnWindowResize": false,
-    "loop": true
-}
 
-{
-    "spaceBetween": 10,
-    "autoplay": {
-        "pauseOnMouseEnter": true,
-        "delay": 4000,
-        "disableOnInteraction": false
-    },
-    "navigation": {
-        "enabled": false,
-        "nextEl": ".swiper-button-next-hide",
-        "prevEl": ".swiper-button-prev-hide"
-    },
-    "slidesPerView": 1,
-    "width": 500,
-    "centeredSlides": true,
-    "lazyPreloadPrevNext": 3,
-    "slidesPerGroup": 1,
-    "loopAddBlankSlides": true,
-    "loopAdditionalSlides": 3,
-    "resizeObserver": false,
-    "simulateTouch": false,
-    "updateOnWindowResize": false,
-    "loop": false
-}
+![[Pasted image 20240104110735.png]]
