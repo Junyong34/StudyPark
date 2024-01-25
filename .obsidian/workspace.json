@@ -54,9 +54,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "acfa2307c7cd2399",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Note/01/운영 브라우저.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -122,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/01/이미지 업로드.md",
+                "file": "Note/01/운영 브라우저.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/01/이미지 업로드.md",
+                "file": "Note/01/운영 브라우저.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/01/이미지 업로드.md"
+                "file": "Note/01/운영 브라우저.md"
               }
             }
           }
@@ -184,8 +196,10 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "9d16112c97ce9e20",
+  "active": "acfa2307c7cd2399",
   "lastOpenFiles": [
+    "Note/01/이미지 업로드.md",
+    "Note/01/운영 브라우저.md",
     "git/README.md",
     "Note/01/Pasted image 20231102104852.png",
     "Note/01/Pasted image 20231102104210.png",
@@ -196,7 +210,6 @@
     "Note/02.event-bot/Pasted image 20231213093919.png",
     "Note/01/성과관리/성과관리 -2.md",
     "Note/01/성과관리/성과 관리 - 1.md",
-    "Note/01/이미지 업로드.md",
     "Note/01/이슈 봉투비.md",
     "Note/01/Linked 리팩토링.md",
     "Note/01/충돌 해결 해야하는 파일.md",
