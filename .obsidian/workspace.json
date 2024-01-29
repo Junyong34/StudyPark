@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/01/운영 브라우저.md",
+                "file": "Note/01/반응형 웹.md",
                 "mode": "source",
                 "source": false
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/01/운영 브라우저.md",
+                "file": "Note/01/반응형 웹.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/01/운영 브라우저.md",
+                "file": "Note/01/반응형 웹.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/01/운영 브라우저.md"
+                "file": "Note/01/반응형 웹.md"
               }
             }
           }
@@ -198,8 +198,12 @@
   },
   "active": "acfa2307c7cd2399",
   "lastOpenFiles": [
-    "Note/01/이미지 업로드.md",
+    "Note/01/성과관리/성과관리 -2.md",
+    "Note/01/반응형 웹.md",
+    "Note/01/성과관리/성과 관리 - 1.md",
+    "TDS/01/README.md",
     "Note/01/운영 브라우저.md",
+    "Note/01/이미지 업로드.md",
     "git/README.md",
     "Note/01/Pasted image 20231102104852.png",
     "Note/01/Pasted image 20231102104210.png",
@@ -208,8 +212,6 @@
     "Note/01/Pasted image 20231004101224.png",
     "Note/02.event-bot/Notify Evnet Time.md",
     "Note/02.event-bot/Pasted image 20231213093919.png",
-    "Note/01/성과관리/성과관리 -2.md",
-    "Note/01/성과관리/성과 관리 - 1.md",
     "Note/01/이슈 봉투비.md",
     "Note/01/Linked 리팩토링.md",
     "Note/01/충돌 해결 해야하는 파일.md",
@@ -226,7 +228,6 @@
     "components/canvasComponent/hexagons/class화/README.md",
     "README.md",
     "TDS/07/README.md",
-    "TDS/01/README.md",
     "TDS/02/README.md",
     "무제 파일.canvas"
   ]
