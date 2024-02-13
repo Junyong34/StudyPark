@@ -66,9 +66,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "9f6c8f47abb1f82b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Note/01/반응형 웹.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -196,14 +208,14 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "acfa2307c7cd2399",
+  "active": "9f6c8f47abb1f82b",
   "lastOpenFiles": [
+    "Note/01/운영 브라우저.md",
     "Note/01/Pasted image 20240202142555.png",
     "Note/01/성과관리/성과관리 -2.md",
     "Note/01/반응형 웹.md",
     "Note/01/성과관리/성과 관리 - 1.md",
     "TDS/01/README.md",
-    "Note/01/운영 브라우저.md",
     "Note/01/이미지 업로드.md",
     "git/README.md",
     "Note/01/Pasted image 20231102104852.png",
@@ -221,7 +233,6 @@
     "Note/01/Pasted image 20231018150702.png",
     "Note/01/PC 봉투비.md",
     "Note/01/Pasted image 20231220154214.png",
-    "Note/01/Pasted image 20231219134744.png",
     "Note/01/Task.md",
     "Note/02.event-bot",
     "Note/01/성과관리",
