@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/01/리뷰.md",
+                "file": "Note/01/Node 버전 마이그레이션.md",
                 "mode": "source",
                 "source": false
               }
@@ -158,7 +158,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/01/리뷰.md",
+                "file": "Note/01/Node 버전 마이그레이션.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -175,7 +175,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/01/리뷰.md",
+                "file": "Note/01/Node 버전 마이그레이션.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -198,7 +198,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/01/리뷰.md"
+                "file": "Note/01/Node 버전 마이그레이션.md"
               }
             }
           }
@@ -222,8 +222,8 @@
   },
   "active": "c0f181919d5bad19",
   "lastOpenFiles": [
-    "Note/01/반응형 웹.md",
     "Note/01/리뷰.md",
+    "Note/01/반응형 웹.md",
     "Note/01/운영 브라우저.md",
     "Note/01/Pasted image 20240202142555.png",
     "Note/01/성과관리/성과관리 -2.md",
