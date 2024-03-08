@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md",
+                "file": "Note/01/반응형 웹.md",
                 "mode": "source",
                 "source": false
               }
@@ -158,7 +158,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md",
+                "file": "Note/01/반응형 웹.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -175,7 +175,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md",
+                "file": "Note/01/반응형 웹.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -198,7 +198,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md"
+                "file": "Note/01/반응형 웹.md"
               }
             }
           }
@@ -222,6 +222,7 @@
   },
   "active": "c0f181919d5bad19",
   "lastOpenFiles": [
+    "Note/01/Node 버전 마이그레이션.md",
     "Note/01/리뷰.md",
     "Note/01/반응형 웹.md",
     "Note/01/운영 브라우저.md",
@@ -241,7 +242,6 @@
     "Note/01/이슈 봉투비.md",
     "Note/01/Linked 리팩토링.md",
     "Note/01/충돌 해결 해야하는 파일.md",
-    "Note/01/Node 버전 마이그레이션.md",
     "Note/01/Pasted image 20240104110735.png",
     "Note/01/Pasted image 20231018150702.png",
     "Note/01/PC 봉투비.md",
