@@ -90,9 +90,19 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "026e4ec4df1a4206",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.5.8"
+              }
+            }
           }
         ],
-        "currentTab": 6
+        "currentTab": 7
       }
     ],
     "direction": "vertical"
@@ -220,7 +230,7 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "c0f181919d5bad19",
+  "active": "026e4ec4df1a4206",
   "lastOpenFiles": [
     "Note/01/Node 버전 마이그레이션.md",
     "Note/01/리뷰.md",
