@@ -97,14 +97,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/01/이슈 봉투비.md",
+                "file": "Note/01/Linked 리팩토링.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "cd13c27b0994e74f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Note/03 4월.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 8
       }
     ],
     "direction": "vertical"
@@ -170,7 +182,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/01/이슈 봉투비.md",
+                "file": "Note/03 4월.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -187,7 +199,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/01/이슈 봉투비.md",
+                "file": "Note/03 4월.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -210,7 +222,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/01/이슈 봉투비.md"
+                "file": "Note/03 4월.md"
               }
             }
           }
@@ -232,15 +244,17 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "026e4ec4df1a4206",
+  "active": "cd13c27b0994e74f",
   "lastOpenFiles": [
-    "Note/01/성과관리/성과관리 -2.md",
+    "Note/README.md",
+    "Note/03 4월.md",
+    "Note/01/Linked 리팩토링.md",
     "Note/01/이슈 봉투비.md",
+    "Note/01/성과관리/성과관리 -2.md",
     "Note/01/리뷰.md",
     "Note/01/운영 브라우저.md",
     "Note/01/반응형 웹.md",
     "Note/01/Node 버전 마이그레이션.md",
-    "Note/01/Linked 리팩토링.md",
     "Note/01/이미지 업로드.md",
     "Note/01/충돌 해결 해야하는 파일.md",
     "Note/01/성과관리/성과 관리 - 1.md",
