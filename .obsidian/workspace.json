@@ -107,9 +107,11 @@
             "id": "cd13c27b0994e74f",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "Note/Pasted image 20240402123301.png"
+                "file": "Note/03 4월.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -180,7 +182,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/Pasted image 20240402123301.png",
+                "file": "Note/03 4월.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -197,7 +199,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/Pasted image 20240402123301.png",
+                "file": "Note/03 4월.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -220,7 +222,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/Pasted image 20240402123301.png"
+                "file": "Note/03 4월.md"
               }
             }
           }
@@ -244,8 +246,8 @@
   },
   "active": "cd13c27b0994e74f",
   "lastOpenFiles": [
-    "Note/03 4월.md",
     "Note/Pasted image 20240402123301.png",
+    "Note/03 4월.md",
     "Note/README.md",
     "Note/01/Linked 리팩토링.md",
     "Note/01/이슈 봉투비.md",
