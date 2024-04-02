@@ -107,11 +107,9 @@
             "id": "cd13c27b0994e74f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "Note/03 4월.md",
-                "mode": "source",
-                "source": false
+                "file": "Note/Pasted image 20240402123301.png"
               }
             }
           }
@@ -182,7 +180,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/03 4월.md",
+                "file": "Note/Pasted image 20240402123301.png",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -199,7 +197,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/03 4월.md",
+                "file": "Note/Pasted image 20240402123301.png",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -222,7 +220,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/03 4월.md"
+                "file": "Note/Pasted image 20240402123301.png"
               }
             }
           }
@@ -246,8 +244,9 @@
   },
   "active": "cd13c27b0994e74f",
   "lastOpenFiles": [
-    "Note/README.md",
     "Note/03 4월.md",
+    "Note/Pasted image 20240402123301.png",
+    "Note/README.md",
     "Note/01/Linked 리팩토링.md",
     "Note/01/이슈 봉투비.md",
     "Note/01/성과관리/성과관리 -2.md",
@@ -271,7 +270,6 @@
     "Note/01/Pasted image 20240104110735.png",
     "Note/01/Pasted image 20231018150702.png",
     "Note/01/PC 봉투비.md",
-    "Note/01/Pasted image 20231220154214.png",
     "Note/01/Task.md",
     "Note/02.event-bot",
     "Note/01/성과관리",
