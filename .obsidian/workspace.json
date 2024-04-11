@@ -109,7 +109,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/03 4월.md",
+                "file": "Note/01/Node 버전 마이그레이션.md",
                 "mode": "source",
                 "source": false
               }
@@ -182,7 +182,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/03 4월.md",
+                "file": "Note/01/Node 버전 마이그레이션.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -199,7 +199,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/03 4월.md",
+                "file": "Note/01/Node 버전 마이그레이션.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -222,7 +222,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/03 4월.md"
+                "file": "Note/01/Node 버전 마이그레이션.md"
               }
             }
           }
@@ -246,9 +246,9 @@
   },
   "active": "cd13c27b0994e74f",
   "lastOpenFiles": [
+    "Note/03 4월.md",
     "Note/02.event-bot/Notify Evnet Time.md",
     "Note/Pasted image 20240408153400.png",
-    "Note/03 4월.md",
     "Note/Pasted image 20240405153709.png",
     "Note/Pasted image 20240402123301.png",
     "Note/README.md",
