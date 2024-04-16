@@ -114,9 +114,19 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "92d6f72340e3fe25",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.5.12"
+              }
+            }
           }
         ],
-        "currentTab": 8
+        "currentTab": 9
       }
     ],
     "direction": "vertical"
@@ -244,7 +254,7 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "cd13c27b0994e74f",
+  "active": "92d6f72340e3fe25",
   "lastOpenFiles": [
     "Note/03 4월.md",
     "Note/02.event-bot/Notify Evnet Time.md",
