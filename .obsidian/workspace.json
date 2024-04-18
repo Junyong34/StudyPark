@@ -121,7 +121,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/03 4월.md",
+                "file": "Note/03. 4월/파일찾기.md",
                 "mode": "source",
                 "source": false
               }
@@ -133,14 +133,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/카테고리 breadcrumb.md",
+                "file": "Note/03. 4월/카테고리 breadcrumb.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "01488266d5435e0f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Note/03. 4월/zod.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 10
+        "currentTab": 11
       }
     ],
     "direction": "vertical"
@@ -206,7 +218,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/카테고리 breadcrumb.md",
+                "file": "Note/03. 4월/zod.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -223,7 +235,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/카테고리 breadcrumb.md",
+                "file": "Note/03. 4월/zod.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -246,7 +258,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/카테고리 breadcrumb.md"
+                "file": "Note/03. 4월/zod.md"
               }
             }
           }
@@ -268,10 +280,12 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "884b426d81f6be14",
+  "active": "01488266d5435e0f",
   "lastOpenFiles": [
-    "Note/03 4월.md",
-    "Note/카테고리 breadcrumb.md",
+    "Note/03. 4월/카테고리 breadcrumb.md",
+    "Note/03. 4월/zod.md",
+    "Note/03. 4월/파일찾기.md",
+    "Note/03. 4월",
     "Note/02.event-bot/Notify Evnet Time.md",
     "Note/Pasted image 20240408153400.png",
     "Note/Pasted image 20240405153709.png",
