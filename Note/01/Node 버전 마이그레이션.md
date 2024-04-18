@@ -70,7 +70,7 @@ OpenSSL은 보안 통신을 위해 사용되는 오픈 소스 라이브러리입
 
 ## core-js 설치
 
-Cannot find module: 'core-js/modules/es.array.unscopables.flat'. Make sure this package is installed.
+Cannot find module: 'core-js/modules/es.array.unscopables.flat'. Make sure this package is installed. 84488520
 
 You can install this package by running: npm install core-js/modules/es.array.unscopables.flat.
 
