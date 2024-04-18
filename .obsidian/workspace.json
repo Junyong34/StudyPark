@@ -145,7 +145,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/03. 4월/zod.md",
+                "file": "Note/01/Node 버전 마이그레이션.md",
                 "mode": "source",
                 "source": false
               }
@@ -218,7 +218,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/03. 4월/zod.md",
+                "file": "Note/01/Node 버전 마이그레이션.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -235,7 +235,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/03. 4월/zod.md",
+                "file": "Note/01/Node 버전 마이그레이션.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -258,7 +258,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/03. 4월/zod.md"
+                "file": "Note/01/Node 버전 마이그레이션.md"
               }
             }
           }
@@ -282,8 +282,10 @@
   },
   "active": "01488266d5435e0f",
   "lastOpenFiles": [
-    "Note/03. 4월/카테고리 breadcrumb.md",
+    "Note/01/Linked 리팩토링.md",
+    "Note/01/Node 버전 마이그레이션.md",
     "Note/03. 4월/zod.md",
+    "Note/03. 4월/카테고리 breadcrumb.md",
     "Note/03. 4월/파일찾기.md",
     "Note/03. 4월",
     "Note/02.event-bot/Notify Evnet Time.md",
@@ -291,13 +293,11 @@
     "Note/Pasted image 20240405153709.png",
     "Note/Pasted image 20240402123301.png",
     "Note/README.md",
-    "Note/01/Linked 리팩토링.md",
     "Note/01/이슈 봉투비.md",
     "Note/01/성과관리/성과관리 -2.md",
     "Note/01/리뷰.md",
     "Note/01/운영 브라우저.md",
     "Note/01/반응형 웹.md",
-    "Note/01/Node 버전 마이그레이션.md",
     "Note/01/이미지 업로드.md",
     "Note/01/충돌 해결 해야하는 파일.md",
     "Note/01/성과관리/성과 관리 - 1.md",
