@@ -138,21 +138,9 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "01488266d5435e0f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Note/03. 4월/카테고리 breadcrumb.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
         ],
-        "currentTab": 11
+        "currentTab": 10
       }
     ],
     "direction": "vertical"
@@ -280,13 +268,15 @@
       "command-palette:명령어 팔레트 열기": false
     }
   },
-  "active": "01488266d5435e0f",
+  "active": "884b426d81f6be14",
   "lastOpenFiles": [
+    "Note/03. 4월/Pasted image 20240419154215.png",
+    "Note/01/Pasted image 20231219133845.png",
+    "Note/03. 4월/카테고리 breadcrumb.md",
     "Note/03. 4월/Pasted image 20240419144816.png",
     "Note/01/Node 버전 마이그레이션.md",
     "Note/01/Linked 리팩토링.md",
     "Note/03. 4월/zod.md",
-    "Note/03. 4월/카테고리 breadcrumb.md",
     "Note/03. 4월/파일찾기.md",
     "Note/03. 4월",
     "Note/02.event-bot/Notify Evnet Time.md",
@@ -309,8 +299,6 @@
     "Note/01/Pasted image 20231102104210.png",
     "Note/01/Pasted image 20231030132303.png",
     "Note/01/Pasted image 20231011175510.png",
-    "Note/01/Pasted image 20231004101224.png",
-    "Note/02.event-bot/Pasted image 20231213093919.png",
     "Note/01/PC 봉투비.md",
     "Note/01/Task.md",
     "Note/02.event-bot",
