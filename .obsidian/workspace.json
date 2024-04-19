@@ -145,7 +145,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md",
+                "file": "Note/03. 4월/카테고리 breadcrumb.md",
                 "mode": "source",
                 "source": false
               }
@@ -218,7 +218,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md",
+                "file": "Note/03. 4월/카테고리 breadcrumb.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -235,7 +235,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md",
+                "file": "Note/03. 4월/카테고리 breadcrumb.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -258,7 +258,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md"
+                "file": "Note/03. 4월/카테고리 breadcrumb.md"
               }
             }
           }
@@ -282,8 +282,9 @@
   },
   "active": "01488266d5435e0f",
   "lastOpenFiles": [
-    "Note/01/Linked 리팩토링.md",
+    "Note/03. 4월/Pasted image 20240419144816.png",
     "Note/01/Node 버전 마이그레이션.md",
+    "Note/01/Linked 리팩토링.md",
     "Note/03. 4월/zod.md",
     "Note/03. 4월/카테고리 breadcrumb.md",
     "Note/03. 4월/파일찾기.md",

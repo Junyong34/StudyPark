@@ -44,3 +44,19 @@ https://front-qa.homeplus.kr/category/getCategoryInfo.json?cateCd=200428
 https://front-qa.homeplus.kr/category/pc/getMap.json
 
 2개 api 사용
+
+
+## 구 (PC) 
+### Hyper Category
+
+- 자동차/레저 (대)
+- 스포츠/레저(대)
+- 구기/라켓스포츠(중)
+- 야구,축구, 배트민턴 ... (소)
+- ![[Pasted image 20240419144816.png]]
+
+카테고리는 대, 중 2개만 breadCrumb 노출 
+
+
+
+### Hyper Items detail
