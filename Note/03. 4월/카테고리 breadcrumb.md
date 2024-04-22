@@ -62,8 +62,21 @@ https://front-qa.homeplus.kr/category/pc/getMap.json
 api 2개 사용
 - category.json(params cateCd) (breadCrumb에 선택한 cateCD값)
 - getMap.json (전체 카테고리)
+- ![[Pasted image 20240422082946.png]]
+```json
+
+	
+```
+
+
+api 가능여부
+- cateCd 값을 파라미터로 넘기면 자기 상위 부모 CateList 값 가져올 수있는지
 
 category.json 값을 가지고  getMap.json 데이터를 찾아서 list를 만든다 (L , M )
+
+
+
+
 ### Hyper Items detail
 
 api
