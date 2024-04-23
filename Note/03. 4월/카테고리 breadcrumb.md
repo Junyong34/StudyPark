@@ -87,3 +87,17 @@ api
 - 대분류 만 가져오고, 나머지는 필터에서 처리 작업 진행함
 
 ![[Pasted image 20240419154215.png]]
+
+
+express category api 종류
+ express 카테고리 구조는 1(L) , 2(M)  2단 depth로 구성 되어있음 
+
+- category 화면
+	- categoryCd 값으로 api 호출시  depth에 해당되는 카테고리 list 값을 리턴 한다.
+
+- 아이템 상세 화면
+	- l,m,s  3개 categoryCd params를 넘기면 3개에 해당되는 카테고리 list 값을 리턴한다.
+	- itemNo 값을 넘기면 해당 아이템 카테고리 L, M, S 값을 리턴한다.
+
+1. /express/getCategories?cateCd='700008'
+2. /express/item/getCategories?itemNo='10003728'
