@@ -133,7 +133,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md",
+                "file": "Note/03. 4월/카테고리 breadcrumb.md",
                 "mode": "source",
                 "source": false
               }
@@ -206,7 +206,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md",
+                "file": "Note/03. 4월/카테고리 breadcrumb.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -223,7 +223,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md",
+                "file": "Note/03. 4월/카테고리 breadcrumb.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -246,7 +246,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Note/01/Node 버전 마이그레이션.md"
+                "file": "Note/03. 4월/카테고리 breadcrumb.md"
               }
             }
           }
@@ -270,6 +270,7 @@
   },
   "active": "884b426d81f6be14",
   "lastOpenFiles": [
+    "Note/01/Node 버전 마이그레이션.md",
     "Note/01/충돌 해결 해야하는 파일.md",
     "Note/01/이슈 봉투비.md",
     "Note/01/반응형 웹.md",
@@ -282,7 +283,6 @@
     "Note/03. 4월/Pasted image 20240419154215.png",
     "Note/01/Pasted image 20231219133845.png",
     "Note/03. 4월/Pasted image 20240419144816.png",
-    "Note/01/Node 버전 마이그레이션.md",
     "Note/03. 4월/zod.md",
     "Note/03. 4월",
     "Note/02.event-bot/Notify Evnet Time.md",
